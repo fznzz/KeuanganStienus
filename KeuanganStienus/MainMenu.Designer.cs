@@ -1,7 +1,7 @@
 ﻿
 namespace KeuanganStienus
 {
-    partial class Form2
+    partial class MainMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -29,9 +29,9 @@ namespace KeuanganStienus
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Menu1");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Menu2");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Menu3");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Data Mahasiswa");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Input Pembayaran");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Edit Tagihan");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listMenu = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -48,8 +48,8 @@ namespace KeuanganStienus
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.listMenu);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 173;
+            this.splitContainer1.Size = new System.Drawing.Size(1258, 664);
+            this.splitContainer1.SplitterDistance = 203;
             this.splitContainer1.TabIndex = 0;
             // 
             // listMenu
@@ -63,19 +63,19 @@ namespace KeuanganStienus
             this.listMenu.Location = new System.Drawing.Point(0, 0);
             this.listMenu.MultiSelect = false;
             this.listMenu.Name = "listMenu";
-            this.listMenu.Size = new System.Drawing.Size(170, 438);
+            this.listMenu.Size = new System.Drawing.Size(207, 664);
             this.listMenu.TabIndex = 0;
             this.listMenu.UseCompatibleStateImageBehavior = false;
             this.listMenu.View = System.Windows.Forms.View.List;
             this.listMenu.Click += new System.EventHandler(this.listView1_Click);
             // 
-            // Form2
+            // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.splitContainer1);
-            this.Name = "Form2";
+            this.Name = "MainMenu";
             this.Text = "Aplikasi Keuangan STIENUS";
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

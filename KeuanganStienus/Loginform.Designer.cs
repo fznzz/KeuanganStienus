@@ -39,19 +39,26 @@ namespace KeuanganStienus
             // 
             // tbUname
             // 
+            this.tbUname.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.tbUname.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.tbUname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbUname.Location = new System.Drawing.Point(250, 73);
             this.tbUname.Name = "tbUname";
             this.tbUname.Size = new System.Drawing.Size(172, 35);
             this.tbUname.TabIndex = 0;
+            this.tbUname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbUname_KeyDown);
             // 
             // tbPass
             // 
+            this.tbPass.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.tbPass.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
             this.tbPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbPass.Location = new System.Drawing.Point(250, 114);
             this.tbPass.Name = "tbPass";
+            this.tbPass.PasswordChar = '*';
             this.tbPass.Size = new System.Drawing.Size(172, 35);
             this.tbPass.TabIndex = 1;
+            this.tbPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPass_KeyDown);
             // 
             // lbUname
             // 
@@ -104,6 +111,8 @@ namespace KeuanganStienus
             this.Controls.Add(this.lbUname);
             this.Controls.Add(this.tbPass);
             this.Controls.Add(this.tbUname);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Login";
             this.ResumeLayout(false);

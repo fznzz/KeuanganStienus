@@ -72,11 +72,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form2.cs">
+    <Compile Include="DataMahasiswa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="DataMahasiswa.Designer.cs">
+      <DependentUpon>DataMahasiswa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu1DataMahasiswa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu1DataMahasiswa.Designer.cs">
+      <DependentUpon>Menu1DataMahasiswa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu2InputPembayaran.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu2InputPembayaran.Designer.cs">
+      <DependentUpon>Menu2InputPembayaran.cs</DependentUpon>
     </Compile>
     <Compile Include="Loginform.cs">
       <SubType>Form</SubType>
@@ -84,13 +102,37 @@
     <Compile Include="Loginform.Designer.cs">
       <DependentUpon>Loginform.cs</DependentUpon>
     </Compile>
+    <Compile Include="Menu3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu3.Designer.cs">
+      <DependentUpon>Menu3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="tambahMahasiswa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tambahMahasiswa.Designer.cs">
+      <DependentUpon>tambahMahasiswa.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="DataMahasiswa.resx">
+      <DependentUpon>DataMahasiswa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu1DataMahasiswa.resx">
+      <DependentUpon>Menu1DataMahasiswa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu2InputPembayaran.resx">
+      <DependentUpon>Menu2InputPembayaran.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Loginform.resx">
       <DependentUpon>Loginform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu3.resx">
+      <DependentUpon>Menu3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,6 +143,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="tambahMahasiswa.resx">
+      <DependentUpon>tambahMahasiswa.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

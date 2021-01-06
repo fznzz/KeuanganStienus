@@ -28,6 +28,39 @@ namespace KeuanganStienus
         {
             
         }
+
+        private void tbUname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                this.SelectNextControl((Control)sender, false, true, true, true);
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void tbPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
+            {
+                loginClick();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                this.SelectNextControl((Control)sender, false, true, true, true);
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
         public string passwordHashing(string pass)
         {
             SHA256Managed MyHash = new SHA256Managed();
@@ -39,21 +72,10 @@ namespace KeuanganStienus
 
         private void btCreate_Click(object sender, EventArgs e)
         {
-            
-            uname = tbUname.Text;
-            pswd = tbPass.Text;
-            pswdh = passwordHashing(pswd);
-            sqlconn = new SqlConnection(ConnectionString);
-            sqlconn.Open();
-            SqlCommand cmd = new SqlCommand("insert into logincr values(@uname, @pswdh)", sqlconn);
-            cmd.Parameters.AddWithValue("@uname", uname);
-            cmd.Parameters.AddWithValue("@pswdh", pswdh);
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Data Inserted Successfully.");
-            sqlconn.Close();
+            createClick();
         }
 
-        private void btLogin_Click(object sender, EventArgs e)
+        private void loginClick()
         {
             uname = tbUname.Text;
             pswd = tbPass.Text;
@@ -71,9 +93,9 @@ namespace KeuanganStienus
                     tempB = oReader["password"].ToString();
                 }
                 sqlconn.Close();
-                if(tempB==pswdh&&tempA==uname)
+                if (tempB == pswdh && tempA == uname)
                 {
-                    var frm = new Form2();
+                    var frm = new MainMenu();
                     frm.Location = this.Location;
                     frm.StartPosition = FormStartPosition.Manual;
                     frm.FormClosing += delegate { this.Show(); };
@@ -85,7 +107,49 @@ namespace KeuanganStienus
                     MessageBox.Show("Not Match!");
                 }
             }
+            tbUname.Clear();
+            tbPass.Clear();
+        }
+
+        private void createClick()
+        {
+            uname = tbUname.Text;
+            pswd = tbPass.Text;
+            pswdh = passwordHashing(pswd);
+            sqlconn = new SqlConnection(ConnectionString);
+            string getcred = "Select * from logincr where username=@uname";
+            SqlCommand oCmd = new SqlCommand(getcred, sqlconn);
+            oCmd.Parameters.AddWithValue("@uname", uname);
+            sqlconn.Open();
+            //membaca database mengecek kesamaan username
+            using (SqlDataReader oReader = oCmd.ExecuteReader())
+            {
+                while (oReader.Read())
+                {
+                    tempA = oReader["username"].ToString();
+                    tempB = oReader["password"].ToString();
+                }
+                
             }
+            if (tempA == uname)
+            {
+                MessageBox.Show("username sudah ada");
+            }
+            else
+            {
+                SqlCommand cmd = new SqlCommand("insert into logincr values(@uname, @pswdh)", sqlconn);
+                cmd.Parameters.AddWithValue("@uname", uname);
+                cmd.Parameters.AddWithValue("@pswdh", pswdh);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Data Inserted Successfully.");
+            }
+            sqlconn.Close();
+        }
+
+        private void btLogin_Click(object sender, EventArgs e)
+        {
+            loginClick();
+        }
     }
 
 }
