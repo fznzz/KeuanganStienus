@@ -1,7 +1,7 @@
 ﻿
 namespace KeuanganStienus
 {
-    partial class tambahMahasiswa
+    partial class TambahMahasiswa
     {
         /// <summary>
         /// Required designer variable.

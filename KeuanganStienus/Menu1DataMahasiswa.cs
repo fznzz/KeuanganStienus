@@ -32,7 +32,7 @@ namespace KeuanganStienus
             {
                 var table = new DataTable();
                 adapter.Fill(table);
-                this.gridData1.DataSource = table;
+                this.dtListMahasiswa.DataSource = table;
             }
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -49,23 +49,26 @@ namespace KeuanganStienus
                 tbSearch.SelectionStart = curSelStart;
                 tbSearch.SelectionLength = curSelLength;
             }
-            (gridData1.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+            (dtListMahasiswa.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
         }
         private void gridData1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = gridData1.Rows[e.RowIndex];
-            DataMahasiswa datamahasiswa = new DataMahasiswa();
-            datamahasiswa.nimRef = row.Cells[0].Value.ToString();
-            datamahasiswa.namaRef = row.Cells[1].Value.ToString();
-            datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
-            datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
-            datamahasiswa.deployData();
-            datamahasiswa.ShowDialog();
+            if(e.RowIndex>=0)
+            {
+                DataGridViewRow row = dtListMahasiswa.Rows[e.RowIndex];
+                DataMahasiswa datamahasiswa = new DataMahasiswa();
+                datamahasiswa.nimRef = row.Cells[0].Value.ToString();
+                datamahasiswa.namaRef = row.Cells[1].Value.ToString();
+                datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
+                datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
+                datamahasiswa.deployData();
+                datamahasiswa.ShowDialog();
+            }
         }
 
         private void btTambah_Click(object sender, EventArgs e)
         {
-            var frm = new tambahMahasiswa();
+            var frm = new TambahMahasiswa();
             frm.ShowDialog();
         }
     }

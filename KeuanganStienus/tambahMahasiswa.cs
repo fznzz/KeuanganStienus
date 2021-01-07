@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace KeuanganStienus
 {
-    public partial class tambahMahasiswa : Form
+    public partial class TambahMahasiswa : Form
     {
         private string selectQuery = "Select * from mahasiswa where nim=@nim";
         private string insertQuery = "Insert into mahasiswa values (@nim , @nama , @jurusan , @kelas)";
@@ -29,7 +29,7 @@ namespace KeuanganStienus
             clickTambah();
         }
 
-        public tambahMahasiswa()
+        public TambahMahasiswa()
         {
             InitializeComponent();
         }

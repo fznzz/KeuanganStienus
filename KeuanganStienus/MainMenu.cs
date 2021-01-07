@@ -17,7 +17,7 @@ namespace KeuanganStienus
         int selected=0;
         Menu1DataMahasiswa menu1;
         Menu2InputPembayaran menu2;
-        Menu3 menu3;
+        Menu3InputTagihan menu3;
         string input;
 
         public MainMenu()
@@ -113,7 +113,7 @@ namespace KeuanganStienus
                     {
                         if (input == "password")
                         {
-                            menu3 = new Menu3();
+                            menu3 = new Menu3InputTagihan();
                             menu3.TopLevel = false;
                             menu3.AutoScroll = true;
                             menu3.FormBorderStyle = FormBorderStyle.None;

@@ -30,11 +30,11 @@ namespace KeuanganStienus
         private void InitializeComponent()
         {
             this.tbSearch = new System.Windows.Forms.TextBox();
-            this.gridData1 = new System.Windows.Forms.DataGridView();
+            this.dtListMahasiswa = new System.Windows.Forms.DataGridView();
             this.btConn = new System.Windows.Forms.Button();
             this.btTambah = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.gridData1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).BeginInit();
             this.SuspendLayout();
             // 
             // tbSearch
@@ -47,19 +47,19 @@ namespace KeuanganStienus
             this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // gridData1
+            // dtListMahasiswa
             // 
-            this.gridData1.AllowUserToAddRows = false;
-            this.gridData1.AllowUserToDeleteRows = false;
-            this.gridData1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridData1.Location = new System.Drawing.Point(12, 93);
-            this.gridData1.Name = "gridData1";
-            this.gridData1.ReadOnly = true;
-            this.gridData1.RowHeadersWidth = 62;
-            this.gridData1.RowTemplate.Height = 28;
-            this.gridData1.Size = new System.Drawing.Size(1009, 503);
-            this.gridData1.TabIndex = 2;
-            this.gridData1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridData1_CellDoubleClick);
+            this.dtListMahasiswa.AllowUserToAddRows = false;
+            this.dtListMahasiswa.AllowUserToDeleteRows = false;
+            this.dtListMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 93);
+            this.dtListMahasiswa.Name = "dtListMahasiswa";
+            this.dtListMahasiswa.ReadOnly = true;
+            this.dtListMahasiswa.RowHeadersWidth = 62;
+            this.dtListMahasiswa.RowTemplate.Height = 28;
+            this.dtListMahasiswa.Size = new System.Drawing.Size(1009, 503);
+            this.dtListMahasiswa.TabIndex = 2;
+            this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridData1_CellDoubleClick);
             // 
             // btConn
             // 
@@ -90,7 +90,7 @@ namespace KeuanganStienus
             this.label1.TabIndex = 7;
             this.label1.Text = "Cari Mahasiswa :";
             // 
-            // Menu1
+            // Menu1DataMahasiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -98,11 +98,11 @@ namespace KeuanganStienus
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btTambah);
             this.Controls.Add(this.btConn);
-            this.Controls.Add(this.gridData1);
+            this.Controls.Add(this.dtListMahasiswa);
             this.Controls.Add(this.tbSearch);
-            this.Name = "Menu1";
+            this.Name = "Menu1DataMahasiswa";
             this.Text = "Menu 1";
-            ((System.ComponentModel.ISupportInitialize)(this.gridData1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,7 +111,7 @@ namespace KeuanganStienus
         #endregion
 
         private System.Windows.Forms.TextBox tbSearch;
-        private System.Windows.Forms.DataGridView gridData1;
+        private System.Windows.Forms.DataGridView dtListMahasiswa;
         private System.Windows.Forms.Button btConn;
         private System.Windows.Forms.Button btTambah;
         private System.Windows.Forms.Label label1;

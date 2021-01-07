@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KeuanganStienus
 {
-    public partial class Menu3 : Form
+    public partial class Menu3InputTagihan : Form
     {
-        public Menu3()
+        public Menu3InputTagihan()
         {
             InitializeComponent();
         }

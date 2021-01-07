@@ -29,7 +29,7 @@ namespace KeuanganStienus
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dtMahasiswa = new System.Windows.Forms.DataGridView();
             this.lbNim = new System.Windows.Forms.Label();
             this.lbNama = new System.Windows.Forms.Label();
             this.lbJurusan = new System.Windows.Forms.Label();
@@ -38,18 +38,21 @@ namespace KeuanganStienus
             this.tbNama = new System.Windows.Forms.TextBox();
             this.tbJurusan = new System.Windows.Forms.TextBox();
             this.tbKelas = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtMahasiswa)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dtMahasiswa
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 158);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(776, 280);
-            this.dataGridView1.TabIndex = 0;
+            this.dtMahasiswa.AllowUserToAddRows = false;
+            this.dtMahasiswa.AllowUserToDeleteRows = false;
+            this.dtMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtMahasiswa.Location = new System.Drawing.Point(12, 158);
+            this.dtMahasiswa.Name = "dtMahasiswa";
+            this.dtMahasiswa.ReadOnly = true;
+            this.dtMahasiswa.RowHeadersWidth = 62;
+            this.dtMahasiswa.RowTemplate.Height = 28;
+            this.dtMahasiswa.Size = new System.Drawing.Size(776, 280);
+            this.dtMahasiswa.TabIndex = 0;
             // 
             // lbNim
             // 
@@ -119,7 +122,7 @@ namespace KeuanganStienus
             this.tbKelas.Size = new System.Drawing.Size(248, 26);
             this.tbKelas.TabIndex = 8;
             // 
-            // dataMahasiswa
+            // DataMahasiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,14 +135,14 @@ namespace KeuanganStienus
             this.Controls.Add(this.lbJurusan);
             this.Controls.Add(this.lbNama);
             this.Controls.Add(this.lbNim);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dtMahasiswa);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "dataMahasiswa";
+            this.Name = "DataMahasiswa";
             this.ShowIcon = false;
             this.Text = "Data Mahasiswa";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.dataMahasiswa_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtMahasiswa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -147,7 +150,7 @@ namespace KeuanganStienus
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dtMahasiswa;
         private System.Windows.Forms.Label lbNim;
         private System.Windows.Forms.Label lbNama;
         private System.Windows.Forms.Label lbJurusan;

@@ -33,7 +33,15 @@ namespace KeuanganStienus
 
         private void datagridMahasiswa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = datagridMahasiswa.Rows[e.RowIndex];
+                TambahPembayaran tambahPembayaran = new TambahPembayaran();
+                tambahPembayaran.nimRef = row.Cells[0].Value.ToString();
+                tambahPembayaran.namaRef = row.Cells[1].Value.ToString();
+                tambahPembayaran.deployData();
+                tambahPembayaran.ShowDialog();
+            }
         }
     }
 }

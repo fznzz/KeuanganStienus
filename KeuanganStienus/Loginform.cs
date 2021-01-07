@@ -101,14 +101,14 @@ namespace KeuanganStienus
                     frm.FormClosing += delegate { this.Show(); };
                     frm.Show();
                     this.Hide();
+                    tbUname.Clear();
+                    tbPass.Clear();
                 }
                 else
                 {
-                    MessageBox.Show("Not Match!");
+                    MessageBox.Show("Username and password doesn't match or is not exist");
                 }
             }
-            tbUname.Clear();
-            tbPass.Clear();
         }
 
         private void createClick()
