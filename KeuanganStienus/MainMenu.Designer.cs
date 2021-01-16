@@ -29,9 +29,9 @@ namespace KeuanganStienus
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Data Mahasiswa");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Input Pembayaran");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Edit Tagihan");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Data Mahasiswa");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Input Pembayaran");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Edit Tagihan");
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listMenu = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -57,9 +57,9 @@ namespace KeuanganStienus
             this.listMenu.BackColor = System.Drawing.SystemColors.Window;
             this.listMenu.HideSelection = false;
             this.listMenu.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem4,
+            listViewItem5,
+            listViewItem6});
             this.listMenu.Location = new System.Drawing.Point(0, 0);
             this.listMenu.MultiSelect = false;
             this.listMenu.Name = "listMenu";
@@ -75,6 +75,7 @@ namespace KeuanganStienus
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 664);
             this.Controls.Add(this.splitContainer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainMenu";

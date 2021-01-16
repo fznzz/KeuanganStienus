@@ -19,7 +19,7 @@ namespace KeuanganStienus
         Menu2InputPembayaran menu2;
         Menu3InputTagihan menu3;
         string input;
-
+        public string currentadmin { get; set; }
         public MainMenu()
         {
             InitializeComponent();
@@ -99,6 +99,7 @@ namespace KeuanganStienus
                 case 1:
                     //start menu2
                     menu2 = new Menu2InputPembayaran();
+                    menu2.currentadmin = currentadmin;
                     menu2.TopLevel = false;
                     menu2.AutoScroll = true;
                     menu2.FormBorderStyle = FormBorderStyle.None;

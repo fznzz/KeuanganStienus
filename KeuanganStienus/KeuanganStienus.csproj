@@ -122,6 +122,12 @@
     <Compile Include="TambahPembayaran.Designer.cs">
       <DependentUpon>TambahPembayaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerifikasiPembayaran.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerifikasiPembayaran.Designer.cs">
+      <DependentUpon>VerifikasiPembayaran.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="DataMahasiswa.resx">
       <DependentUpon>DataMahasiswa.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TambahPembayaran.resx">
       <DependentUpon>TambahPembayaran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerifikasiPembayaran.resx">
+      <DependentUpon>VerifikasiPembayaran.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

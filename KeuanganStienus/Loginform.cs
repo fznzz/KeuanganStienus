@@ -24,11 +24,6 @@ namespace KeuanganStienus
             InitializeComponent();
         }
 
-        public void initSqlConn()
-        {
-            
-        }
-
         private void tbUname_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
@@ -99,6 +94,7 @@ namespace KeuanganStienus
                     frm.Location = this.Location;
                     frm.StartPosition = FormStartPosition.Manual;
                     frm.FormClosing += delegate { this.Show(); };
+                    frm.currentadmin = uname;
                     frm.Show();
                     this.Hide();
                     tbUname.Clear();

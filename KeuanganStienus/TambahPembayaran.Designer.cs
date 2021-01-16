@@ -57,13 +57,14 @@ namespace KeuanganStienus
             // 
             // btNext
             // 
+            this.btNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btNext.Location = new System.Drawing.Point(1090, 11);
             this.btNext.Name = "btNext";
             this.btNext.Size = new System.Drawing.Size(156, 65);
             this.btNext.TabIndex = 2;
             this.btNext.Text = "Bayar";
             this.btNext.UseVisualStyleBackColor = true;
-            this.btNext.Click += new System.EventHandler(this.btNimCheck_Click);
+            this.btNext.Click += new System.EventHandler(this.btNext_Click);
             // 
             // lbNama
             // 
@@ -86,6 +87,9 @@ namespace KeuanganStienus
             // 
             this.dtListTagihan.AllowUserToAddRows = false;
             this.dtListTagihan.AllowUserToDeleteRows = false;
+            this.dtListTagihan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtListTagihan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtListTagihan.Location = new System.Drawing.Point(12, 102);
             this.dtListTagihan.Name = "dtListTagihan";
@@ -93,6 +97,8 @@ namespace KeuanganStienus
             this.dtListTagihan.RowTemplate.Height = 28;
             this.dtListTagihan.Size = new System.Drawing.Size(1234, 550);
             this.dtListTagihan.TabIndex = 5;
+            this.dtListTagihan.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dtListTagihan_EditingControlShowing);
+            this.dtListTagihan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dtListTagihan_KeyPress);
             // 
             // TambahPembayaran
             // 

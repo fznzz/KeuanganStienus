@@ -41,7 +41,7 @@ namespace KeuanganStienus
             // 
             this.tbSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.tbSearch.Location = new System.Drawing.Point(146, 12);
+            this.tbSearch.Location = new System.Drawing.Point(146, 20);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(311, 26);
             this.tbSearch.TabIndex = 0;
@@ -52,18 +52,18 @@ namespace KeuanganStienus
             this.dtListMahasiswa.AllowUserToAddRows = false;
             this.dtListMahasiswa.AllowUserToDeleteRows = false;
             this.dtListMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 93);
+            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 61);
             this.dtListMahasiswa.Name = "dtListMahasiswa";
             this.dtListMahasiswa.ReadOnly = true;
             this.dtListMahasiswa.RowHeadersWidth = 62;
             this.dtListMahasiswa.RowTemplate.Height = 28;
-            this.dtListMahasiswa.Size = new System.Drawing.Size(1009, 503);
+            this.dtListMahasiswa.Size = new System.Drawing.Size(1031, 571);
             this.dtListMahasiswa.TabIndex = 2;
             this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridData1_CellDoubleClick);
             // 
             // btConn
             // 
-            this.btConn.Location = new System.Drawing.Point(909, 44);
+            this.btConn.Location = new System.Drawing.Point(931, 12);
             this.btConn.Name = "btConn";
             this.btConn.Size = new System.Drawing.Size(112, 43);
             this.btConn.TabIndex = 5;
@@ -73,7 +73,7 @@ namespace KeuanganStienus
             // 
             // btTambah
             // 
-            this.btTambah.Location = new System.Drawing.Point(12, 44);
+            this.btTambah.Location = new System.Drawing.Point(748, 12);
             this.btTambah.Name = "btTambah";
             this.btTambah.Size = new System.Drawing.Size(177, 43);
             this.btTambah.TabIndex = 6;
@@ -84,7 +84,7 @@ namespace KeuanganStienus
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Location = new System.Drawing.Point(12, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 20);
             this.label1.TabIndex = 7;
@@ -94,12 +94,13 @@ namespace KeuanganStienus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1033, 608);
+            this.ClientSize = new System.Drawing.Size(1055, 644);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btTambah);
             this.Controls.Add(this.btConn);
             this.Controls.Add(this.dtListMahasiswa);
             this.Controls.Add(this.tbSearch);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Menu1DataMahasiswa";
             this.Text = "Menu 1";
             ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();

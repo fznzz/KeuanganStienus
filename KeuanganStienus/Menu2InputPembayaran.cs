@@ -13,6 +13,7 @@ namespace KeuanganStienus
 {
     public partial class Menu2InputPembayaran : Form
     {
+        public string currentadmin { get; set; }
         private string getQuery = "Select * from mahasiswa";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
         public Menu2InputPembayaran()
@@ -39,6 +40,7 @@ namespace KeuanganStienus
                 TambahPembayaran tambahPembayaran = new TambahPembayaran();
                 tambahPembayaran.nimRef = row.Cells[0].Value.ToString();
                 tambahPembayaran.namaRef = row.Cells[1].Value.ToString();
+                tambahPembayaran.currentadmin = currentadmin;
                 tambahPembayaran.deployData();
                 tambahPembayaran.ShowDialog();
             }
