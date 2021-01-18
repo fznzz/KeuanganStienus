@@ -15,15 +15,15 @@ namespace KeuanganStienus
     public partial class MainMenu : Form
     {
         int selected=0;
-        Menu1DataMahasiswa menu1;
-        Menu2InputPembayaran menu2;
-        Menu3InputTagihan menu3;
+        DataMahasiswa menu1;
+        InputPembayaran menu2;
+        EditTagihan menu3;
         string input;
         public string currentadmin { get; set; }
         public MainMenu()
         {
             InitializeComponent();
-            menu1 = new Menu1DataMahasiswa();
+            menu1 = new DataMahasiswa();
             menu1.TopLevel = false;
             menu1.AutoScroll = true;
             menu1.FormBorderStyle = FormBorderStyle.None;
@@ -88,7 +88,7 @@ namespace KeuanganStienus
             {
                 case 0:
                     //start menu1
-                    menu1 = new Menu1DataMahasiswa();
+                    menu1 = new DataMahasiswa();
                     menu1.TopLevel = false;
                     menu1.AutoScroll = true;
                     menu1.FormBorderStyle = FormBorderStyle.None;
@@ -98,7 +98,7 @@ namespace KeuanganStienus
                     break;
                 case 1:
                     //start menu2
-                    menu2 = new Menu2InputPembayaran();
+                    menu2 = new InputPembayaran();
                     menu2.currentadmin = currentadmin;
                     menu2.TopLevel = false;
                     menu2.AutoScroll = true;
@@ -114,7 +114,7 @@ namespace KeuanganStienus
                     {
                         if (input == "password")
                         {
-                            menu3 = new Menu3InputTagihan();
+                            menu3 = new EditTagihan();
                             menu3.TopLevel = false;
                             menu3.AutoScroll = true;
                             menu3.FormBorderStyle = FormBorderStyle.None;

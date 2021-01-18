@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace KeuanganStienus
 {
-    public partial class TambahTagihan : Form
+    public partial class EditTagihan_TambahTagihan : Form
     {
         string namaTagihan, kodeTagihan, jurusan, kelas, semesterTagihan, angkatan, nimlike, jurusanKode;
         int jumlahTagihan;
@@ -25,7 +25,7 @@ namespace KeuanganStienus
         DataTable table;
         DataRow[] datarow;
         String[] nimArray;
-        public TambahTagihan()
+        public EditTagihan_TambahTagihan()
         {
             InitializeComponent();
         }

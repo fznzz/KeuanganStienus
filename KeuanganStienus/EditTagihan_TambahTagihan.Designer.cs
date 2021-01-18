@@ -1,7 +1,7 @@
 ﻿
 namespace KeuanganStienus
 {
-    partial class TambahTagihan
+    partial class EditTagihan_TambahTagihan
     {
         /// <summary>
         /// Required designer variable.

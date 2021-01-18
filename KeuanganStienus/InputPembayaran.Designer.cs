@@ -1,7 +1,7 @@
 ﻿
 namespace KeuanganStienus
 {
-    partial class Menu2InputPembayaran
+    partial class InputPembayaran
     {
         /// <summary>
         /// Required designer variable.
@@ -29,29 +29,29 @@ namespace KeuanganStienus
         /// </summary>
         private void InitializeComponent()
         {
-            this.datagridMahasiswa = new System.Windows.Forms.DataGridView();
+            this.dtListMahasiswa = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.btConn = new System.Windows.Forms.Button();
             this.tbSearch = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.datagridMahasiswa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).BeginInit();
             this.SuspendLayout();
             // 
             // datagridMahasiswa
             // 
-            this.datagridMahasiswa.AllowUserToAddRows = false;
-            this.datagridMahasiswa.AllowUserToDeleteRows = false;
-            this.datagridMahasiswa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dtListMahasiswa.AllowUserToAddRows = false;
+            this.dtListMahasiswa.AllowUserToDeleteRows = false;
+            this.dtListMahasiswa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.datagridMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.datagridMahasiswa.Location = new System.Drawing.Point(12, 61);
-            this.datagridMahasiswa.Name = "datagridMahasiswa";
-            this.datagridMahasiswa.ReadOnly = true;
-            this.datagridMahasiswa.RowHeadersWidth = 62;
-            this.datagridMahasiswa.RowTemplate.Height = 28;
-            this.datagridMahasiswa.Size = new System.Drawing.Size(1031, 571);
-            this.datagridMahasiswa.TabIndex = 0;
-            this.datagridMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridMahasiswa_CellDoubleClick);
+            this.dtListMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 61);
+            this.dtListMahasiswa.Name = "datagridMahasiswa";
+            this.dtListMahasiswa.ReadOnly = true;
+            this.dtListMahasiswa.RowHeadersWidth = 62;
+            this.dtListMahasiswa.RowTemplate.Height = 28;
+            this.dtListMahasiswa.Size = new System.Drawing.Size(1031, 571);
+            this.dtListMahasiswa.TabIndex = 0;
+            this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridMahasiswa_CellDoubleClick);
             // 
             // label1
             // 
@@ -89,11 +89,11 @@ namespace KeuanganStienus
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btConn);
             this.Controls.Add(this.tbSearch);
-            this.Controls.Add(this.datagridMahasiswa);
+            this.Controls.Add(this.dtListMahasiswa);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Menu2InputPembayaran";
             this.Text = "Menu 2";
-            ((System.ComponentModel.ISupportInitialize)(this.datagridMahasiswa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,7 +101,7 @@ namespace KeuanganStienus
 
         #endregion
 
-        private System.Windows.Forms.DataGridView datagridMahasiswa;
+        private System.Windows.Forms.DataGridView dtListMahasiswa;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btConn;
         private System.Windows.Forms.TextBox tbSearch;

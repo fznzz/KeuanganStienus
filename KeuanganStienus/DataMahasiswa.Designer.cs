@@ -29,120 +29,81 @@ namespace KeuanganStienus
         /// </summary>
         private void InitializeComponent()
         {
-            this.dtMahasiswa = new System.Windows.Forms.DataGridView();
-            this.lbNim = new System.Windows.Forms.Label();
-            this.lbNama = new System.Windows.Forms.Label();
-            this.lbJurusan = new System.Windows.Forms.Label();
-            this.lbKelas = new System.Windows.Forms.Label();
-            this.tbNim = new System.Windows.Forms.TextBox();
-            this.tbNama = new System.Windows.Forms.TextBox();
-            this.tbJurusan = new System.Windows.Forms.TextBox();
-            this.tbKelas = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dtMahasiswa)).BeginInit();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.dtListMahasiswa = new System.Windows.Forms.DataGridView();
+            this.btConn = new System.Windows.Forms.Button();
+            this.btTambah = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).BeginInit();
             this.SuspendLayout();
             // 
-            // dtMahasiswa
+            // tbSearch
             // 
-            this.dtMahasiswa.AllowUserToAddRows = false;
-            this.dtMahasiswa.AllowUserToDeleteRows = false;
-            this.dtMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtMahasiswa.Location = new System.Drawing.Point(12, 158);
-            this.dtMahasiswa.Name = "dtMahasiswa";
-            this.dtMahasiswa.ReadOnly = true;
-            this.dtMahasiswa.RowHeadersWidth = 62;
-            this.dtMahasiswa.RowTemplate.Height = 28;
-            this.dtMahasiswa.Size = new System.Drawing.Size(776, 280);
-            this.dtMahasiswa.TabIndex = 0;
+            this.tbSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.tbSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            this.tbSearch.Location = new System.Drawing.Point(146, 20);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(311, 26);
+            this.tbSearch.TabIndex = 0;
+            this.tbSearch.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // lbNim
+            // dtListMahasiswa
             // 
-            this.lbNim.AutoSize = true;
-            this.lbNim.Location = new System.Drawing.Point(12, 15);
-            this.lbNim.Name = "lbNim";
-            this.lbNim.Size = new System.Drawing.Size(38, 20);
-            this.lbNim.TabIndex = 1;
-            this.lbNim.Text = "NIM";
+            this.dtListMahasiswa.AllowUserToAddRows = false;
+            this.dtListMahasiswa.AllowUserToDeleteRows = false;
+            this.dtListMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 61);
+            this.dtListMahasiswa.Name = "dtListMahasiswa";
+            this.dtListMahasiswa.ReadOnly = true;
+            this.dtListMahasiswa.RowHeadersWidth = 62;
+            this.dtListMahasiswa.RowTemplate.Height = 28;
+            this.dtListMahasiswa.Size = new System.Drawing.Size(1031, 571);
+            this.dtListMahasiswa.TabIndex = 2;
+            this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridData1_CellDoubleClick);
             // 
-            // lbNama
+            // btConn
             // 
-            this.lbNama.AutoSize = true;
-            this.lbNama.Location = new System.Drawing.Point(12, 48);
-            this.lbNama.Name = "lbNama";
-            this.lbNama.Size = new System.Drawing.Size(51, 20);
-            this.lbNama.TabIndex = 2;
-            this.lbNama.Text = "Nama";
+            this.btConn.Location = new System.Drawing.Point(931, 12);
+            this.btConn.Name = "btConn";
+            this.btConn.Size = new System.Drawing.Size(112, 43);
+            this.btConn.TabIndex = 5;
+            this.btConn.Text = "Refresh";
+            this.btConn.UseVisualStyleBackColor = true;
+            this.btConn.Click += new System.EventHandler(this.btConn_Click);
             // 
-            // lbJurusan
+            // btTambah
             // 
-            this.lbJurusan.AutoSize = true;
-            this.lbJurusan.Location = new System.Drawing.Point(12, 81);
-            this.lbJurusan.Name = "lbJurusan";
-            this.lbJurusan.Size = new System.Drawing.Size(66, 20);
-            this.lbJurusan.TabIndex = 3;
-            this.lbJurusan.Text = "Jurusan";
+            this.btTambah.Location = new System.Drawing.Point(748, 12);
+            this.btTambah.Name = "btTambah";
+            this.btTambah.Size = new System.Drawing.Size(177, 43);
+            this.btTambah.TabIndex = 6;
+            this.btTambah.Text = "Tambah Mahasiswa";
+            this.btTambah.UseVisualStyleBackColor = true;
+            this.btTambah.Click += new System.EventHandler(this.btTambah_Click);
             // 
-            // lbKelas
+            // label1
             // 
-            this.lbKelas.AutoSize = true;
-            this.lbKelas.Location = new System.Drawing.Point(12, 114);
-            this.lbKelas.Name = "lbKelas";
-            this.lbKelas.Size = new System.Drawing.Size(48, 20);
-            this.lbKelas.TabIndex = 4;
-            this.lbKelas.Text = "Kelas";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Cari Mahasiswa :";
             // 
-            // tbNim
-            // 
-            this.tbNim.Location = new System.Drawing.Point(112, 12);
-            this.tbNim.Name = "tbNim";
-            this.tbNim.ReadOnly = true;
-            this.tbNim.Size = new System.Drawing.Size(248, 26);
-            this.tbNim.TabIndex = 5;
-            // 
-            // tbNama
-            // 
-            this.tbNama.Location = new System.Drawing.Point(112, 45);
-            this.tbNama.Name = "tbNama";
-            this.tbNama.ReadOnly = true;
-            this.tbNama.Size = new System.Drawing.Size(248, 26);
-            this.tbNama.TabIndex = 6;
-            // 
-            // tbJurusan
-            // 
-            this.tbJurusan.Location = new System.Drawing.Point(112, 78);
-            this.tbJurusan.Name = "tbJurusan";
-            this.tbJurusan.ReadOnly = true;
-            this.tbJurusan.Size = new System.Drawing.Size(248, 26);
-            this.tbJurusan.TabIndex = 7;
-            // 
-            // tbKelas
-            // 
-            this.tbKelas.Location = new System.Drawing.Point(112, 111);
-            this.tbKelas.Name = "tbKelas";
-            this.tbKelas.ReadOnly = true;
-            this.tbKelas.Size = new System.Drawing.Size(248, 26);
-            this.tbKelas.TabIndex = 8;
-            // 
-            // DataMahasiswa
+            // Menu1DataMahasiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tbKelas);
-            this.Controls.Add(this.tbJurusan);
-            this.Controls.Add(this.tbNama);
-            this.Controls.Add(this.tbNim);
-            this.Controls.Add(this.lbKelas);
-            this.Controls.Add(this.lbJurusan);
-            this.Controls.Add(this.lbNama);
-            this.Controls.Add(this.lbNim);
-            this.Controls.Add(this.dtMahasiswa);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "DataMahasiswa";
-            this.ShowIcon = false;
-            this.Text = "Data Mahasiswa";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.dataMahasiswa_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.dtMahasiswa)).EndInit();
+            this.ClientSize = new System.Drawing.Size(1055, 644);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btTambah);
+            this.Controls.Add(this.btConn);
+            this.Controls.Add(this.dtListMahasiswa);
+            this.Controls.Add(this.tbSearch);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "Menu1DataMahasiswa";
+            this.Text = "Menu 1";
+            ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,14 +111,10 @@ namespace KeuanganStienus
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dtMahasiswa;
-        private System.Windows.Forms.Label lbNim;
-        private System.Windows.Forms.Label lbNama;
-        private System.Windows.Forms.Label lbJurusan;
-        private System.Windows.Forms.Label lbKelas;
-        private System.Windows.Forms.TextBox tbNim;
-        private System.Windows.Forms.TextBox tbNama;
-        private System.Windows.Forms.TextBox tbJurusan;
-        private System.Windows.Forms.TextBox tbKelas;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.DataGridView dtListMahasiswa;
+        private System.Windows.Forms.Button btConn;
+        private System.Windows.Forms.Button btTambah;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -11,11 +11,11 @@ using System.Data.SqlClient;
 
 namespace KeuanganStienus
 {
-    public partial class TambahPembayaran : Form
+    public partial class InputPembayaran_Bayar : Form
     {
         //query untuk sql server
-        private string selectQuery = "Select * from mahasiswa where nim=@nim";
-        private string getQuery = "Select * from tagihan where nim=@nim";
+        private string selectMahasiswaQuery = "Select * from mahasiswa where nim=@nim";
+        private string selectTagihanQuery = "Select * from tagihan where nim=@nim";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial " +
             "Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
         string tempA, tempB;
@@ -23,7 +23,7 @@ namespace KeuanganStienus
         public string nimRef { get; set; }
         public string namaRef { get; set; }
         public string currentadmin { get; set; }
-        public TambahPembayaran()
+        public InputPembayaran_Bayar()
         {
             InitializeComponent();
         }
@@ -38,7 +38,7 @@ namespace KeuanganStienus
         {
             //membuat object verifikasi, kemudian setiap ada pembayaran yang dimasukkan akan di add ke list
             //dimana akan ditampilkan di form verifikasi
-            VerifikasiPembayaran verifikasi = new VerifikasiPembayaran();
+            InputPembayaran_VerifikasiBayar verifikasi = new InputPembayaran_VerifikasiBayar();
             verifikasi.rownumber = dtListTagihan.RowCount;
             verifikasi.namaRef = namaRef;
             verifikasi.nimRef = nimRef;
@@ -90,7 +90,7 @@ namespace KeuanganStienus
         private void checkMahasiswa(string nim)
         {
             var sqlconn = new SqlConnection(ConnectionString);
-            SqlCommand oCmd = new SqlCommand(selectQuery, sqlconn);
+            SqlCommand oCmd = new SqlCommand(selectMahasiswaQuery, sqlconn);
             oCmd.Parameters.AddWithValue("@nim", nim);
             sqlconn.Open();
             using (SqlDataReader oReader = oCmd.ExecuteReader())
@@ -106,7 +106,7 @@ namespace KeuanganStienus
                     tbNama.Text = tempB;
                     //mulai isi datagridview
                     var connection = new SqlConnection(ConnectionString);
-                    var adapter = new SqlDataAdapter(getQuery, connection);
+                    var adapter = new SqlDataAdapter(selectTagihanQuery, connection);
                     adapter.SelectCommand.Parameters.AddWithValue("@nim", nim);
                     using (connection)
                     using (adapter)

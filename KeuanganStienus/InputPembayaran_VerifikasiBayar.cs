@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace KeuanganStienus
 {
-    public partial class VerifikasiPembayaran : Form
+    public partial class InputPembayaran_VerifikasiBayar : Form
     {
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial " +
             "Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
@@ -30,7 +30,7 @@ namespace KeuanganStienus
         public string namaRef { get; set; }
         public string nimRef { get; set; }
         public string currentadmin { get; set; }
-        public VerifikasiPembayaran()
+        public InputPembayaran_VerifikasiBayar()
         {
             InitializeComponent();
             DataGridViewColumn colTagihanID = new DataGridViewTextBoxColumn();
