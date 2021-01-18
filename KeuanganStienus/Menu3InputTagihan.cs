@@ -16,5 +16,17 @@ namespace KeuanganStienus
         {
             InitializeComponent();
         }
+
+        private void btTambahTagihan_Click(object sender, EventArgs e)
+        {
+            TambahTagihan tambahTagihan = new TambahTagihan();
+            tambahTagihan.ShowDialog();
+        }
+
+        private void btEditTagihan_Click(object sender, EventArgs e)
+        {
+            EditTagihan editTagihan = new EditTagihan();
+            editTagihan.ShowDialog();
+        }
     }
 }

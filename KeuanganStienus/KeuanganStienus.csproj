@@ -78,6 +78,12 @@
     <Compile Include="DataMahasiswa.Designer.cs">
       <DependentUpon>DataMahasiswa.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditTagihan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditTagihan.Designer.cs">
+      <DependentUpon>EditTagihan.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,12 @@
     <Compile Include="TambahPembayaran.Designer.cs">
       <DependentUpon>TambahPembayaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="TambahTagihan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TambahTagihan.Designer.cs">
+      <DependentUpon>TambahTagihan.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerifikasiPembayaran.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,9 +173,15 @@
     <EmbeddedResource Include="TambahPembayaran.resx">
       <DependentUpon>TambahPembayaran.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TambahTagihan.resx">
+      <DependentUpon>TambahTagihan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VerifikasiPembayaran.resx">
       <DependentUpon>VerifikasiPembayaran.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

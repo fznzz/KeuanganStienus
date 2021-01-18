@@ -45,5 +45,22 @@ namespace KeuanganStienus
                 tambahPembayaran.ShowDialog();
             }
         }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (tbSearch.Text.Length <= 0) return;
+            string s = tbSearch.Text.Substring(0, 1);
+            if (s != s.ToUpper())
+            {
+                int curSelStart = tbSearch.SelectionStart;
+                int curSelLength = tbSearch.SelectionLength;
+                tbSearch.SelectionStart = 0;
+                tbSearch.SelectionLength = 1;
+                tbSearch.SelectedText = s.ToUpper();
+                tbSearch.SelectionStart = curSelStart;
+                tbSearch.SelectionLength = curSelLength;
+            }
+            (datagridMahasiswa.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+        }
     }
 }

@@ -79,6 +79,7 @@ namespace KeuanganStienus
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(311, 26);
             this.tbSearch.TabIndex = 8;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // Menu2InputPembayaran
             // 
