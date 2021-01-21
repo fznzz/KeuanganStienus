@@ -14,124 +14,125 @@ namespace KeuanganStienus
 {
     public partial class MainMenu : Form
     {
-        int selected=0;
         DataMahasiswa menu1;
         InputPembayaran menu2;
         EditTagihan menu3;
+        public Form lastform1 { get; set; }
+        public Form lastform2 { get; set; }
+        public Form lastform3 { get; set; }
+        public int formlevel { get; set; }
+
+        EditTagihan_Password menu3password;
+        Pengaturan_Password menu4password;
         string input;
         public string currentadmin { get; set; }
+
         public MainMenu()
         {
             InitializeComponent();
+        }
+
+        public void deployInitData()
+        {
+            timerJam.Enabled = true;
             menu1 = new DataMahasiswa();
             menu1.TopLevel = false;
             menu1.AutoScroll = true;
             menu1.FormBorderStyle = FormBorderStyle.None;
-            splitContainer1.Panel2.Controls.Clear();
-            splitContainer1.Panel2.Controls.Add(menu1);
+            pnContent.Controls.Clear();
+            pnContent.Controls.Add(menu1);
+            lbLABELADMIN.Text += currentadmin;
             menu1.Show();
         }
 
-        private static DialogResult ShowInputDialog(ref string input)
+        private void geserPanelSide(Button btDock)
         {
-            System.Drawing.Size size = new System.Drawing.Size(200, 70);
-            Form inputBox = new Form();
+            pnSide.Top = btDock.Top;
 
-            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            inputBox.ClientSize = size;
-            inputBox.Text = "Password";
-
-            System.Windows.Forms.TextBox textBox = new TextBox();
-            textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
-            textBox.Location = new System.Drawing.Point(5, 5);
-            inputBox.Controls.Add(textBox);
-
-            Button okButton = new Button();
-            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            okButton.Name = "okButton";
-            okButton.Size = new System.Drawing.Size(75, 23);
-            okButton.Text = "&OK";
-            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
-            inputBox.Controls.Add(okButton);
-
-            Button cancelButton = new Button();
-            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new System.Drawing.Size(75, 23);
-            cancelButton.Text = "&Cancel";
-            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
-            inputBox.Controls.Add(cancelButton);
-
-            inputBox.AcceptButton = okButton;
-            inputBox.CancelButton = cancelButton;
-
-            DialogResult result = inputBox.ShowDialog();
-            input = textBox.Text;
-            return result;
         }
 
-        private void listView1_Click(object sender, EventArgs e)
+        private void btClose_Click(object sender, EventArgs e)
         {
-            /*selected = listView1.SelectedItems[0].Index;*/
-            if (listMenu.SelectedItems.Count > 0)
+            this.Dispose();
+        }
+
+        private void btMenuDataMahasiswa_Click(object sender, EventArgs e)
+        {
+            menu1 = new DataMahasiswa();
+            menu1.TopLevel = false;
+            menu1.AutoScroll = true;
+            menu1.FormBorderStyle = FormBorderStyle.None;
+            pnContent.Controls.Clear();
+            pnContent.Controls.Add(menu1);
+            menu1.Show();
+            lastform1 = menu1;
+            geserPanelSide(btMenuDataMahasiswa);
+        }
+
+        private void btMenuInputPembayaran_Click(object sender, EventArgs e)
+        {
+            menu2 = new InputPembayaran();
+            menu2.currentadmin = currentadmin;
+            menu2.TopLevel = false;
+            menu2.AutoScroll = true;
+            menu2.FormBorderStyle = FormBorderStyle.None;
+            pnContent.Controls.Clear();
+            pnContent.Controls.Add(menu2);
+            menu2.Show();
+            lastform1 = menu2;
+            geserPanelSide(btMenuInputPembayaran);
+        }
+
+        private void btMenuEditTagihan_Click(object sender, EventArgs e)
+        {
+            menu3password = new EditTagihan_Password();
+            menu3password.TopLevel = false;
+            menu3password.AutoScroll = true;
+            menu3password.main = this;
+            changePanelContent(menu3password);
+            lastform1 = menu3password;
+            geserPanelSide(btMenuEditTagihan);
+        }
+
+        private void timerJam_Tick(object sender, EventArgs e)
+        {
+            DateTime dt = DateTime.Now;
+            lbTanggal.Text = dt.ToString("G");
+        }
+
+        private void btSettings_Click(object sender, EventArgs e)
+        {
+            menu4password = new Pengaturan_Password();
+            menu4password.TopLevel = false;
+            menu4password.AutoScroll = true;
+            menu4password.main = this;
+            changePanelContent(menu4password);
+            /*pnContent.Controls.Clear();
+            pnContent.Controls.Add(menu4password);
+            menu3password.Show();*/
+            lastform1 = menu4password;
+            geserPanelSide(btSettings);
+        }
+        public void changePanelContent(Form form)
+        {
+            pnContent.Controls.Clear();
+            pnContent.Controls.Add(form);
+            form.Show();
+        }
+        public void changePanelBack()
+        {
+            switch (formlevel)
             {
-                for (int i = 0; i <= listMenu.Items.Count - 1; i++)
-                {
-                    if (listMenu.Items[i].Selected == true)
-                    {
-                        selected = i;
-                        break;
-                    }
-                }
-            }
-            switch (selected)
-            {
-                case 0:
-                    //start menu1
-                    menu1 = new DataMahasiswa();
-                    menu1.TopLevel = false;
-                    menu1.AutoScroll = true;
-                    menu1.FormBorderStyle = FormBorderStyle.None;
-                    splitContainer1.Panel2.Controls.Clear();
-                    splitContainer1.Panel2.Controls.Add(menu1);
-                    menu1.Show();
-                    break;
                 case 1:
-                    //start menu2
-                    menu2 = new InputPembayaran();
-                    menu2.currentadmin = currentadmin;
-                    menu2.TopLevel = false;
-                    menu2.AutoScroll = true;
-                    menu2.FormBorderStyle = FormBorderStyle.None;
-                    splitContainer1.Panel2.Controls.Clear();
-                    splitContainer1.Panel2.Controls.Add(menu2);
-                    menu2.Show();
+                    changePanelContent(lastform1);
                     break;
                 case 2:
-                    //start menu3
-                    string hasil = ShowInputDialog(ref input).ToString();
-                    if(hasil=="OK")
-                    {
-                        if (input == "password")
-                        {
-                            menu3 = new EditTagihan();
-                            menu3.TopLevel = false;
-                            menu3.AutoScroll = true;
-                            menu3.FormBorderStyle = FormBorderStyle.None;
-                            splitContainer1.Panel2.Controls.Clear();
-                            splitContainer1.Panel2.Controls.Add(menu3);
-                            menu3.Show();
-                        }
-                        else MessageBox.Show("Password salah");
-                    }
+                    changePanelContent(lastform2);
+                    break;
+                case 3:
+                    changePanelContent(lastform3);
                     break;
             }
-        }
-        public void upperCaseGen(TextBox a)
-        {
-            CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-            TextInfo textInfo = cultureInfo.TextInfo;
-            a.Text = textInfo.ToTitleCase(a.Text.ToLower());
         }
     }
 }

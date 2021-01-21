@@ -13,6 +13,7 @@ namespace KeuanganStienus
 {
     public partial class EditTagihan_TambahTagihan : Form
     {
+        public MainMenu main { get; set; }
         string namaTagihan, kodeTagihan, jurusan, kelas, semesterTagihan, angkatan, nimlike, jurusanKode;
         int jumlahTagihan;
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";

@@ -14,19 +14,41 @@ namespace KeuanganStienus
 {
     public partial class DataMahasiswa : Form 
     {
-        private string getQuery = "Select * from mahasiswa";
+        string initDataSource;
+        BindingSource initBS;
+        private string selectQuery = "Select * from mahasiswa";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
+
         public DataMahasiswa()
         {
             InitializeComponent();
+            initBS = mahasiswaBindingSource;
             refreshMahasiswa();
         }
         private void btConn_Click(object sender, EventArgs e)
         {
             refreshMahasiswa();
+            
         }
         private void refreshMahasiswa()
         {
+            tbSearch.Clear();
+            using (var connection = new SqlConnection(ConnectionString))
+            using (var adapter = new SqlDataAdapter(selectQuery, connection))
+            {
+                var table = new DataTable();
+                adapter.Fill(table);
+                this.dtListMahasiswa.DataSource = table;
+                dtListMahasiswa.Columns[0].HeaderText = "NIM";
+                dtListMahasiswa.Columns[1].HeaderText = "Nama";
+                dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
+                dtListMahasiswa.Columns[3].HeaderText = "Kelas";
+            }
+            dtListMahasiswa.Columns[0].Width = 150;
+            dtListMahasiswa.Columns[1].Width = 150;
+            dtListMahasiswa.Columns[2].Width = 150;
+            dtListMahasiswa.Columns[3].Width = 150;
+            /*tbSearch.Clear();
             using (var connection = new SqlConnection(ConnectionString))
             using (var adapter = new SqlDataAdapter(getQuery, connection))
             {
@@ -37,7 +59,7 @@ namespace KeuanganStienus
                 dtListMahasiswa.Columns[1].HeaderText = "Nama";
                 dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
                 dtListMahasiswa.Columns[3].HeaderText = "Kelas";
-            }
+            }*/
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -53,7 +75,10 @@ namespace KeuanganStienus
                 tbSearch.SelectionStart = curSelStart;
                 tbSearch.SelectionLength = curSelLength;
             }
-            (dtListMahasiswa.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+            BindingSource bs = new BindingSource();
+            bs.DataSource = mahasiswaBindingSource;
+            bs.Filter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+            dtListMahasiswa.DataSource = bs;
         }
         private void gridData1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -65,7 +90,7 @@ namespace KeuanganStienus
                 datamahasiswa.namaRef = row.Cells[1].Value.ToString();
                 datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
                 datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
-                datamahasiswa.deployData();
+                datamahasiswa.deployDataTagihan();
                 datamahasiswa.ShowDialog();
             }
         }
@@ -74,6 +99,12 @@ namespace KeuanganStienus
         {
             var frm = new DataMahasiswa_TambahMahasiswa();
             frm.ShowDialog();
+        }
+
+        private void DataMahasiswa_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'stienusDataSet.mahasiswa' table. You can move, or remove it, as needed.
+            this.mahasiswaTableAdapter.Fill(this.stienusDataSet.mahasiswa);
         }
     }
 }

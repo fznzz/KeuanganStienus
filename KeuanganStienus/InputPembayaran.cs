@@ -23,6 +23,7 @@ namespace KeuanganStienus
         }
         private void refreshMahasiswa()
         {
+            tbSearch.Clear();
             using (var connection = new SqlConnection(ConnectionString))
             using (var adapter = new SqlDataAdapter(getQuery, connection))
             {
@@ -34,6 +35,10 @@ namespace KeuanganStienus
                 dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
                 dtListMahasiswa.Columns[3].HeaderText = "Kelas";
             }
+            dtListMahasiswa.Columns[0].Width= 150;
+            dtListMahasiswa.Columns[1].Width = 150;
+            dtListMahasiswa.Columns[2].Width = 150;
+            dtListMahasiswa.Columns[3].Width = 150;
         }
 
         private void datagridMahasiswa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -65,6 +70,11 @@ namespace KeuanganStienus
                 tbSearch.SelectionLength = curSelLength;
             }
             (dtListMahasiswa.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+        }
+
+        private void btConn_Click(object sender, EventArgs e)
+        {
+            refreshMahasiswa();
         }
     }
 }

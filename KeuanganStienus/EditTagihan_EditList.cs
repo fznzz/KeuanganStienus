@@ -15,7 +15,7 @@ namespace KeuanganStienus
     {
         private string getQuery = "Select * from mahasiswa";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-
+        public MainMenu main { get; set; }
         public EditTagihan_EditList()
         {
             InitializeComponent();
@@ -33,6 +33,10 @@ namespace KeuanganStienus
                 dtListMahasiswa.Columns[1].HeaderText = "Nama";
                 dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
                 dtListMahasiswa.Columns[3].HeaderText = "Kelas";
+                dtListMahasiswa.Columns[0].Width = 150;
+                dtListMahasiswa.Columns[1].Width = 250;
+                dtListMahasiswa.Columns[2].Width = 150;
+                dtListMahasiswa.Columns[3].Width = 150;
             }
         }
 
@@ -58,14 +62,25 @@ namespace KeuanganStienus
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dtListMahasiswa.Rows[e.RowIndex];
-                DataMahasiswa_Detail datamahasiswa = new DataMahasiswa_Detail();
+                EditTagihan_EditList_Detail datamahasiswa = new EditTagihan_EditList_Detail();
+                datamahasiswa.TopLevel = false;
+                datamahasiswa.AutoScroll = false;
                 datamahasiswa.nimRef = row.Cells[0].Value.ToString();
                 datamahasiswa.namaRef = row.Cells[1].Value.ToString();
                 datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
                 datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
+                datamahasiswa.main = main;
                 datamahasiswa.deployData();
-                datamahasiswa.ShowDialog();
+                main.changePanelContent(datamahasiswa);
+                main.lastform2 = this;
+                main.formlevel = 2;
             }
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            this.Dispose();
         }
     }
 }

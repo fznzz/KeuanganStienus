@@ -70,6 +70,11 @@ namespace KeuanganStienus
             createClick();
         }
 
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
         private void loginClick()
         {
             uname = tbUname.Text;
@@ -95,10 +100,12 @@ namespace KeuanganStienus
                     frm.StartPosition = FormStartPosition.Manual;
                     frm.FormClosing += delegate { this.Show(); };
                     frm.currentadmin = uname;
-                    frm.Show();
+                    frm.deployInitData();
                     this.Hide();
                     tbUname.Clear();
                     tbPass.Clear();
+                    frm.ShowDialog();
+                    this.Show();
                 }
                 else
                 {

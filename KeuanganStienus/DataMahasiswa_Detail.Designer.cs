@@ -38,6 +38,8 @@ namespace KeuanganStienus
             this.tbNama = new System.Windows.Forms.TextBox();
             this.tbJurusan = new System.Windows.Forms.TextBox();
             this.tbKelas = new System.Windows.Forms.TextBox();
+            this.btTagihan = new System.Windows.Forms.Button();
+            this.btPembayaran = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtMahasiswa)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,6 +47,9 @@ namespace KeuanganStienus
             // 
             this.dtMahasiswa.AllowUserToAddRows = false;
             this.dtMahasiswa.AllowUserToDeleteRows = false;
+            this.dtMahasiswa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtMahasiswa.Location = new System.Drawing.Point(12, 158);
             this.dtMahasiswa.Name = "dtMahasiswa";
@@ -122,11 +127,35 @@ namespace KeuanganStienus
             this.tbKelas.Size = new System.Drawing.Size(248, 26);
             this.tbKelas.TabIndex = 8;
             // 
-            // DataMahasiswa
+            // btTagihan
+            // 
+            this.btTagihan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btTagihan.Location = new System.Drawing.Point(504, 12);
+            this.btTagihan.Name = "btTagihan";
+            this.btTagihan.Size = new System.Drawing.Size(139, 78);
+            this.btTagihan.TabIndex = 9;
+            this.btTagihan.Text = "Tagihan Aktif";
+            this.btTagihan.UseVisualStyleBackColor = true;
+            this.btTagihan.Click += new System.EventHandler(this.btTagihan_Click);
+            // 
+            // btPembayaran
+            // 
+            this.btPembayaran.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPembayaran.Location = new System.Drawing.Point(649, 12);
+            this.btPembayaran.Name = "btPembayaran";
+            this.btPembayaran.Size = new System.Drawing.Size(139, 78);
+            this.btPembayaran.TabIndex = 10;
+            this.btPembayaran.Text = "Histori Pembayaran";
+            this.btPembayaran.UseVisualStyleBackColor = true;
+            this.btPembayaran.Click += new System.EventHandler(this.btPembayaran_Click);
+            // 
+            // DataMahasiswa_Detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btPembayaran);
+            this.Controls.Add(this.btTagihan);
             this.Controls.Add(this.tbKelas);
             this.Controls.Add(this.tbJurusan);
             this.Controls.Add(this.tbNama);
@@ -138,7 +167,7 @@ namespace KeuanganStienus
             this.Controls.Add(this.dtMahasiswa);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "DataMahasiswa";
+            this.Name = "DataMahasiswa_Detail";
             this.ShowIcon = false;
             this.Text = "Data Mahasiswa";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.dataMahasiswa_FormClosed);
@@ -159,5 +188,7 @@ namespace KeuanganStienus
         private System.Windows.Forms.TextBox tbNama;
         private System.Windows.Forms.TextBox tbJurusan;
         private System.Windows.Forms.TextBox tbKelas;
+        private System.Windows.Forms.Button btTagihan;
+        private System.Windows.Forms.Button btPembayaran;
     }
 }

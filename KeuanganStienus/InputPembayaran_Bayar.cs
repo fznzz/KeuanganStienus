@@ -62,7 +62,6 @@ namespace KeuanganStienus
             {
                 verifikasi.deployData();
                 verifikasi.ShowDialog();
-                this.Dispose();
             }
         }
 
@@ -73,7 +72,6 @@ namespace KeuanganStienus
                 e.Handled = true;
             }
         }
-
         private void dtListTagihan_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(dtListTagihan_KeyPress);
@@ -86,7 +84,6 @@ namespace KeuanganStienus
                 }
             }
         }
-
         private void checkMahasiswa(string nim)
         {
             var sqlconn = new SqlConnection(ConnectionString);
