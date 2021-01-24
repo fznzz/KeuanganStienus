@@ -35,14 +35,15 @@ namespace KeuanganStienus
             this.lbUname = new System.Windows.Forms.Label();
             this.lbPass = new System.Windows.Forms.Label();
             this.btLogin = new System.Windows.Forms.Button();
-            this.btCreate = new System.Windows.Forms.Button();
             this.BtClose = new System.Windows.Forms.Button();
             this.pnDrag = new System.Windows.Forms.Panel();
             this.dragControl1 = new KeuanganStienus.DragControl();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dragControl2 = new KeuanganStienus.DragControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -106,17 +107,6 @@ namespace KeuanganStienus
             this.btLogin.UseVisualStyleBackColor = false;
             this.btLogin.Click += new System.EventHandler(this.btLogin_Click);
             // 
-            // btCreate
-            // 
-            this.btCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btCreate.Location = new System.Drawing.Point(6, 12);
-            this.btCreate.Name = "btCreate";
-            this.btCreate.Size = new System.Drawing.Size(60, 40);
-            this.btCreate.TabIndex = 5;
-            this.btCreate.Text = "Create";
-            this.btCreate.UseVisualStyleBackColor = true;
-            this.btCreate.Click += new System.EventHandler(this.btCreate_Click);
-            // 
             // BtClose
             // 
             this.BtClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -149,16 +139,36 @@ namespace KeuanganStienus
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.BtClose);
-            this.panel1.Controls.Add(this.btCreate);
             this.panel1.Controls.Add(this.btLogin);
             this.panel1.Location = new System.Drawing.Point(50, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(508, 321);
             this.panel1.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(106, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(320, 31);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "STIE Nusa Megarkencana";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei Light", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1, 301);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(157, 20);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "© 2021 Fauzan Pradana";
             // 
             // panel2
             // 
@@ -174,25 +184,17 @@ namespace KeuanganStienus
             this.panel2.Size = new System.Drawing.Size(345, 118);
             this.panel2.TabIndex = 0;
             // 
-            // label1
+            // panel3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei Light", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1, 301);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 20);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "© 2021 Fauzan Pradana";
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(460, 54);
+            this.panel3.TabIndex = 10;
             // 
-            // label2
+            // dragControl2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(106, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(320, 31);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "STIE Nusa Megarkencana";
+            this.dragControl2.selectControl = this.panel3;
             // 
             // Form1
             // 
@@ -221,7 +223,6 @@ namespace KeuanganStienus
         private System.Windows.Forms.Label lbUname;
         private System.Windows.Forms.Label lbPass;
         private System.Windows.Forms.Button btLogin;
-        private System.Windows.Forms.Button btCreate;
         private System.Windows.Forms.Button BtClose;
         private System.Windows.Forms.Panel pnDrag;
         private DragControl dragControl1;
@@ -229,6 +230,8 @@ namespace KeuanganStienus
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel3;
+        private DragControl dragControl2;
     }
 }
 

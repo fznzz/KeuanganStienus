@@ -21,6 +21,7 @@ namespace KeuanganStienus
         public string namaRef { get; set; }
         public string jurusanRef { get; set; }
         public string kelasRef { get; set; }
+        public MainMenu main;
         public DataMahasiswa_Detail()
         {
             InitializeComponent();
@@ -49,6 +50,13 @@ namespace KeuanganStienus
                 dtMahasiswa.Columns[4].HeaderText = "Jumlah Tagihan";
                 dtMahasiswa.Columns[5].HeaderText = "Sisa Tagihan";
                 dtMahasiswa.Columns[6].HeaderText = "Status Tagihan";
+                dtMahasiswa.Columns[0].Width = 190;
+                dtMahasiswa.Columns[1].Width = 150;
+                dtMahasiswa.Columns[2].Width = 150;
+                dtMahasiswa.Columns[3].Width = 250;
+                dtMahasiswa.Columns[4].Width = 150;
+                dtMahasiswa.Columns[5].Width = 150;
+                dtMahasiswa.Columns[6].Width = 150;
             }
         }
         public void deployDataPembayaran()
@@ -74,6 +82,12 @@ namespace KeuanganStienus
                 dtMahasiswa.Columns[3].HeaderText = "Jumlah Pembayaran";
                 dtMahasiswa.Columns[4].HeaderText = "Tanggal Pembayaran";
                 dtMahasiswa.Columns[5].HeaderText = "Admin Penerima";
+                dtMahasiswa.Columns[0].Width = 150;
+                dtMahasiswa.Columns[1].Width = 190;
+                dtMahasiswa.Columns[2].Width = 150;
+                dtMahasiswa.Columns[3].Width = 150;
+                dtMahasiswa.Columns[4].Width = 150;
+                dtMahasiswa.Columns[5].Width = 150;
             }
         }
 
@@ -90,6 +104,12 @@ namespace KeuanganStienus
         private void btPembayaran_Click(object sender, EventArgs e)
         {
             deployDataPembayaran();
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            main.formlevel = 1;
         }
     }
 }

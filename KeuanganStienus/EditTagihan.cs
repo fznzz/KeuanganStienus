@@ -23,8 +23,11 @@ namespace KeuanganStienus
             EditTagihan_TambahTagihan tambahTagihan = new EditTagihan_TambahTagihan();
             tambahTagihan.TopLevel = false;
             tambahTagihan.AutoScroll = false;
+            tambahTagihan.edit = this;
             tambahTagihan.main = main;
             main.changePanelContent(tambahTagihan);
+            main.lastform1 = this;
+            main.formlevel = 1;
         }
 
         private void btEditTagihan_Click(object sender, EventArgs e)
@@ -34,6 +37,8 @@ namespace KeuanganStienus
             editTagihan.AutoScroll = false;
             editTagihan.main = main;
             main.changePanelContent(editTagihan);
+            main.lastform1 = this;
+            main.formlevel = 1;
         }
     }
 }

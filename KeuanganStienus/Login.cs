@@ -56,18 +56,13 @@ namespace KeuanganStienus
             }
         }
 
-        public string passwordHashing(string pass)
+        private string passwordHashing(string pass)
         {
             SHA256Managed MyHash = new SHA256Managed();
             byte[] data = System.Text.Encoding.ASCII.GetBytes(pass);
             byte[] hash = MyHash.ComputeHash(data);
             string hashstr = System.Text.Encoding.ASCII.GetString(hash);
             return hashstr;
-        }
-
-        private void btCreate_Click(object sender, EventArgs e)
-        {
-            createClick();
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -114,45 +109,11 @@ namespace KeuanganStienus
             }
         }
 
-        private void createClick()
-        {
-            uname = tbUname.Text;
-            pswd = tbPass.Text;
-            pswdh = passwordHashing(pswd);
-            sqlconn = new SqlConnection(ConnectionString);
-            string getcred = "Select * from logincr where username=@uname";
-            SqlCommand oCmd = new SqlCommand(getcred, sqlconn);
-            oCmd.Parameters.AddWithValue("@uname", uname);
-            sqlconn.Open();
-            //membaca database mengecek kesamaan username
-            using (SqlDataReader oReader = oCmd.ExecuteReader())
-            {
-                while (oReader.Read())
-                {
-                    tempA = oReader["username"].ToString();
-                    tempB = oReader["password"].ToString();
-                }
-                
-            }
-            if (tempA == uname)
-            {
-                MessageBox.Show("username sudah ada");
-            }
-            else
-            {
-                SqlCommand cmd = new SqlCommand("insert into logincr values(@uname, @pswdh)", sqlconn);
-                cmd.Parameters.AddWithValue("@uname", uname);
-                cmd.Parameters.AddWithValue("@pswdh", pswdh);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Data Inserted Successfully.");
-            }
-            sqlconn.Close();
-        }
-
         private void btLogin_Click(object sender, EventArgs e)
         {
             loginClick();
         }
+
     }
 
 }

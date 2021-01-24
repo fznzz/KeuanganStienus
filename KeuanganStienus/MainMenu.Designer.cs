@@ -40,6 +40,8 @@ namespace KeuanganStienus
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnHeader = new System.Windows.Forms.Panel();
+            this.btMinimize = new System.Windows.Forms.Button();
+            this.btMaximize = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btClose = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -56,6 +58,8 @@ namespace KeuanganStienus
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(52)))), ((int)(((byte)(70)))));
             this.panel1.Controls.Add(this.pnSide);
             this.panel1.Controls.Add(this.btSettings);
@@ -86,7 +90,7 @@ namespace KeuanganStienus
             this.btSettings.Location = new System.Drawing.Point(24, 562);
             this.btSettings.Name = "btSettings";
             this.btSettings.Size = new System.Drawing.Size(220, 126);
-            this.btSettings.TabIndex = 2;
+            this.btSettings.TabIndex = 3;
             this.btSettings.Text = "Pengaturan";
             this.btSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btSettings.UseVisualStyleBackColor = true;
@@ -118,7 +122,7 @@ namespace KeuanganStienus
             this.btMenuInputPembayaran.Location = new System.Drawing.Point(24, 298);
             this.btMenuInputPembayaran.Name = "btMenuInputPembayaran";
             this.btMenuInputPembayaran.Size = new System.Drawing.Size(226, 126);
-            this.btMenuInputPembayaran.TabIndex = 2;
+            this.btMenuInputPembayaran.TabIndex = 1;
             this.btMenuInputPembayaran.Text = "Input Pembayaran";
             this.btMenuInputPembayaran.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btMenuInputPembayaran.UseVisualStyleBackColor = true;
@@ -136,7 +140,7 @@ namespace KeuanganStienus
             this.btMenuDataMahasiswa.Name = "btMenuDataMahasiswa";
             this.btMenuDataMahasiswa.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btMenuDataMahasiswa.Size = new System.Drawing.Size(226, 126);
-            this.btMenuDataMahasiswa.TabIndex = 2;
+            this.btMenuDataMahasiswa.TabIndex = 0;
             this.btMenuDataMahasiswa.Text = "Data Mahasiswa";
             this.btMenuDataMahasiswa.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btMenuDataMahasiswa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -164,13 +168,46 @@ namespace KeuanganStienus
             // 
             // pnHeader
             // 
+            this.pnHeader.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnHeader.BackColor = System.Drawing.Color.White;
+            this.pnHeader.Controls.Add(this.btMinimize);
+            this.pnHeader.Controls.Add(this.btMaximize);
             this.pnHeader.Controls.Add(this.label2);
             this.pnHeader.Controls.Add(this.btClose);
             this.pnHeader.Location = new System.Drawing.Point(250, 0);
             this.pnHeader.Name = "pnHeader";
             this.pnHeader.Size = new System.Drawing.Size(1031, 52);
-            this.pnHeader.TabIndex = 2;
+            this.pnHeader.TabIndex = 3;
+            // 
+            // btMinimize
+            // 
+            this.btMinimize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btMinimize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btMinimize.BackgroundImage")));
+            this.btMinimize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btMinimize.FlatAppearance.BorderSize = 0;
+            this.btMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMinimize.Location = new System.Drawing.Point(939, 12);
+            this.btMinimize.Name = "btMinimize";
+            this.btMinimize.Size = new System.Drawing.Size(30, 30);
+            this.btMinimize.TabIndex = 0;
+            this.btMinimize.UseVisualStyleBackColor = true;
+            this.btMinimize.Visible = false;
+            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
+            // 
+            // btMaximize
+            // 
+            this.btMaximize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btMaximize.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btMaximize.BackgroundImage")));
+            this.btMaximize.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btMaximize.FlatAppearance.BorderSize = 0;
+            this.btMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btMaximize.Location = new System.Drawing.Point(939, 12);
+            this.btMaximize.Name = "btMaximize";
+            this.btMaximize.Size = new System.Drawing.Size(30, 30);
+            this.btMaximize.TabIndex = 2;
+            this.btMaximize.UseVisualStyleBackColor = true;
+            this.btMaximize.Click += new System.EventHandler(this.btMaximize_Click);
             // 
             // label2
             // 
@@ -185,6 +222,7 @@ namespace KeuanganStienus
             // 
             // btClose
             // 
+            this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btClose.BackgroundImage")));
             this.btClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btClose.FlatAppearance.BorderSize = 0;
@@ -192,12 +230,14 @@ namespace KeuanganStienus
             this.btClose.Location = new System.Drawing.Point(988, 11);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(30, 30);
-            this.btClose.TabIndex = 0;
+            this.btClose.TabIndex = 1;
             this.btClose.UseVisualStyleBackColor = true;
             this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // panel4
             // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(52)))), ((int)(((byte)(70)))));
             this.panel4.Controls.Add(this.lbLABELADMIN);
             this.panel4.Controls.Add(this.lbTanggal);
@@ -219,6 +259,7 @@ namespace KeuanganStienus
             // 
             // lbTanggal
             // 
+            this.lbTanggal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTanggal.AutoSize = true;
             this.lbTanggal.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTanggal.ForeColor = System.Drawing.SystemColors.Control;
@@ -231,10 +272,14 @@ namespace KeuanganStienus
             // 
             // pnContent
             // 
+            this.pnContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnContent.BackColor = System.Drawing.Color.White;
             this.pnContent.Location = new System.Drawing.Point(250, 106);
             this.pnContent.Name = "pnContent";
-            this.pnContent.Size = new System.Drawing.Size(1028, 611);
-            this.pnContent.TabIndex = 4;
+            this.pnContent.Size = new System.Drawing.Size(1031, 611);
+            this.pnContent.TabIndex = 2;
             // 
             // timerJam
             // 
@@ -254,8 +299,6 @@ namespace KeuanganStienus
             this.Controls.Add(this.pnHeader);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "MainMenu";
             this.Text = "Aplikasi Keuangan STIENUS";
             this.panel1.ResumeLayout(false);
@@ -288,5 +331,7 @@ namespace KeuanganStienus
         private System.Windows.Forms.Timer timerJam;
         private System.Windows.Forms.Label lbLABELADMIN;
         private System.Windows.Forms.Button btSettings;
+        private System.Windows.Forms.Button btMaximize;
+        private System.Windows.Forms.Button btMinimize;
     }
 }

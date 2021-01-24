@@ -18,15 +18,16 @@ namespace KeuanganStienus
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
         string tempA, nim, nama, jurusan, kelas;
         bool status=false;
-
-        private void btCancel_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
-
+        public MainMenu main { get; set; }
         private void btOk_Click(object sender, EventArgs e)
         {
             clickTambah();
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            this.Dispose();
         }
 
         public DataMahasiswa_TambahMahasiswa()
@@ -42,8 +43,8 @@ namespace KeuanganStienus
         {
             nim = tbNim.Text;
             nama = tbNama.Text;
-            jurusan = tbJurusan.Text;
-            kelas = tbKelas.Text;
+            jurusan = cbJurusan.Text;
+            kelas = cbKelas.Text;
             var sqlconn = new SqlConnection(ConnectionString);
             SqlCommand oCmd = new SqlCommand(selectQuery, sqlconn);
             oCmd.Parameters.AddWithValue("@nim", nim);
@@ -58,18 +59,15 @@ namespace KeuanganStienus
                 if (tempA == nim)
                 {
                     status = true;
-                    MessageBox.Show("status true, nim not available");
                 }
                 else
                 {
                     status = false;
-                    MessageBox.Show("status false, nim available");
                 }
             }
         }
         private void tambahMhs()
         {
-            MessageBox.Show("masuk tambah mhs");
             if (status == false)
             {
                 var sqlconn = new SqlConnection(ConnectionString);

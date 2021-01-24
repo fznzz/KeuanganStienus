@@ -14,8 +14,9 @@ namespace KeuanganStienus
     public partial class InputPembayaran : Form
     {
         public string currentadmin { get; set; }
-        private string getQuery = "Select * from mahasiswa";
+        private const string getQuery = "Select * from mahasiswa";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
+        public MainMenu main { get; set; }
         public InputPembayaran()
         {
             InitializeComponent();
@@ -47,11 +48,17 @@ namespace KeuanganStienus
             {
                 DataGridViewRow row = dtListMahasiswa.Rows[e.RowIndex];
                 InputPembayaran_Bayar tambahPembayaran = new InputPembayaran_Bayar();
+                tambahPembayaran.TopLevel = false;
+                tambahPembayaran.AutoScroll = false;
                 tambahPembayaran.nimRef = row.Cells[0].Value.ToString();
                 tambahPembayaran.namaRef = row.Cells[1].Value.ToString();
                 tambahPembayaran.currentadmin = currentadmin;
+                tambahPembayaran.main = main;
+                tambahPembayaran.bayar = this;
                 tambahPembayaran.deployData();
-                tambahPembayaran.ShowDialog();
+                main.changePanelContent(tambahPembayaran);
+                main.lastform1 = this;
+                main.formlevel = 1;
             }
         }
 

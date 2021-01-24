@@ -30,21 +30,28 @@ namespace KeuanganStienus
         public string namaRef { get; set; }
         public string nimRef { get; set; }
         public string currentadmin { get; set; }
+        public MainMenu main { get; set; }
+        public InputPembayaran bayar { get; set; }
         public InputPembayaran_VerifikasiBayar()
         {
             InitializeComponent();
             DataGridViewColumn colTagihanID = new DataGridViewTextBoxColumn();
             colTagihanID.HeaderText = "ID Tagihan";
+            colTagihanID.Width = 190;
             DataGridViewColumn colNamaTagihan = new DataGridViewTextBoxColumn();
             colNamaTagihan.HeaderText = "Nama Tagihan";
+            colNamaTagihan.Width = 250;
             DataGridViewColumn colSisaTagihan = new DataGridViewTextBoxColumn();
             colSisaTagihan.HeaderText = "Sisa Tagihan";
+            colSisaTagihan.Width = 150;
             DataGridViewColumn colJumlahBayar = new DataGridViewTextBoxColumn();
             colJumlahBayar.HeaderText = "Jumlah Pembayaran";
+            colJumlahBayar.Width = 150;
             dtPembayaran.Columns.AddRange(colTagihanID);
             dtPembayaran.Columns.AddRange(colNamaTagihan);
             dtPembayaran.Columns.AddRange(colSisaTagihan);
             dtPembayaran.Columns.AddRange(colJumlahBayar);
+
         }
         public void deployData()
         {
@@ -86,6 +93,14 @@ namespace KeuanganStienus
             }
             conn.Close();
             MessageBox.Show("Pembayaran telah diterima");
+            main.changePanelContent(bayar);
+            this.Dispose();
+        }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            main.formlevel = 1;
             this.Dispose();
         }
     }

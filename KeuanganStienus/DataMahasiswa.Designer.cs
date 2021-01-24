@@ -54,10 +54,10 @@ namespace KeuanganStienus
             // 
             this.tbSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.tbSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.tbSearch.Font = new System.Drawing.Font("Microsoft YaHei", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(156, 102);
+            this.tbSearch.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSearch.Location = new System.Drawing.Point(170, 102);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(311, 29);
+            this.tbSearch.Size = new System.Drawing.Size(311, 31);
             this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -65,6 +65,9 @@ namespace KeuanganStienus
             // 
             this.dtListMahasiswa.AllowUserToAddRows = false;
             this.dtListMahasiswa.AllowUserToDeleteRows = false;
+            this.dtListMahasiswa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtListMahasiswa.BackgroundColor = System.Drawing.Color.White;
             this.dtListMahasiswa.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -106,7 +109,7 @@ namespace KeuanganStienus
             this.dtListMahasiswa.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dtListMahasiswa.RowTemplate.Height = 28;
             this.dtListMahasiswa.Size = new System.Drawing.Size(1004, 455);
-            this.dtListMahasiswa.TabIndex = 3;
+            this.dtListMahasiswa.TabIndex = 1;
             this.dtListMahasiswa.VirtualMode = true;
             this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridData1_CellDoubleClick);
             // 
@@ -122,30 +125,32 @@ namespace KeuanganStienus
             // 
             // btConn
             // 
+            this.btConn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btConn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(102)))), ((int)(((byte)(137)))));
             this.btConn.FlatAppearance.BorderSize = 0;
             this.btConn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btConn.Font = new System.Drawing.Font("Microsoft YaHei", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btConn.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btConn.ForeColor = System.Drawing.Color.White;
             this.btConn.Location = new System.Drawing.Point(904, 95);
             this.btConn.Name = "btConn";
             this.btConn.Size = new System.Drawing.Size(112, 43);
-            this.btConn.TabIndex = 2;
+            this.btConn.TabIndex = 3;
             this.btConn.Text = "Refresh";
             this.btConn.UseVisualStyleBackColor = false;
             this.btConn.Click += new System.EventHandler(this.btConn_Click);
             // 
             // btTambah
             // 
+            this.btTambah.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btTambah.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(102)))), ((int)(((byte)(137)))));
             this.btTambah.FlatAppearance.BorderSize = 0;
             this.btTambah.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btTambah.Font = new System.Drawing.Font("Microsoft YaHei", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btTambah.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btTambah.ForeColor = System.Drawing.Color.White;
-            this.btTambah.Location = new System.Drawing.Point(697, 95);
+            this.btTambah.Location = new System.Drawing.Point(651, 95);
             this.btTambah.Name = "btTambah";
-            this.btTambah.Size = new System.Drawing.Size(201, 43);
-            this.btTambah.TabIndex = 1;
+            this.btTambah.Size = new System.Drawing.Size(247, 43);
+            this.btTambah.TabIndex = 2;
             this.btTambah.Text = "Tambah Mahasiswa";
             this.btTambah.UseVisualStyleBackColor = false;
             this.btTambah.Click += new System.EventHandler(this.btTambah_Click);
@@ -153,10 +158,10 @@ namespace KeuanganStienus
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(138, 21);
+            this.label1.Size = new System.Drawing.Size(152, 24);
             this.label1.TabIndex = 7;
             this.label1.Text = "Cari Mahasiswa :";
             // 
@@ -166,16 +171,20 @@ namespace KeuanganStienus
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(338, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(352, 52);
             this.label2.TabIndex = 8;
             this.label2.Text = "Data Mahasiswa";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -202,7 +211,6 @@ namespace KeuanganStienus
             ((System.ComponentModel.ISupportInitialize)(this.mahasiswaBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stienusDataSet)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

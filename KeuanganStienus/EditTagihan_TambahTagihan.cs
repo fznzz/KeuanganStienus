@@ -20,9 +20,16 @@ namespace KeuanganStienus
         private const string selectQuery = "select * from mahasiswa where kelas=@kelas and nim like @nimlike";
         private const string insertQuery = "insert into tagihan values (@tagihanid, @nim, @semester, @namatagihan, " +
             "@jumlah, @sisa, @status)";
-        SqlConnection conn;
+        SqlConnection conn,conn2;
         SqlCommand cmdInsert;
         SqlDataAdapter cmdSelect;
+        public EditTagihan edit { get; set; }
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            this.Dispose();
+        }
+
         DataTable table;
         DataRow[] datarow;
         String[] nimArray;
@@ -63,11 +70,12 @@ namespace KeuanganStienus
                     jurusanKode = "ma";
                 }
                 DialogResult dialogResult = MessageBox.Show("Pastikan data telah di cek dengan benar.", 
-                    "Lanjutkan?", MessageBoxButtons.YesNo);
+                    "Lanjutkan?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dialogResult == DialogResult.Yes)
                 {
                     nimlike = angkatan + jurusanKode + "%";
                     conn = new SqlConnection(ConnectionString);
+                    conn2 = new SqlConnection(ConnectionString);
                     cmdSelect = new SqlDataAdapter(selectQuery, conn);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@kelas", kelas);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@nimlike", nimlike);
@@ -86,20 +94,21 @@ namespace KeuanganStienus
                     else
                     {
                         nimArray = Array.ConvertAll(datarow, new Converter<DataRow, string>(dataRowToString));
-                        conn.Open();
+                        conn2.Open();
                         for (int i = 0; i < nimArray.Length; i++)
                         {
-                            cmdInsert = new SqlCommand(insertQuery, conn);
+                            cmdInsert = new SqlCommand(insertQuery, conn2);
                             cmdInsert.Parameters.AddWithValue("@tagihanid", nimArray[i] + kodeTagihan);
                             cmdInsert.Parameters.AddWithValue("@nim", nimArray[i]);
                             cmdInsert.Parameters.AddWithValue("@semester", semesterTagihan);
                             cmdInsert.Parameters.AddWithValue("@namatagihan", namaTagihan);
                             cmdInsert.Parameters.AddWithValue("@jumlah", jumlahTagihan);
                             cmdInsert.Parameters.AddWithValue("@sisa", jumlahTagihan);
-                            cmdInsert.Parameters.AddWithValue("@sisa", "Belum Lunas");
+                            cmdInsert.Parameters.AddWithValue("@status", "Belum Lunas");
                             cmdInsert.ExecuteNonQuery();
                         }
-                        conn.Close();
+                        conn2.Close();
+                        main.changePanelContent(edit);
                         this.Dispose();
                     }
                 }

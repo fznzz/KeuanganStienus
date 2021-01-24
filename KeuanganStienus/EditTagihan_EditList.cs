@@ -62,14 +62,16 @@ namespace KeuanganStienus
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dtListMahasiswa.Rows[e.RowIndex];
-                EditTagihan_EditList_Detail datamahasiswa = new EditTagihan_EditList_Detail();
-                datamahasiswa.TopLevel = false;
-                datamahasiswa.AutoScroll = false;
-                datamahasiswa.nimRef = row.Cells[0].Value.ToString();
-                datamahasiswa.namaRef = row.Cells[1].Value.ToString();
-                datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
-                datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
-                datamahasiswa.main = main;
+                EditTagihan_EditList_Detail datamahasiswa = new EditTagihan_EditList_Detail
+                {
+                    TopLevel = false,
+                    AutoScroll = false,
+                    nimRef = row.Cells[0].Value.ToString(),
+                    namaRef = row.Cells[1].Value.ToString(),
+                    jurusanRef = row.Cells[2].Value.ToString(),
+                    kelasRef = row.Cells[3].Value.ToString(),
+                    main = main
+                };
                 datamahasiswa.deployData();
                 main.changePanelContent(datamahasiswa);
                 main.lastform2 = this;

@@ -14,15 +14,13 @@ namespace KeuanganStienus
 {
     public partial class DataMahasiswa : Form 
     {
-        string initDataSource;
-        BindingSource initBS;
-        private string selectQuery = "Select * from mahasiswa";
+        private const string selectQuery = "Select * from mahasiswa";
         private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-
+        public MainMenu main { get; set; }
+        DataMahasiswa_TambahMahasiswa tambah;
         public DataMahasiswa()
         {
             InitializeComponent();
-            initBS = mahasiswaBindingSource;
             refreshMahasiswa();
         }
         private void btConn_Click(object sender, EventArgs e)
@@ -48,18 +46,6 @@ namespace KeuanganStienus
             dtListMahasiswa.Columns[1].Width = 150;
             dtListMahasiswa.Columns[2].Width = 150;
             dtListMahasiswa.Columns[3].Width = 150;
-            /*tbSearch.Clear();
-            using (var connection = new SqlConnection(ConnectionString))
-            using (var adapter = new SqlDataAdapter(getQuery, connection))
-            {
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtListMahasiswa.DataSource = table;
-                dtListMahasiswa.Columns[0].HeaderText = "NIM";
-                dtListMahasiswa.Columns[1].HeaderText = "Nama";
-                dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
-                dtListMahasiswa.Columns[3].HeaderText = "Kelas";
-            }*/
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -75,9 +61,11 @@ namespace KeuanganStienus
                 tbSearch.SelectionStart = curSelStart;
                 tbSearch.SelectionLength = curSelLength;
             }
-            BindingSource bs = new BindingSource();
-            bs.DataSource = mahasiswaBindingSource;
-            bs.Filter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
+            BindingSource bs = new BindingSource
+            {
+                DataSource = mahasiswaBindingSource,
+                Filter = string.Format("nama LIKE '%{0}%'", tbSearch.Text)
+            };
             dtListMahasiswa.DataSource = bs;
         }
         private void gridData1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -85,20 +73,34 @@ namespace KeuanganStienus
             if(e.RowIndex>=0)
             {
                 DataGridViewRow row = dtListMahasiswa.Rows[e.RowIndex];
-                DataMahasiswa_Detail datamahasiswa = new DataMahasiswa_Detail();
-                datamahasiswa.nimRef = row.Cells[0].Value.ToString();
-                datamahasiswa.namaRef = row.Cells[1].Value.ToString();
-                datamahasiswa.jurusanRef = row.Cells[2].Value.ToString();
-                datamahasiswa.kelasRef = row.Cells[3].Value.ToString();
+                DataMahasiswa_Detail datamahasiswa = new DataMahasiswa_Detail
+                {
+                    TopLevel = false,
+                    AutoScroll = false,
+                    nimRef = row.Cells[0].Value.ToString(),
+                    namaRef = row.Cells[1].Value.ToString(),
+                    jurusanRef = row.Cells[2].Value.ToString(),
+                    kelasRef = row.Cells[3].Value.ToString(),
+                    main = main
+                };
                 datamahasiswa.deployDataTagihan();
-                datamahasiswa.ShowDialog();
+                main.changePanelContent(datamahasiswa);
+                main.lastform1 = this;
+                main.formlevel = 1;
             }
         }
 
         private void btTambah_Click(object sender, EventArgs e)
         {
-            var frm = new DataMahasiswa_TambahMahasiswa();
-            frm.ShowDialog();
+            tambah = new DataMahasiswa_TambahMahasiswa
+            {
+                TopLevel = false,
+                AutoScroll = false,
+                main = main
+            };
+            main.changePanelContent(tambah);
+            main.lastform1 = this;
+            main.formlevel = 1;
         }
 
         private void DataMahasiswa_Load(object sender, EventArgs e)

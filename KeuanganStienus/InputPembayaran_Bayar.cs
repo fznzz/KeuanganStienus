@@ -23,6 +23,11 @@ namespace KeuanganStienus
         public string nimRef { get; set; }
         public string namaRef { get; set; }
         public string currentadmin { get; set; }
+        public MainMenu main { get; set; }
+        public InputPembayaran bayar { get; set; }
+        bool atLeastOne;
+        int availNumber;
+        bool[] available;
         public InputPembayaran_Bayar()
         {
             InitializeComponent();
@@ -36,33 +41,77 @@ namespace KeuanganStienus
         }
         private void btNext_Click(object sender, EventArgs e)
         {
-            //membuat object verifikasi, kemudian setiap ada pembayaran yang dimasukkan akan di add ke list
-            //dimana akan ditampilkan di form verifikasi
-            InputPembayaran_VerifikasiBayar verifikasi = new InputPembayaran_VerifikasiBayar();
-            verifikasi.rownumber = dtListTagihan.RowCount;
-            verifikasi.namaRef = namaRef;
-            verifikasi.nimRef = nimRef;
-            verifikasi.currentadmin = currentadmin;
-            for(int i=0; i < dtListTagihan.RowCount; i++)
+            availNumber = 0;
+            available = new bool[dtListTagihan.Rows.Count];
+            foreach(DataGridViewRow r in dtListTagihan.Rows)
             {
-                
-                DataGridViewRow row = dtListTagihan.Rows[i];
-                if (row.Cells[0].Value == null) continue;
-                verifikasi.tagihanID.Add(row.Cells[1].Value.ToString());
-                verifikasi.namaTagihan.Add(row.Cells[4].Value.ToString());
-                verifikasi.sisaTagihan.Add(int.Parse(row.Cells[6].Value.ToString()));
-                //entah bagaimana, column baru selalu menempati index 0
-                verifikasi.jumlahBayar.Add(int.Parse(row.Cells[0].Value.ToString()));
+                if(r.Cells[0].Value==null)
+                {
+                    available[r.Index] = false;
+                }
+                else
+                {
+                    if(int.Parse(r.Cells[0].Value.ToString())==0)
+                    {
+                        available[r.Index] = false;
+                    }
+                    else
+                    {
+                        if (int.Parse(r.Cells[0].Value.ToString()) > int.Parse(r.Cells[6].Value.ToString()))
+                        {
+                            available[r.Index] = false;
+                        }
+                        else
+                        {
+                            available[r.Index] = true;
+                            availNumber += 1;
+                        }
+                    }
+                }
             }
-            if(verifikasi.tagihanID.Count==0)
+            for (int i = 0; i < available.Length; i++)
             {
-                MessageBox.Show("Belum ada input Pembayaran");
+                if (available[i] == true)
+                {
+                    atLeastOne = true;
+                }
+            }
+            if(atLeastOne!=true)
+            {
+                MessageBox.Show("Jumlah pembayaran tidak valid");
             }
             else
             {
+                //membuat object verifikasi, kemudian setiap ada pembayaran yang dimasukkan akan di add ke list
+                //dimana akan ditampilkan di form verifikasi
+                InputPembayaran_VerifikasiBayar verifikasi = new InputPembayaran_VerifikasiBayar();
+                verifikasi.TopLevel = false;
+                verifikasi.AutoScroll = false;
+                verifikasi.rownumber = availNumber;
+                verifikasi.namaRef = namaRef;
+                verifikasi.nimRef = nimRef;
+                verifikasi.currentadmin = currentadmin;
+                verifikasi.main = main;
+                verifikasi.bayar = bayar;
+                for (int i = 0; i < dtListTagihan.RowCount; i++)
+                {
+                    if (available[i] == false)
+                    {
+                        continue;
+                    }
+                    DataGridViewRow row = dtListTagihan.Rows[i];
+                    if (row.Cells[0].Value == null) continue;
+                    verifikasi.tagihanID.Add(row.Cells[1].Value.ToString());
+                    verifikasi.namaTagihan.Add(row.Cells[4].Value.ToString());
+                    verifikasi.sisaTagihan.Add(int.Parse(row.Cells[6].Value.ToString()));
+                    //entah bagaimana, column baru selalu menempati index 0
+                    verifikasi.jumlahBayar.Add(int.Parse(row.Cells[0].Value.ToString()));
+                }
                 verifikasi.deployData();
-                verifikasi.ShowDialog();
-            }
+                main.changePanelContent(verifikasi);
+                main.lastform2 = this;
+                main.formlevel = 2;
+            }    
         }
 
         private void dtListTagihan_KeyPress(object sender, KeyPressEventArgs e)
@@ -75,7 +124,7 @@ namespace KeuanganStienus
         private void dtListTagihan_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(dtListTagihan_KeyPress);
-            if (dtListTagihan.CurrentCell.ColumnIndex == 7) //Desired Column
+            if (dtListTagihan.CurrentCell.ColumnIndex == 0) //Desired Column
             {
                 TextBox tb = e.Control as TextBox;
                 if (tb != null)
@@ -84,6 +133,13 @@ namespace KeuanganStienus
                 }
             }
         }
+
+        private void btBack_Click(object sender, EventArgs e)
+        {
+            main.changePanelBack();
+            this.Dispose();
+        }
+
         private void checkMahasiswa(string nim)
         {
             var sqlconn = new SqlConnection(ConnectionString);
@@ -113,6 +169,7 @@ namespace KeuanganStienus
                         this.dtListTagihan.DataSource = table;
                         DataGridViewColumn colPembayaran = new DataGridViewTextBoxColumn();
                         colPembayaran.HeaderText = "Pembayaran";
+                        colPembayaran.Width = 150;
                         dtListTagihan.Columns[0].HeaderText = "ID Tagihan";
                         dtListTagihan.Columns[1].HeaderText = "NIM";
                         dtListTagihan.Columns[2].HeaderText = "Semester";
@@ -120,6 +177,13 @@ namespace KeuanganStienus
                         dtListTagihan.Columns[4].HeaderText = "Jumlah";
                         dtListTagihan.Columns[5].HeaderText = "Kekurangan";
                         dtListTagihan.Columns[6].HeaderText = "Status";
+                        dtListTagihan.Columns[0].Width = 190;
+                        dtListTagihan.Columns[1].Width = 150;
+                        dtListTagihan.Columns[2].Width = 150;
+                        dtListTagihan.Columns[3].Width = 250;
+                        dtListTagihan.Columns[4].Width = 150;
+                        dtListTagihan.Columns[5].Width = 150;
+                        dtListTagihan.Columns[6].Width = 150;
                         dtListTagihan.Columns.AddRange(colPembayaran);
                         for(int i=0; i<7;i++)
                         {

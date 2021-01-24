@@ -46,6 +46,9 @@ namespace KeuanganStienus
             // 
             this.dtListMahasiswa.AllowUserToAddRows = false;
             this.dtListMahasiswa.AllowUserToDeleteRows = false;
+            this.dtListMahasiswa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtListMahasiswa.BackgroundColor = System.Drawing.Color.White;
             this.dtListMahasiswa.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -70,7 +73,7 @@ namespace KeuanganStienus
             this.dtListMahasiswa.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtListMahasiswa.RowTemplate.Height = 28;
             this.dtListMahasiswa.Size = new System.Drawing.Size(1004, 443);
-            this.dtListMahasiswa.TabIndex = 0;
+            this.dtListMahasiswa.TabIndex = 1;
             this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtListMahasiswa_CellDoubleClick);
             // 
             // tbSearch
@@ -79,7 +82,7 @@ namespace KeuanganStienus
             this.tbSearch.Location = new System.Drawing.Point(161, 106);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(283, 31);
-            this.tbSearch.TabIndex = 1;
+            this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // label1
@@ -94,12 +97,14 @@ namespace KeuanganStienus
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.btBack);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1028, 90);
-            this.panel2.TabIndex = 17;
+            this.panel2.TabIndex = 2;
             // 
             // btBack
             // 
@@ -110,19 +115,21 @@ namespace KeuanganStienus
             this.btBack.Location = new System.Drawing.Point(23, 12);
             this.btBack.Name = "btBack";
             this.btBack.Size = new System.Drawing.Size(70, 70);
-            this.btBack.TabIndex = 9;
+            this.btBack.TabIndex = 0;
             this.btBack.UseVisualStyleBackColor = true;
             this.btBack.Click += new System.EventHandler(this.btBack_Click);
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(376, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(276, 52);
             this.label6.TabIndex = 8;
             this.label6.Text = "Edit Tagihan";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditTagihan_EditList
             // 
@@ -140,7 +147,6 @@ namespace KeuanganStienus
             this.Text = "EditTagihan";
             ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

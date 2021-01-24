@@ -102,6 +102,7 @@
     <Compile Include="EditTagihan_Password.Designer.cs">
       <DependentUpon>EditTagihan_Password.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,11 +139,41 @@
     <Compile Include="Pengaturan.Designer.cs">
       <DependentUpon>Pengaturan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pengaturan_EditPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pengaturan_EditPassword.Designer.cs">
+      <DependentUpon>Pengaturan_EditPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun.Designer.cs">
+      <DependentUpon>Pengaturan_KelolaAkun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun_Pass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun_Pass.Designer.cs">
+      <DependentUpon>Pengaturan_KelolaAkun_Pass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun_Uname.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pengaturan_KelolaAkun_Uname.Designer.cs">
+      <DependentUpon>Pengaturan_KelolaAkun_Uname.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pengaturan_Password.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Pengaturan_Password.Designer.cs">
       <DependentUpon>Pengaturan_Password.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pengaturan_TambahAkun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pengaturan_TambahAkun.Designer.cs">
+      <DependentUpon>Pengaturan_TambahAkun.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,8 +236,23 @@
     <EmbeddedResource Include="Pengaturan.resx">
       <DependentUpon>Pengaturan.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pengaturan_EditPassword.resx">
+      <DependentUpon>Pengaturan_EditPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pengaturan_KelolaAkun.resx">
+      <DependentUpon>Pengaturan_KelolaAkun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pengaturan_KelolaAkun_Pass.resx">
+      <DependentUpon>Pengaturan_KelolaAkun_Pass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pengaturan_KelolaAkun_Uname.resx">
+      <DependentUpon>Pengaturan_KelolaAkun_Uname.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pengaturan_Password.resx">
       <DependentUpon>Pengaturan_Password.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pengaturan_TambahAkun.resx">
+      <DependentUpon>Pengaturan_TambahAkun.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
