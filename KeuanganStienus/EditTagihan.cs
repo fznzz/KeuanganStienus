@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeuanganStienus
@@ -32,11 +25,40 @@ namespace KeuanganStienus
 
         private void btEditTagihan_Click(object sender, EventArgs e)
         {
-            EditTagihan_EditList editTagihan = new EditTagihan_EditList();
-            editTagihan.TopLevel = false;
-            editTagihan.AutoScroll = false;
-            editTagihan.main = main;
+            EditTagihan_EditList editTagihan = new EditTagihan_EditList
+            {
+                TopLevel = false,
+                AutoScroll = false,
+                main = main
+            };
+            editTagihan.RefreshMahasiswa();
             main.changePanelContent(editTagihan);
+            main.lastform1 = this;
+            main.formlevel = 1;
+        }
+
+        private void btPembayaran_Click(object sender, EventArgs e)
+        {
+            EditTagihan_HistoriPembayaran histori = new EditTagihan_HistoriPembayaran();
+            histori.TopLevel = false;
+            histori.AutoScroll = false;
+            histori.main = main;
+            histori.deployData();
+            main.changePanelContent(histori);
+            main.lastform1 = this;
+            main.formlevel = 1;
+        }
+
+        private void btEditStatus_Click(object sender, EventArgs e)
+        {
+            EditTagihan_EditStatus status = new EditTagihan_EditStatus
+            {
+                TopLevel = false,
+                AutoScroll = false,
+                main = main
+            };
+            status.deployData();
+            main.changePanelContent(status);
             main.lastform1 = this;
             main.formlevel = 1;
         }

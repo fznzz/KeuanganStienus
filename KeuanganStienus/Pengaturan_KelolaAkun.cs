@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace KeuanganStienus
 {
@@ -15,9 +10,8 @@ namespace KeuanganStienus
     {
         private const string selectQuery = "Select username from logincr";
         private const string deleteQuery = "delete from logincr where username=@uname";
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-        SqlConnection conn;
-        SqlCommand cmd;
+        MySqlConnection conn;
+        MySqlCommand cmd;
         Pengaturan_KelolaAkun_Uname gantiUname;
         Pengaturan_KelolaAkun_Pass gantiPass;
         public MainMenu main { get; set; }
@@ -28,8 +22,8 @@ namespace KeuanganStienus
         public void refreshAkun()
         {
             tbSearch.Clear();
-            using (var connection = new SqlConnection(ConnectionString))
-            using (var adapter = new SqlDataAdapter(selectQuery,connection))
+            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString))
+            using (var adapter = new MySqlDataAdapter(selectQuery,connection))
             {
                 var table = new DataTable();
                 adapter.Fill(table);
@@ -124,8 +118,8 @@ namespace KeuanganStienus
                 {
                     if (selectedRowIndexValue() != "master")
                     {
-                        conn = new SqlConnection(ConnectionString);
-                        cmd = new SqlCommand(deleteQuery, conn);
+                        conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        cmd = new MySqlCommand(deleteQuery, conn);
                         cmd.Parameters.AddWithValue("@uname", selectedRowIndexValue());
                         conn.Open();
                         cmd.ExecuteNonQuery();

@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -17,10 +11,9 @@ namespace KeuanganStienus
         EditTagihan editTagihan;
         public MainMenu main { get; set; }
         private const string selectQuery = "select * from logincr where username='master'";
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-        SqlConnection conn;
-        SqlCommand cmd;
-        SqlDataReader reader;
+        MySqlConnection conn;
+        MySqlCommand cmd;
+        MySqlDataReader reader;
         string temp, pwd;
         public EditTagihan_Password()
         {
@@ -35,8 +28,8 @@ namespace KeuanganStienus
         private void passwordChecker()
         {
             pwd = passwordHashing(tbPassword.Text);
-            conn = new SqlConnection(ConnectionString);
-            cmd = new SqlCommand(selectQuery, conn);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            cmd = new MySqlCommand(selectQuery, conn);
             conn.Open();
             using (reader = cmd.ExecuteReader())
             {

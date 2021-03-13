@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using System.Security.Cryptography;
-
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace KeuanganStienus
 {
     public partial class Pengaturan_EditPassword : Form
     {
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
         private const string selectQuery = "select * from logincr where username=@uname";
         private const string updateQuery = "update logincr set password=@pswd where username=@uname";
         public MainMenu main { get; set; }
         public string currentAdmin { get; set; }
-        SqlConnection conn, conn2;
-        SqlCommand cmd, cmd2;
-        SqlDataReader reader;
+        MySqlConnection conn, conn2;
+        MySqlCommand cmd, cmd2;
+        MySqlDataReader reader;
         private string pswd;
         private string tempA;
         private string tempB;
@@ -71,8 +63,8 @@ namespace KeuanganStienus
             else
             {
                 pswd = passwordHashing(tbNewPass.Text);
-                conn = new SqlConnection(ConnectionString);
-                cmd = new SqlCommand(selectQuery, conn);
+                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                cmd = new MySqlCommand(selectQuery, conn);
                 cmd.Parameters.AddWithValue("@uname", tbUname.Text);
                 conn.Open();
                 using (reader = cmd.ExecuteReader())
@@ -88,8 +80,8 @@ namespace KeuanganStienus
                     if (tempA == uname && tempB == pswdh)
                     {
                         //change password
-                        conn2 = new SqlConnection(ConnectionString);
-                        cmd2 = new SqlCommand(updateQuery, conn2);
+                        conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        cmd2 = new MySqlCommand(updateQuery, conn2);
                         cmd2.Parameters.AddWithValue("@pswd", pswd);
                         cmd2.Parameters.AddWithValue("@uname", uname);
                         conn2.Open();

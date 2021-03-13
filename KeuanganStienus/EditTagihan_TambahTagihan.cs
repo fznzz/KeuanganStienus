@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -16,13 +11,12 @@ namespace KeuanganStienus
         public MainMenu main { get; set; }
         string namaTagihan, kodeTagihan, jurusan, kelas, semesterTagihan, angkatan, nimlike, jurusanKode;
         int jumlahTagihan;
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
         private const string selectQuery = "select * from mahasiswa where kelas=@kelas and nim like @nimlike";
         private const string insertQuery = "insert into tagihan values (@tagihanid, @nim, @semester, @namatagihan, " +
             "@jumlah, @sisa, @status)";
-        SqlConnection conn,conn2;
-        SqlCommand cmdInsert;
-        SqlDataAdapter cmdSelect;
+        MySqlConnection conn,conn2;
+        MySqlCommand cmdInsert;
+        MySqlDataAdapter cmdSelect;
         public EditTagihan edit { get; set; }
         private void btBack_Click(object sender, EventArgs e)
         {
@@ -74,9 +68,9 @@ namespace KeuanganStienus
                 if (dialogResult == DialogResult.Yes)
                 {
                     nimlike = angkatan + jurusanKode + "%";
-                    conn = new SqlConnection(ConnectionString);
-                    conn2 = new SqlConnection(ConnectionString);
-                    cmdSelect = new SqlDataAdapter(selectQuery, conn);
+                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    cmdSelect = new MySqlDataAdapter(selectQuery, conn);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@kelas", kelas);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@nimlike", nimlike);
                     using (conn)
@@ -97,7 +91,7 @@ namespace KeuanganStienus
                         conn2.Open();
                         for (int i = 0; i < nimArray.Length; i++)
                         {
-                            cmdInsert = new SqlCommand(insertQuery, conn2);
+                            cmdInsert = new MySqlCommand(insertQuery, conn2);
                             cmdInsert.Parameters.AddWithValue("@tagihanid", nimArray[i] + kodeTagihan);
                             cmdInsert.Parameters.AddWithValue("@nim", nimArray[i]);
                             cmdInsert.Parameters.AddWithValue("@semester", semesterTagihan);

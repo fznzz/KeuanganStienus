@@ -60,7 +60,8 @@ namespace KeuanganStienus
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dtListMahasiswa.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtListMahasiswa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtListMahasiswa.Location = new System.Drawing.Point(12, 156);
+            this.dtListMahasiswa.Location = new System.Drawing.Point(11, 125);
+            this.dtListMahasiswa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtListMahasiswa.Name = "dtListMahasiswa";
             this.dtListMahasiswa.ReadOnly = true;
             this.dtListMahasiswa.RowHeadersWidth = 62;
@@ -72,16 +73,17 @@ namespace KeuanganStienus
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dtListMahasiswa.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtListMahasiswa.RowTemplate.Height = 28;
-            this.dtListMahasiswa.Size = new System.Drawing.Size(1004, 443);
+            this.dtListMahasiswa.Size = new System.Drawing.Size(1036, 498);
             this.dtListMahasiswa.TabIndex = 1;
             this.dtListMahasiswa.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtListMahasiswa_CellDoubleClick);
             // 
             // tbSearch
             // 
             this.tbSearch.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSearch.Location = new System.Drawing.Point(161, 106);
+            this.tbSearch.Location = new System.Drawing.Point(143, 85);
+            this.tbSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(283, 31);
+            this.tbSearch.Size = new System.Drawing.Size(252, 27);
             this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
@@ -89,9 +91,9 @@ namespace KeuanganStienus
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 109);
+            this.label1.Location = new System.Drawing.Point(11, 87);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(143, 24);
+            this.label1.Size = new System.Drawing.Size(119, 20);
             this.label1.TabIndex = 2;
             this.label1.Text = "Cari Mahasiswa";
             // 
@@ -102,8 +104,9 @@ namespace KeuanganStienus
             this.panel2.Controls.Add(this.btBack);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1028, 90);
+            this.panel2.Size = new System.Drawing.Size(1058, 72);
             this.panel2.TabIndex = 2;
             // 
             // btBack
@@ -112,9 +115,10 @@ namespace KeuanganStienus
             this.btBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack.Location = new System.Drawing.Point(23, 12);
+            this.btBack.Location = new System.Drawing.Point(20, 10);
+            this.btBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(70, 70);
+            this.btBack.Size = new System.Drawing.Size(62, 56);
             this.btBack.TabIndex = 0;
             this.btBack.UseVisualStyleBackColor = true;
             this.btBack.Click += new System.EventHandler(this.btBack_Click);
@@ -124,25 +128,26 @@ namespace KeuanganStienus
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(376, 18);
+            this.label6.Location = new System.Drawing.Point(334, 7);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(276, 52);
+            this.label6.Size = new System.Drawing.Size(389, 58);
             this.label6.TabIndex = 8;
             this.label6.Text = "Edit Tagihan";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditTagihan_EditList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1028, 611);
+            this.ClientSize = new System.Drawing.Size(1058, 633);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.dtListMahasiswa);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "EditTagihan_EditList";
             this.Text = "EditTagihan";
             ((System.ComponentModel.ISupportInitialize)(this.dtListMahasiswa)).EndInit();

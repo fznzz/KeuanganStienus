@@ -1,45 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace KeuanganStienus
 {
     public partial class InputPembayaran : Form
     {
         public string currentadmin { get; set; }
-        private const string getQuery = "Select * from mahasiswa";
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
+        private const string getQuery = "Select * from mahasiswa where status='Aktif'";
         public MainMenu main { get; set; }
         public InputPembayaran()
         {
             InitializeComponent();
-            refreshMahasiswa();
         }
-        private void refreshMahasiswa()
+        public void refreshMahasiswa()
         {
             tbSearch.Clear();
-            using (var connection = new SqlConnection(ConnectionString))
-            using (var adapter = new SqlDataAdapter(getQuery, connection))
+            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString))
+            using (var adapter = new MySqlDataAdapter(getQuery, connection))
             {
                 var table = new DataTable();
                 adapter.Fill(table);
                 this.dtListMahasiswa.DataSource = table;
-                dtListMahasiswa.Columns[0].HeaderText = "NIM";
-                dtListMahasiswa.Columns[1].HeaderText = "Nama";
-                dtListMahasiswa.Columns[2].HeaderText = "Jurusan";
-                dtListMahasiswa.Columns[3].HeaderText = "Kelas";
+                for (int i = 0; i < dtListMahasiswa.Columns.Count; i++)
+                {
+                    dtListMahasiswa.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
+                    dtListMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
             }
-            dtListMahasiswa.Columns[0].Width= 150;
-            dtListMahasiswa.Columns[1].Width = 150;
-            dtListMahasiswa.Columns[2].Width = 150;
-            dtListMahasiswa.Columns[3].Width = 150;
         }
 
         private void datagridMahasiswa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

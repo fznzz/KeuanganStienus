@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
+using System.Configuration;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace KeuanganStienus
 {
     public partial class Pengaturan_TambahAkun : Form
     {
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-        SqlConnection conn;
-        SqlCommand cmd;
+        MySqlConnection conn;
+        MySqlCommand cmd;
         public MainMenu main { get; set; }
         private string uname, pass, passR,pswdh;
         private string tempA;
-        private string tempB;
 
         public Pengaturan_TambahAkun()
         {
@@ -81,13 +73,13 @@ namespace KeuanganStienus
         private void createClick()
         {
             pswdh = passwordHashing(pass);
-            conn = new SqlConnection(ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
             string getcred = "Select * from logincr where username=@uname";
-            SqlCommand oCmd = new SqlCommand(getcred, conn);
-            oCmd.Parameters.AddWithValue("@uname", uname);
+            cmd = new MySqlCommand(getcred, conn);
+            cmd.Parameters.AddWithValue("@uname", uname);
             conn.Open();
             //membaca database mengecek kesamaan username
-            using (SqlDataReader oReader = oCmd.ExecuteReader())
+            using (MySqlDataReader oReader = cmd.ExecuteReader())
             {
                 while (oReader.Read())
                 {
@@ -101,7 +93,7 @@ namespace KeuanganStienus
             }
             else
             {
-                SqlCommand cmd = new SqlCommand("insert into logincr values(@uname, @pswdh)", conn);
+                cmd = new MySqlCommand("insert into logincr values(@uname, @pswdh)", conn);
                 cmd.Parameters.AddWithValue("@uname", uname);
                 cmd.Parameters.AddWithValue("@pswdh", pswdh);
                 cmd.ExecuteNonQuery();

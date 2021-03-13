@@ -52,8 +52,9 @@ namespace KeuanganStienus
             this.panel2.Controls.Add(this.btBack);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1028, 90);
+            this.panel2.Size = new System.Drawing.Size(1058, 72);
             this.panel2.TabIndex = 2;
             // 
             // btBack
@@ -62,9 +63,10 @@ namespace KeuanganStienus
             this.btBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btBack.FlatAppearance.BorderSize = 0;
             this.btBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btBack.Location = new System.Drawing.Point(23, 12);
+            this.btBack.Location = new System.Drawing.Point(20, 10);
+            this.btBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btBack.Name = "btBack";
-            this.btBack.Size = new System.Drawing.Size(70, 70);
+            this.btBack.Size = new System.Drawing.Size(62, 56);
             this.btBack.TabIndex = 0;
             this.btBack.UseVisualStyleBackColor = true;
             this.btBack.Click += new System.EventHandler(this.btBack_Click);
@@ -74,9 +76,9 @@ namespace KeuanganStienus
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.Font = new System.Drawing.Font("Microsoft YaHei", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(317, 19);
+            this.label6.Location = new System.Drawing.Point(282, 15);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(394, 52);
+            this.label6.Size = new System.Drawing.Size(494, 42);
             this.label6.TabIndex = 8;
             this.label6.Text = "Tambah Akun";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,9 +94,10 @@ namespace KeuanganStienus
             this.panel1.Controls.Add(this.tbNewPassRepeat);
             this.panel1.Controls.Add(this.tbNewPass);
             this.panel1.Controls.Add(this.tbUname);
-            this.panel1.Location = new System.Drawing.Point(227, 96);
+            this.panel1.Location = new System.Drawing.Point(202, 77);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(573, 503);
+            this.panel1.Size = new System.Drawing.Size(653, 546);
             this.panel1.TabIndex = 0;
             // 
             // label4
@@ -102,9 +105,9 @@ namespace KeuanganStienus
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(41, 141);
+            this.label4.Location = new System.Drawing.Point(108, 185);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(196, 24);
+            this.label4.Size = new System.Drawing.Size(164, 20);
             this.label4.TabIndex = 7;
             this.label4.Text = "Ulangi Password Baru";
             // 
@@ -113,9 +116,9 @@ namespace KeuanganStienus
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(41, 104);
+            this.label3.Location = new System.Drawing.Point(108, 155);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 24);
+            this.label3.Size = new System.Drawing.Size(114, 20);
             this.label3.TabIndex = 6;
             this.label3.Text = "Password Baru";
             // 
@@ -124,9 +127,9 @@ namespace KeuanganStienus
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(41, 67);
+            this.label1.Location = new System.Drawing.Point(108, 126);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 24);
+            this.label1.Size = new System.Drawing.Size(82, 20);
             this.label1.TabIndex = 4;
             this.label1.Text = "Username";
             // 
@@ -134,9 +137,10 @@ namespace KeuanganStienus
             // 
             this.tbNewPassRepeat.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbNewPassRepeat.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNewPassRepeat.Location = new System.Drawing.Point(273, 138);
+            this.tbNewPassRepeat.Location = new System.Drawing.Point(315, 182);
+            this.tbNewPassRepeat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbNewPassRepeat.Name = "tbNewPassRepeat";
-            this.tbNewPassRepeat.Size = new System.Drawing.Size(250, 31);
+            this.tbNewPassRepeat.Size = new System.Drawing.Size(223, 27);
             this.tbNewPassRepeat.TabIndex = 2;
             this.tbNewPassRepeat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbNewPassRepeat_KeyDown);
             // 
@@ -144,18 +148,20 @@ namespace KeuanganStienus
             // 
             this.tbNewPass.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbNewPass.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNewPass.Location = new System.Drawing.Point(273, 101);
+            this.tbNewPass.Location = new System.Drawing.Point(315, 153);
+            this.tbNewPass.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbNewPass.Name = "tbNewPass";
-            this.tbNewPass.Size = new System.Drawing.Size(250, 31);
+            this.tbNewPass.Size = new System.Drawing.Size(223, 27);
             this.tbNewPass.TabIndex = 1;
             // 
             // tbUname
             // 
             this.tbUname.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbUname.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbUname.Location = new System.Drawing.Point(273, 64);
+            this.tbUname.Location = new System.Drawing.Point(315, 123);
+            this.tbUname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbUname.Name = "tbUname";
-            this.tbUname.Size = new System.Drawing.Size(250, 31);
+            this.tbUname.Size = new System.Drawing.Size(223, 27);
             this.tbUname.TabIndex = 0;
             // 
             // btNext
@@ -165,9 +171,10 @@ namespace KeuanganStienus
             this.btNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btNext.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btNext.ForeColor = System.Drawing.Color.White;
-            this.btNext.Location = new System.Drawing.Point(860, 531);
+            this.btNext.Location = new System.Drawing.Point(908, 569);
+            this.btNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btNext.Name = "btNext";
-            this.btNext.Size = new System.Drawing.Size(156, 68);
+            this.btNext.Size = new System.Drawing.Size(139, 54);
             this.btNext.TabIndex = 1;
             this.btNext.Text = "Tambah";
             this.btNext.UseVisualStyleBackColor = false;
@@ -175,14 +182,15 @@ namespace KeuanganStienus
             // 
             // Pengaturan_TambahAkun
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1028, 611);
+            this.ClientSize = new System.Drawing.Size(1058, 633);
             this.Controls.Add(this.btNext);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Pengaturan_TambahAkun";
             this.Text = "Pengaturan_TambahAkun";
             this.panel2.ResumeLayout(false);

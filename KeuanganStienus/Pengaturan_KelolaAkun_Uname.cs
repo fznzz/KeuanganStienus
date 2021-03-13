@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace KeuanganStienus
 {
     public partial class Pengaturan_KelolaAkun_Uname : Form
     {
         private const string updateQuery = "update logincr set username=@unamenew where username=@unameold";
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-
         public MainMenu main { get; set; }
         public Pengaturan_KelolaAkun kelolaAkun { get; set; }
         public string unameOld { get; set; }
-        SqlConnection conn;
-        SqlCommand cmd;
+        MySqlConnection conn;
+        MySqlCommand cmd;
         public Pengaturan_KelolaAkun_Uname()
         {
             InitializeComponent();
@@ -33,8 +25,8 @@ namespace KeuanganStienus
 
         private void resetUname()
         {
-            conn = new SqlConnection(ConnectionString);
-            cmd = new SqlCommand(updateQuery, conn);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            cmd = new MySqlCommand(updateQuery, conn);
             var unameNew = tbUnameNew.Text;
             cmd.Parameters.AddWithValue("@unameold", unameOld);
             cmd.Parameters.AddWithValue("@unamenew", unameNew);

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
+using System.Configuration;
+using ClosedXML.Excel;
 
 namespace KeuanganStienus
 {
@@ -19,15 +15,17 @@ namespace KeuanganStienus
         public string kelasRef { get; set; }
         public MainMenu main { get; set; }
         private const string selectQuery = "select * from tagihan where nim=@nim";
-        private const string updateQuery = "update tagihan set tagihanID=@tagihanidnew,nim=@nim,semesterTagihan=@semester,jumlahTagihan=@jumlah," +
-            "sisaTagihan=@sisa,statusTagihan=@status where tagihanID=@tagihanid";
-        private const string changesQuery = ""; //buat tabel CHANGES di SQL
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-        SqlDataAdapter adapter;
-        SqlConnection conn,conn2;
-        SqlCommand cmd;
+        private const string updateQuery = "update tagihan set tagihanID=@tagihanidnew,nim=@nim,semesterTagihan=@semester,namaTagihan=@namatag," +
+            "jumlahTagihan=@jumlah,sisaTagihan=@sisa,statusTagihan=@status where tagihanID=@tagihanid";
+        private const string changesQuery = "insert into changes (changeCode,adminChanger,whatChanges,datetime,catatan) " +
+            "values (@cc,@admin,@wc,NOW(),@catatan)"; //buat tabel CHANGES di SQL
+        private const string deleteQuery = "delete from tagihan where tagihanID=@tagihanid";
+        MySqlDataAdapter adapter;
+        MySqlConnection conn,conn2;
+        MySqlCommand cmd;
         DataTable initData;
         bool[] dataChanged;
+        string[] tagihanIdOld;
         public EditTagihan_EditList_Detail()
         {
             InitializeComponent();
@@ -44,8 +42,8 @@ namespace KeuanganStienus
         public void deployDataGridView()
         {
             initData = new DataTable();
-            conn = new SqlConnection(ConnectionString);
-            adapter = new SqlDataAdapter(selectQuery, conn);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            adapter = new MySqlDataAdapter(selectQuery, conn);
             adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
             using (conn)
             using (adapter)
@@ -54,27 +52,137 @@ namespace KeuanganStienus
                 adapter.Fill(table);
                 adapter.Fill(initData);
                 this.dtListTagihan.DataSource = table;
-                dtListTagihan.Columns[0].HeaderText = "ID Tagihan";
-                dtListTagihan.Columns[1].HeaderText = "NIM";
+                for (int i = 0; i < dtListTagihan.Columns.Count; i++)
+                {
+                    dtListTagihan.Columns[i].HeaderText = main.HeaderName("hdTagihan" + i.ToString());
+                    dtListTagihan.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                }
+                dtListTagihan.Columns[0].ReadOnly = true;
                 dtListTagihan.Columns[1].ReadOnly = true;
-                dtListTagihan.Columns[2].HeaderText = "Semester";
-                dtListTagihan.Columns[3].HeaderText = "Nama Tagihan";
-                dtListTagihan.Columns[4].HeaderText = "Jumlah";
-                dtListTagihan.Columns[5].HeaderText = "Sisa";
-                dtListTagihan.Columns[6].HeaderText = "Status";
-                dtListTagihan.Columns[0].Width = 190;
-                dtListTagihan.Columns[1].Width = 150;
-                dtListTagihan.Columns[2].Width = 150;
-                dtListTagihan.Columns[3].Width = 250;
-                dtListTagihan.Columns[4].Width = 150;
-                dtListTagihan.Columns[5].Width = 150;
-                dtListTagihan.Columns[6].Width = 150;
+            }
+            tagihanIdOld = new string[dtListTagihan.Rows.Count];
+            for (int i = 0; i < dtListTagihan.Rows.Count; i++)
+            {
+                tagihanIdOld[i] = dtListTagihan.Rows[i].Cells[0].Value.ToString();
             }
         }
         private void btBack_Click(object sender, EventArgs e)
         {
             main.changePanelBack();
             main.formlevel = 1;
+        }
+
+        private void dtListTagihan_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("Data yang dimasukkan tidak valid");
+        }
+
+        private void btHapus_Click(object sender, EventArgs e)
+        {
+            hapus();
+        }
+
+        private void hapus()
+        {
+            DialogResult dialogResult = MessageBox.Show("Apakah anda yakin akan menghapus data dari mahasiswa " +
+                "ini? Segala perubahan akan tercatat di Histori Pembayaran.",
+                "Peringatan!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string promptValue = Prompt.ShowDialog("Masukkan Catatan untuk Penghapusan");
+                if (promptValue != "")
+                {
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    cmd = new MySqlCommand(deleteQuery, conn2);
+                    cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(0));
+                    conn2.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd = new MySqlCommand(changesQuery, conn2);
+                    cmd.Parameters.AddWithValue("@cc", selectedRowIndexValue(0));
+                    cmd.Parameters.AddWithValue("@admin", main.currentadmin);
+                    cmd.Parameters.AddWithValue("@wc", "Penghapusan pada tagihan " + selectedRowIndexValue(0));
+                    cmd.Parameters.AddWithValue("@catatan", promptValue);
+                    cmd.ExecuteNonQuery();
+                    conn2.Close();
+                    MessageBox.Show("Data tagihan " + selectedRowIndexValue(0) + " berhasil dihapus!");
+                    deployData();
+                }
+                else
+                {
+                    MessageBox.Show("Mohon berikan catatan untuk data yang akan dihapus");
+                }
+            }
+        }
+
+        private string selectedRowIndexValue(int indexx)
+        {
+            int selectedindex = dtListTagihan.CurrentCell.RowIndex;
+            string value = dtListTagihan.Rows[selectedindex].Cells[indexx].Value.ToString();
+            return value;
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+            export();
+        }
+
+        private void export()
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        var sqlcmd = new MySqlCommand(selectQuery);
+                        sqlcmd.Parameters.AddWithValue("@nim", nimRef);
+                        sqlcmd.Connection = sqlcon;
+                        using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))
+                        {
+                            using (DataTable dt = new DataTable())
+                            {
+                                adp.Fill(dt);
+                                for (int i = 0; i < dt.Columns.Count; i++)
+                                {
+                                    dt.Columns[i].ColumnName = main.HeaderName("hdTagihan" + i.ToString());
+                                }
+                                using (XLWorkbook wb = new XLWorkbook())
+                                {
+                                    var sheetId = wb.Worksheets.Add("Identitas");
+                                    sheetId.Cell("A1").Value = "Identitas Mahasiswa";
+                                    sheetId.Cell("A1").Style.Font.FontSize = 14;
+                                    sheetId.Cell("A1").Style.Font.Bold = true;
+                                    sheetId.Cell("A1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                    sheetId.Cell("A1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                                    sheetId.Range("A1:D2").Merge();
+                                    sheetId.Cell(4, 2).Value = "Nama";
+                                    sheetId.Cell(4, 3).Value = ":";
+                                    sheetId.Cell(4, 4).Value = namaRef;
+                                    sheetId.Cell(5, 2).Value = "NIM :";
+                                    sheetId.Cell(5, 3).Value = ":";
+                                    sheetId.Cell(5, 4).Value = nimRef;
+                                    sheetId.Cell(6, 2).Value = "Jurusan :";
+                                    sheetId.Cell(6, 3).Value = ":";
+                                    sheetId.Cell(6, 4).Value = jurusanRef;
+                                    sheetId.Cell(7, 2).Value = "Kelas :";
+                                    sheetId.Cell(7, 3).Value = ":";
+                                    sheetId.Cell(7, 4).Value = kelasRef;
+                                    sheetId.Columns("B", "D").AdjustToContents();
+                                    var sheetTagihan = wb.Worksheets.Add(dt, "Daftar Tagihan");
+                                    sheetTagihan.Columns("A", "G").AdjustToContents();
+                                    wb.SaveAs(sfd.FileName);
+                                }
+                            }
+                        }
+                        MessageBox.Show("Berhasil menyimpan file!");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
         }
 
         private void btNext_Click(object sender, EventArgs e)
@@ -84,37 +192,60 @@ namespace KeuanganStienus
                 "Peringatan!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
-                //update data tagihan, insert into pembayaran
-                dataChanged = new bool[dtListTagihan.Rows.Count];
-                for (int i = 0; i < dtListTagihan.Rows.Count; i++)
+                string promptValue = Prompt.ShowDialog("Masukkan Catatan untuk Perubahan");
+                if(promptValue!="")
                 {
-                    for (int j = 0; j < dtListTagihan.Columns.Count; j++)
+                    //update data tagihan, insert into pembayaran
+                    dataChanged = new bool[dtListTagihan.Rows.Count];
+                    for (int i = 0; i < dtListTagihan.Rows.Count; i++)
                     {
-                        if(dtListTagihan.Rows[i].Cells[j].Value.ToString()!=initData.Rows[i].ItemArray[j].ToString())
+                        for (int j = 0; j < dtListTagihan.Columns.Count; j++)
                         {
-                            MessageBox.Show("detect: "+dtListTagihan.Rows[i].Cells[j].Value.ToString());
-                            dataChanged[i] = true;
+                            if (dtListTagihan.Rows[i].Cells[j].Value.ToString() != initData.Rows[i].ItemArray[j].ToString())
+                            {
+                                dataChanged[i] = true;
+                            }
                         }
                     }
-                }
-                conn2 = new SqlConnection(ConnectionString);
-                conn2.Open();
-                for (int i = 0; i < dataChanged.Length; i++)
-                {
-                    if(dataChanged[i]==true)
+                    for (int index = 0; index < dataChanged.Length; index++)
                     {
-                        //update to tagihan
-                        cmd = new SqlCommand(updateQuery, conn2);
-                        cmd.Parameters.AddWithValue("@tagihanidnew", dtListTagihan.Rows[i].Cells[0].Value.ToString());
-                        cmd.Parameters.AddWithValue("@nim", dtListTagihan.Rows[i].Cells[1].Value.ToString());
-                        cmd.Parameters.AddWithValue("@semester", dtListTagihan.Rows[i].Cells[2].Value.ToString());
-                        cmd.Parameters.AddWithValue("@jumlah", int.Parse(dtListTagihan.Rows[i].Cells[3].Value.ToString()));
-                        cmd.Parameters.AddWithValue("@sisa", int.Parse(dtListTagihan.Rows[i].Cells[4].Value.ToString()));
-                        cmd.Parameters.AddWithValue("@status", dtListTagihan.Rows[i].Cells[5].Value.ToString());
-                        cmd.ExecuteNonQuery();
-                        //insert into changes
+                        if (dataChanged[index] == true)
+                        {
+                            MessageBox.Show("Index " + index + " is true");
+                        }
                     }
-                    MessageBox.Show(dataChanged[i].ToString());
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    conn2.Open();
+                    for (int i = 0; i < dataChanged.Length; i++)
+                    {
+                        if (dataChanged[i] == true)
+                        {
+                            //update to tagihan
+                            cmd = new MySqlCommand(updateQuery, conn2);
+                            cmd.Parameters.AddWithValue("@tagihanidnew", dtListTagihan.Rows[i].Cells[0].Value.ToString());
+                            cmd.Parameters.AddWithValue("@nim", dtListTagihan.Rows[i].Cells[1].Value.ToString());
+                            cmd.Parameters.AddWithValue("@semester", dtListTagihan.Rows[i].Cells[2].Value.ToString());
+                            cmd.Parameters.AddWithValue("@namatag", dtListTagihan.Rows[i].Cells[3].Value.ToString());
+                            cmd.Parameters.AddWithValue("@jumlah", int.Parse(dtListTagihan.Rows[i].Cells[4].Value.ToString()));
+                            cmd.Parameters.AddWithValue("@sisa", int.Parse(dtListTagihan.Rows[i].Cells[5].Value.ToString()));
+                            cmd.Parameters.AddWithValue("@status", dtListTagihan.Rows[i].Cells[6].Value.ToString());
+                            cmd.Parameters.AddWithValue("@tagihanid", tagihanIdOld[i]);
+                            cmd.ExecuteNonQuery();
+                            //insert into changes
+                            cmd = new MySqlCommand(changesQuery, conn2);
+                            cmd.Parameters.AddWithValue("@cc", tagihanIdOld[i]);
+                            cmd.Parameters.AddWithValue("@admin", main.currentadmin);
+                            cmd.Parameters.AddWithValue("@wc", "Perubahan pada tagihan " + tagihanIdOld[i]);
+                            cmd.Parameters.AddWithValue("@catatan",promptValue);
+                            cmd.ExecuteNonQuery();
+                        }
+                        MessageBox.Show(i + dataChanged[i].ToString());
+                    }
+                    conn2.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Mohon berikan catatan untuk data yang diubah");
                 }
             }
         }

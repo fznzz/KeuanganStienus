@@ -1,14 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-
 
 namespace KeuanganStienus
 {
@@ -45,12 +36,12 @@ namespace KeuanganStienus
         {
             timerJam.Enabled = true;
             btMenu1();
+            lbLABELADMIN.Text += currentadmin;
         }
 
         private void geserPanelSide(Button btDock)
         {
             pnSide.Top = btDock.Top;
-
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -65,11 +56,14 @@ namespace KeuanganStienus
 
         private void btMenu1()
         {
-            menu1 = new DataMahasiswa();
-            menu1.TopLevel = false;
-            menu1.AutoScroll = true;
-            menu1.FormBorderStyle = FormBorderStyle.None;
-            menu1.main = this;
+            menu1 = new DataMahasiswa
+            {
+                TopLevel = false,
+                AutoScroll = true,
+                FormBorderStyle = FormBorderStyle.None,
+                main = this
+            };
+            menu1.deployData();
             changePanelContent(menu1);
             lastform1 = menu1;
             geserPanelSide(btMenuDataMahasiswa);
@@ -83,6 +77,7 @@ namespace KeuanganStienus
             menu2.AutoScroll = true;
             menu2.FormBorderStyle = FormBorderStyle.None;
             menu2.main = this;
+            menu2.refreshMahasiswa();
             changePanelContent(menu2);
             lastform1 = menu2;
             geserPanelSide(btMenuInputPembayaran);
@@ -188,6 +183,77 @@ namespace KeuanganStienus
         {
             currentform.Width = pnContent.Width;
             currentform.Height = pnContent.Height;
+        }
+        public string HeaderName(string hdname)
+        {
+            switch (hdname)
+            {
+                case "hdMahasiswa0":
+                    return "NIM";
+                case "hdMahasiswa1":
+                    return "Nama";
+                case "hdMahasiswa2":
+                    return "Jurusan";
+                case "hdMahasiswa3":
+                    return "Kelas";
+                case "hdMahasiswa4":
+                    return "Angkatan";
+                case "hdMahasiswa5":
+                    return "Deposit";
+                case "hdMahasiswa6":
+                    return "Status";
+                case "hdTagihan0":
+                    return "ID Tagihan";
+                case "hdTagihan1":
+                    return "NIM";
+                case "hdTagihan2":
+                    return "Semester Tagihan";
+                case "hdTagihan3":
+                    return "Nama Tagihan";
+                case "hdTagihan4":
+                    return "Jumlah Tagihan";
+                case "hdTagihan5":
+                    return "Kekurangan";
+                case "hdTagihan6":
+                    return "Status";
+                case "hdPembayaran0":
+                    return "ID Pembayaran";
+                case "hdPembayaran1":
+                    return "ID Tagihan";
+                case "hdPembayaran2":
+                    return "NIM";
+                case "hdPembayaran3":
+                    return "Jumlah Pembayaran";
+                case "hdPembayaran4":
+                    return "Tanggal Pembayaran";
+                case "hdPembayaran5":
+                    return "Admin Penerima";
+                case "hdPerubahan0":
+                    return "ID Perubahan";
+                case "hdPerubahan1":
+                    return "ID Data yang Diubah";
+                case "hdPerubahan2":
+                    return "Admin Pengubah";
+                case "hdPerubahan3":
+                    return "Perubahan";
+                case "hdPerubahan4":
+                    return "Tanggal Perubahan";
+                case "hdPerubahan5":
+                    return "Catatan Perubahan";
+                default:
+                    return "Ini adalah bug, lapor ke developer";
+            }
+        }
+        public class HeaderNames
+        {
+
+            public const string hdMahasiswa1 = "NIM";
+            public const string hdMahasiswa2 = "Nama";
+            public const string hdMahasiswa3 = "Jurusan";
+            public const string hdMahasiswa4 = "Kelas";
+            public const string hdMahasiswa5 = "Angkatan";
+            public const string hdMahasiswa6 = "Deposit";
+            public const string hdMahasiswa7 = "Status";
         }
     }
 }

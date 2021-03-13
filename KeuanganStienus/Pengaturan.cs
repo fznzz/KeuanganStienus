@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeuanganStienus
@@ -15,6 +8,7 @@ namespace KeuanganStienus
         Pengaturan_EditPassword editPassword;
         Pengaturan_KelolaAkun hapusAkun;
         Pengaturan_TambahAkun tambahAkun;
+        Pengaturan_Perubahan perubahan;
         Pengaturan_Password gatekeeper;
         public MainMenu main { get; set; }
         public Pengaturan()
@@ -35,6 +29,11 @@ namespace KeuanganStienus
         private void btHapusAkun_Click(object sender, EventArgs e)
         {
             bukaGatekeeper("hapus");
+        }
+        private void btHistori_Click(object sender, EventArgs e)
+        {
+            bukaGatekeeper("perubahan");
+            
         }
         public void bukaTambahAkun()
         {
@@ -76,6 +75,19 @@ namespace KeuanganStienus
             main.lastform1 = this;
             main.formlevel = 1;
         }
+        public void bukaPerubahan()
+        {
+            perubahan = new Pengaturan_Perubahan
+            {
+                TopLevel = false,
+                AutoScroll = false,
+                main = main
+            };
+            perubahan.deployData();
+            main.changePanelContent(perubahan);
+            main.lastform1 = this;
+            main.formlevel = 1;
+        }
         private void bukaGatekeeper(string o)
         {
             gatekeeper = new Pengaturan_Password
@@ -88,5 +100,7 @@ namespace KeuanganStienus
             };
             main.changePanelContent(gatekeeper);
         }
+
+        
     }
 }

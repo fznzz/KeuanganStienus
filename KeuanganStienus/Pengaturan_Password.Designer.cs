@@ -45,8 +45,9 @@ namespace KeuanganStienus
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.tbPassword);
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1029, 528);
+            this.panel1.Size = new System.Drawing.Size(1059, 422);
             this.panel1.TabIndex = 0;
             // 
             // btNext
@@ -56,9 +57,10 @@ namespace KeuanganStienus
             this.btNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btNext.FlatAppearance.BorderSize = 0;
             this.btNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btNext.Location = new System.Drawing.Point(667, 288);
+            this.btNext.Location = new System.Drawing.Point(665, 230);
+            this.btNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btNext.Name = "btNext";
-            this.btNext.Size = new System.Drawing.Size(60, 60);
+            this.btNext.Size = new System.Drawing.Size(53, 48);
             this.btNext.TabIndex = 1;
             this.btNext.UseVisualStyleBackColor = true;
             this.btNext.Click += new System.EventHandler(this.btNext_Click);
@@ -70,9 +72,9 @@ namespace KeuanganStienus
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(112, 237);
+            this.label1.Location = new System.Drawing.Point(172, 190);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(803, 31);
+            this.label1.Size = new System.Drawing.Size(672, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "Untuk mengakses menu ini, silakan masukkan master password :";
             // 
@@ -80,21 +82,23 @@ namespace KeuanganStienus
             // 
             this.tbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbPassword.Font = new System.Drawing.Font("Microsoft YaHei", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbPassword.Location = new System.Drawing.Point(351, 297);
+            this.tbPassword.Location = new System.Drawing.Point(384, 238);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
-            this.tbPassword.Size = new System.Drawing.Size(293, 37);
+            this.tbPassword.Size = new System.Drawing.Size(261, 32);
             this.tbPassword.TabIndex = 0;
             this.tbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPassword_KeyDown);
             // 
             // Pengaturan_Password
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1028, 611);
+            this.ClientSize = new System.Drawing.Size(1058, 633);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Pengaturan_Password";
             this.Text = "Pengaturan_Password";
             this.panel1.ResumeLayout(false);

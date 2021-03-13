@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using System.Configuration;
 
 namespace KeuanganStienus
 {
     public partial class Pengaturan_Password : Form
     {
         private const string selectQuery = "select * from logincr where username='master'";
-        private const string ConnectionString = "Data Source=LAPTOP-TRVBE94C\\SQLEXPRESS;Initial Catalog=stienus;Persist Security Info=True;User ID=stienusadmin;Password=abcd1234";
-        SqlConnection conn;
-        SqlCommand cmd;
-        SqlDataReader reader;
+        MySqlConnection conn;
+        MySqlCommand cmd;
+        MySqlDataReader reader;
         string temp, pwd;
         public MainMenu main { get; set; }
         public Pengaturan pengaturan { get; set; }
@@ -36,8 +29,8 @@ namespace KeuanganStienus
         private void passwordChecker()
         {
             pwd = passwordHashing(tbPassword.Text);                 //hash password
-            conn = new SqlConnection(ConnectionString);             //buat SqlConnection
-            cmd = new SqlCommand(selectQuery, conn);                //buat SqlCommand
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);             //buat SqlConnection
+            cmd = new MySqlCommand(selectQuery, conn);                //buat SqlCommand
             conn.Open();                                    
             using(reader = cmd.ExecuteReader())                     //membaca tabel menggunakan reader dengan command dari SqlCommand
             {
@@ -57,6 +50,10 @@ namespace KeuanganStienus
                             break;
                         case "hapus":                               //buka pengaturan hapus akun
                             pengaturan.bukaHapusAkun();
+                            this.Dispose();
+                            break;
+                        case "perubahan":
+                            pengaturan.bukaPerubahan();
                             this.Dispose();
                             break;
                     }
