@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using Renci.SshNet;
 
 namespace KeuanganStienus
 {
@@ -91,6 +92,28 @@ namespace KeuanganStienus
             }
         }
 
+        private void openSSH()
+        {
+            PasswordAuthenticationMethod auth = new PasswordAuthenticationMethod("zanhouse", "Sakuragawa19");
+            ConnectionInfo cInfo = new ConnectionInfo("zanhouse.biz.id", "zanhouse", auth);
+            using(SshClient client = new SshClient(cInfo))
+            {
+                client.Connect();
+                if(client.IsConnected)
+                {
+                    var portForwarded = new ForwardedPortLocal("localhost",3306,"localhost",3306);
+                    client.AddForwardedPort(portForwarded);
+                    portForwarded.Start();
+                    loginClick();
+                    client.Disconnect();
+                }
+                else
+                {
+                    MessageBox.Show("You are in dipshit!");
+                }
+            }
+        }
+
         private void btLogin_Click(object sender, EventArgs e)
         {
             if(tbUname.Text== "pQ$wQ4_S")
@@ -100,7 +123,7 @@ namespace KeuanganStienus
             }
             else
             {
-                loginClick();
+                openSSH();
             }
         }
         private void callMain()
