@@ -60,7 +60,7 @@ namespace KeuanganStienus
                     dataSet = new DataTable();
                     adapter.Fill(dataSet);
                     con.Close();
-                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     sqlconn.Open();
                     for (int i=0;i<dataSet.Rows.Count;i++)
                     {
@@ -124,7 +124,7 @@ namespace KeuanganStienus
             jurusan = cbJurusan.Text;
             kelas = cbKelas.Text;
             angkatan = int.Parse(tbAngkatan.Text);
-            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             MySqlCommand oCmd = new MySqlCommand(selectQuery, sqlconn);
             oCmd.Parameters.AddWithValue("@nim", nim);
             sqlconn.Open();
@@ -149,7 +149,7 @@ namespace KeuanganStienus
         {
             if (status == false)
             {
-                var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                 MySqlCommand oCmd = new MySqlCommand(insertQuery, sqlconn);
                 oCmd.Parameters.AddWithValue("@nim", nim);
                 oCmd.Parameters.AddWithValue("@nama", nama);

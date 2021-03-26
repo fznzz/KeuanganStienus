@@ -59,7 +59,7 @@ namespace KeuanganStienus
             var kelasUp = cbKelas.Text;
             var angkatanUp = tbAngkatan.Text;
             var statusUp = tbStatus.Text;
-            con = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            con = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             cmd = new MySqlCommand(updateQuery, con);
             cmd.Parameters.AddWithValue("@nimOld",nimRef);
             cmd.Parameters.AddWithValue("@nimNew", nimUp);

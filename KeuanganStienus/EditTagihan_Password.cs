@@ -28,7 +28,7 @@ namespace KeuanganStienus
         private void passwordChecker()
         {
             pwd = passwordHashing(tbPassword.Text);
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             cmd = new MySqlCommand(selectQuery, conn);
             conn.Open();
             using (reader = cmd.ExecuteReader())

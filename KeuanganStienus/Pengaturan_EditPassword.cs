@@ -63,7 +63,7 @@ namespace KeuanganStienus
             else
             {
                 pswd = passwordHashing(tbNewPass.Text);
-                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                 cmd = new MySqlCommand(selectQuery, conn);
                 cmd.Parameters.AddWithValue("@uname", tbUname.Text);
                 conn.Open();
@@ -80,7 +80,7 @@ namespace KeuanganStienus
                     if (tempA == uname && tempB == pswdh)
                     {
                         //change password
-                        conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         cmd2 = new MySqlCommand(updateQuery, conn2);
                         cmd2.Parameters.AddWithValue("@pswd", pswd);
                         cmd2.Parameters.AddWithValue("@uname", uname);

@@ -27,7 +27,7 @@ namespace KeuanganStienus
         }
         public void deployData()
         {
-            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             var cmd = new MySqlCommand("select deposit from mahasiswa where nim=@nim", conn);
             cmd.Parameters.AddWithValue("@nim", nimRef);
             conn.Open();
@@ -248,7 +248,7 @@ namespace KeuanganStienus
 
         private void checkMahasiswa(string nim)
         {
-            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             MySqlCommand oCmd = new MySqlCommand(selectMahasiswaQuery, sqlconn);
             oCmd.Parameters.AddWithValue("@nim", nim);
             sqlconn.Open();
@@ -264,7 +264,7 @@ namespace KeuanganStienus
                 {
                     tbNama.Text = tempB;
                     //mulai isi datagridview
-                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     var adapter = new MySqlDataAdapter(selectTagihanQuery, connection);
                     adapter.SelectCommand.Parameters.AddWithValue("@nim", nim);
                     using (connection)

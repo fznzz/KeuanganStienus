@@ -22,7 +22,7 @@ namespace KeuanganStienus
         public void refreshAkun()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString))
+            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
             using (var adapter = new MySqlDataAdapter(selectQuery,connection))
             {
                 var table = new DataTable();
@@ -118,7 +118,7 @@ namespace KeuanganStienus
                 {
                     if (selectedRowIndexValue() != "master")
                     {
-                        conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         cmd = new MySqlCommand(deleteQuery, conn);
                         cmd.Parameters.AddWithValue("@uname", selectedRowIndexValue());
                         conn.Open();

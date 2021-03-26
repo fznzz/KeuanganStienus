@@ -44,7 +44,7 @@ namespace KeuanganStienus
             tbNama.Text = namaRef;
             tbJurusan.Text = jurusanRef;
             tbKelas.Text = kelasRef;
-            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             var adapter = new MySqlDataAdapter(tagihanQuery, connection);
             adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
             using (connection)
@@ -70,7 +70,7 @@ namespace KeuanganStienus
             tbNama.Text = namaRef;
             tbJurusan.Text = jurusanRef;
             tbKelas.Text = kelasRef;
-            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             var adapter = new MySqlDataAdapter(hispembayaranQuery, connection);
             adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
             using (connection)
@@ -120,7 +120,7 @@ namespace KeuanganStienus
                 }
                 else
                 {
-                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     string getcred = "Select * from changes where changeCode=@code";
                     MySqlCommand oCmd = new MySqlCommand(getcred, sqlconn);
                     oCmd.Parameters.AddWithValue("@code", selectedRowIndexValue(0));
@@ -150,7 +150,7 @@ namespace KeuanganStienus
                                 if (promptValue != "")
                                 {
                                     //mencatatat penghapusan pembayaran terpilih dengan menambah pembayaran negatif
-                                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                                     cmd = new MySqlCommand(insertPembayaranQuery, conn);
                                     cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
                                     cmd.Parameters.AddWithValue("@nim", selectedRowIndexValue(2));
@@ -175,7 +175,7 @@ namespace KeuanganStienus
                                     cmd.ExecuteNonQuery();
                                     conn.Close();
                                     //menambahkan kembali ke tagihan aktif
-                                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                                     cmd = new MySqlCommand(selectTagihanQuery, connection);
                                     cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
                                     connection.Open();
@@ -229,7 +229,7 @@ namespace KeuanganStienus
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         var sqlcmd = new MySqlCommand("select nim,semestertagihan,namatagihan,jumlahtagihan," +
                             "sisatagihan,statustagihan from tagihan where nim=@nim", sqlcon);
                         sqlcmd.Parameters.AddWithValue("@nim", nimRef);
@@ -242,7 +242,7 @@ namespace KeuanganStienus
                                 {
                                     dt.Columns[i].ColumnName = main.HeaderName("hdMahasiswa" + i.ToString());
                                 }
-                                var sqlcon2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                                var sqlcon2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                                 var sqlcmd2 = new MySqlCommand("select bayarID,tagihanID,jumlahbayar,tanggalbayar" +
                                     ",adminbayar from hispembayaran where nim=@nim", sqlcon2);
                                 sqlcmd2.Parameters.AddWithValue("@nim", nimRef);

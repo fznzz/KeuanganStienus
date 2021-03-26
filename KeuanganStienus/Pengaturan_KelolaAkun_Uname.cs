@@ -25,7 +25,7 @@ namespace KeuanganStienus
 
         private void resetUname()
         {
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             cmd = new MySqlCommand(updateQuery, conn);
             var unameNew = tbUnameNew.Text;
             cmd.Parameters.AddWithValue("@unameold", unameOld);

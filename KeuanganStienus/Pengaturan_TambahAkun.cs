@@ -73,7 +73,7 @@ namespace KeuanganStienus
         private void createClick()
         {
             pswdh = passwordHashing(pass);
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             string getcred = "Select * from logincr where username=@uname";
             cmd = new MySqlCommand(getcred, conn);
             cmd.Parameters.AddWithValue("@uname", uname);

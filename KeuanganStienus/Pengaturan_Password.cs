@@ -29,7 +29,7 @@ namespace KeuanganStienus
         private void passwordChecker()
         {
             pwd = passwordHashing(tbPassword.Text);                 //hash password
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);             //buat SqlConnection
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);             //buat SqlConnection
             cmd = new MySqlCommand(selectQuery, conn);                //buat SqlCommand
             conn.Open();                                    
             using(reader = cmd.ExecuteReader())                     //membaca tabel menggunakan reader dengan command dari SqlCommand

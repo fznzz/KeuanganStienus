@@ -29,7 +29,7 @@ namespace KeuanganStienus
 
         public void deployData()
         {
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             using(conn)
             using(MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery,conn))
             {
@@ -76,7 +76,7 @@ namespace KeuanganStienus
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         var sqlcmd = new MySqlCommand();
                         sqlcmd.Connection = sqlcon;
                         switch (isAll)

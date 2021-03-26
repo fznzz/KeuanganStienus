@@ -44,7 +44,7 @@ namespace KeuanganStienus
             semester = tbSemesterTagihan.Text;
             namaTagihan = tbNamaTagihan.Text;
             jumlahTagihan = tbJumlahTagihan.Text;
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             cmd = new MySqlCommand(insertQuery, conn);
             cmd.Parameters.AddWithValue("@tagihanid", tagihanID);
             cmd.Parameters.AddWithValue("@nim", nim);

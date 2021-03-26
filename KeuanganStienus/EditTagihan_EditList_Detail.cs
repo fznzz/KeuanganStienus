@@ -42,7 +42,7 @@ namespace KeuanganStienus
         public void deployDataGridView()
         {
             initData = new DataTable();
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             adapter = new MySqlDataAdapter(selectQuery, conn);
             adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
             using (conn)
@@ -92,7 +92,7 @@ namespace KeuanganStienus
                 string promptValue = Prompt.ShowDialog("Masukkan Catatan untuk Penghapusan");
                 if (promptValue != "")
                 {
-                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     cmd = new MySqlCommand(deleteQuery, conn2);
                     cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(0));
                     conn2.Open();
@@ -134,7 +134,7 @@ namespace KeuanganStienus
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         var sqlcmd = new MySqlCommand(selectQuery);
                         sqlcmd.Parameters.AddWithValue("@nim", nimRef);
                         sqlcmd.Connection = sqlcon;
@@ -214,7 +214,7 @@ namespace KeuanganStienus
                             MessageBox.Show("Index " + index + " is true");
                         }
                     }
-                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     conn2.Open();
                     for (int i = 0; i < dataChanged.Length; i++)
                     {

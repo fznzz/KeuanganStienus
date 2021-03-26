@@ -18,7 +18,7 @@ namespace KeuanganStienus
         public void refreshMahasiswa()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString))
+            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
             using (var adapter = new MySqlDataAdapter(getQuery, connection))
             {
                 var table = new DataTable();

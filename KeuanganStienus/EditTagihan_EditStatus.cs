@@ -18,7 +18,7 @@ namespace KeuanganStienus
         public void deployData()
         {
             //display data of the table
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             using (conn)
             using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, conn))
             {

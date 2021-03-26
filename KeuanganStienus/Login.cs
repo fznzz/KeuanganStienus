@@ -68,7 +68,7 @@ namespace KeuanganStienus
             uname = tbUname.Text;
             pswd = tbPass.Text;
             pswdh = passwordHashing(pswd);
-            sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             string getcred = "Select * from logincr where username=@uname";
             MySqlCommand oCmd = new MySqlCommand(getcred, sqlconn);
             oCmd.Parameters.AddWithValue("@uname", uname);
@@ -92,38 +92,17 @@ namespace KeuanganStienus
             }
         }
 
-        private void openSSH()
-        {
-            PasswordAuthenticationMethod auth = new PasswordAuthenticationMethod("zanhouse", "Sakuragawa19");
-            ConnectionInfo cInfo = new ConnectionInfo("zanhouse.biz.id", "zanhouse", auth);
-            using(SshClient client = new SshClient(cInfo))
-            {
-                client.Connect();
-                if(client.IsConnected)
-                {
-                    var portForwarded = new ForwardedPortLocal("localhost",3306,"localhost",3306);
-                    client.AddForwardedPort(portForwarded);
-                    portForwarded.Start();
-                    loginClick();
-                    client.Disconnect();
-                }
-                else
-                {
-                    MessageBox.Show("You are in dipshit!");
-                }
-            }
-        }
 
         private void btLogin_Click(object sender, EventArgs e)
         {
             if(tbUname.Text== "pQ$wQ4_S")
             {
                 uname = "First Time Login";
-                callMain();
+                loginClick();
             }
             else
             {
-                openSSH();
+                loginClick();
             }
         }
         private void callMain()

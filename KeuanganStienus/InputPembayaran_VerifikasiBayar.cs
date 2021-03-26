@@ -83,7 +83,7 @@ namespace KeuanganStienus
         {
             if(minDep!=0 || plusDep!=0)
             {
-                var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                 var cmdDep = new MySqlCommand(depositQuery, conn);
                 var cmdPemb = new MySqlCommand(addPembayaranQuery, conn);
                 int depChanges = 0;
@@ -115,7 +115,7 @@ namespace KeuanganStienus
             {
                 bayarDepositOnly();
             }
-            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
             var sqlcomBayar = new MySqlCommand(addPembayaranQuery, conn);
             var sqlcomTagihan = new MySqlCommand(updateTagihanQuery, conn);
             var sqlcomHisBayar = new MySqlCommand(addHisPembayaranQuery, conn);

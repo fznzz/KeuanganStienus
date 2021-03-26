@@ -26,7 +26,7 @@ namespace KeuanganStienus
         public void deployData()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString))
+            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
             using (var adapter = new MySqlDataAdapter(selectQuery, connection))
             {
                 var table = new DataTable();
@@ -111,7 +111,7 @@ namespace KeuanganStienus
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                         var sqlcmd = new MySqlCommand(selectQuery);
                         sqlcmd.Connection = sqlcon;
                         using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))

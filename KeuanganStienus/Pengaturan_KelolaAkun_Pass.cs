@@ -33,7 +33,7 @@ namespace KeuanganStienus
             else
             {
                 pswd = passwordHashing(tbNewPass.Text);
-                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                 cmd = new MySqlCommand(selectQuery, conn);
                 cmd.Parameters.AddWithValue("@uname", tbUname.Text);
                 conn.Open();

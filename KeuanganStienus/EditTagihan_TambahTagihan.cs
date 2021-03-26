@@ -68,8 +68,8 @@ namespace KeuanganStienus
                 if (dialogResult == DialogResult.Yes)
                 {
                     nimlike = angkatan + jurusanKode + "%";
-                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
-                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
+                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
+                    conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
                     cmdSelect = new MySqlDataAdapter(selectQuery, conn);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@kelas", kelas);
                     cmdSelect.SelectCommand.Parameters.AddWithValue("@nimlike", nimlike);
