@@ -3,7 +3,6 @@ using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Data.OleDb;
-using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -19,29 +18,30 @@ namespace KeuanganStienus
         {
             clickTambah();
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
         }
-
         private void back()
         {
             main.changePanelBack();
             this.Dispose();
         }
-
         public DataMahasiswa_TambahMahasiswa()
         {
             InitializeComponent();
         }
-
         private void btImport_Click(object sender, EventArgs e)
         {
-            import();
-            MessageBox.Show("Selesai mengimpor data");
+            try {
+                import();
+                MessageBox.Show("Selesai mengimpor data");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-
         private void import()
         {
             openFileDialog1.Filter = "Excel Office | *.xls; *.xlsx";
@@ -60,38 +60,45 @@ namespace KeuanganStienus
                     dataSet = new DataTable();
                     adapter.Fill(dataSet);
                     con.Close();
-                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                    sqlconn.Open();
-                    for (int i=0;i<dataSet.Rows.Count;i++)
+                    var (sshClient, localPort) = ssh.ConnectSsh();
+                    using (sshClient)
                     {
-                        tempA = "0";
-                        MySqlCommand ncom = new MySqlCommand("select exists(select * from mahasiswa where nim=@nim)", sqlconn);
-                        ncom.Parameters.AddWithValue("@nim", dataSet.Rows[i].ItemArray[0].ToString());
-                        using (MySqlDataReader reader = ncom.ExecuteReader())
+                        MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                        using (var connection = new MySqlConnection(csb.ConnectionString))
                         {
-                            while (reader.Read())
+                            connection.Open();
+                            for (int i = 0; i < dataSet.Rows.Count; i++)
                             {
-                                tempA = reader[0].ToString();
+                                tempA = "0";
+                                MySqlCommand ncom = new MySqlCommand("select exists(select * from mahasiswa where nim=@nim)", connection);
+                                ncom.Parameters.AddWithValue("@nim", dataSet.Rows[i].ItemArray[0].ToString());
+                                using (MySqlDataReader reader = ncom.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        tempA = reader[0].ToString();
+                                    }
+                                }
+                                if (tempA == "0")
+                                {
+                                    MySqlCommand oCmd = new MySqlCommand(insertQuery, connection);
+                                    oCmd.Parameters.AddWithValue("@nim", dataSet.Rows[i].ItemArray[0].ToString());
+                                    oCmd.Parameters.AddWithValue("@nama", dataSet.Rows[i].ItemArray[1].ToString());
+                                    oCmd.Parameters.AddWithValue("@jurusan", dataSet.Rows[i].ItemArray[2].ToString());
+                                    oCmd.Parameters.AddWithValue("@kelas", dataSet.Rows[i].ItemArray[3].ToString());
+                                    oCmd.Parameters.AddWithValue("@angkatan", dataSet.Rows[i].ItemArray[4].ToString());
+                                    oCmd.Parameters.AddWithValue("@status", "Aktif");
+                                    oCmd.ExecuteNonQuery();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Mahasiswa dengan NIM :" + dataSet.Rows[i].ItemArray[0].ToString() + " sudah" +
+                                        " ada dalam database");
+                                }
                             }
-                        }
-                        if(tempA=="0")
-                        {
-                            MySqlCommand oCmd = new MySqlCommand(insertQuery, sqlconn);
-                            oCmd.Parameters.AddWithValue("@nim", dataSet.Rows[i].ItemArray[0].ToString());
-                            oCmd.Parameters.AddWithValue("@nama", dataSet.Rows[i].ItemArray[1].ToString());
-                            oCmd.Parameters.AddWithValue("@jurusan", dataSet.Rows[i].ItemArray[2].ToString());
-                            oCmd.Parameters.AddWithValue("@kelas", dataSet.Rows[i].ItemArray[3].ToString());
-                            oCmd.Parameters.AddWithValue("@angkatan", dataSet.Rows[i].ItemArray[4].ToString());
-                            oCmd.Parameters.AddWithValue("@status", "Aktif");
-                            oCmd.ExecuteNonQuery();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Mahasiswa dengan NIM :" + dataSet.Rows[i].ItemArray[0].ToString() + " sudah" +
-                                " ada dalam database");
+                            connection.Close();
                         }
                     }
-                    sqlconn.Close();
                 }
                 catch (Exception ex)
                 {
@@ -124,24 +131,31 @@ namespace KeuanganStienus
             jurusan = cbJurusan.Text;
             kelas = cbKelas.Text;
             angkatan = int.Parse(tbAngkatan.Text);
-            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            MySqlCommand oCmd = new MySqlCommand(selectQuery, sqlconn);
-            oCmd.Parameters.AddWithValue("@nim", nim);
-            sqlconn.Open();
-            using (MySqlDataReader oReader = oCmd.ExecuteReader())
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                while (oReader.Read())
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    tempA = oReader["nim"].ToString();
-                }
-                sqlconn.Close();
-                if (tempA == nim)
-                {
-                    status = true;
-                }
-                else
-                {
-                    status = false;
+                    MySqlCommand oCmd = new MySqlCommand(selectQuery, connection);
+                    oCmd.Parameters.AddWithValue("@nim", nim);
+                    connection.Open();
+                    using (MySqlDataReader oReader = oCmd.ExecuteReader())
+                    {
+                        while (oReader.Read())
+                        {
+                            tempA = oReader["nim"].ToString();
+                        }
+                        connection.Close();
+                        if (tempA == nim)
+                        {
+                            status = true;
+                        }
+                        else
+                        {
+                            status = false;
+                        }
+                    }
                 }
             }
         }
@@ -149,18 +163,25 @@ namespace KeuanganStienus
         {
             if (status == false)
             {
-                var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                MySqlCommand oCmd = new MySqlCommand(insertQuery, sqlconn);
-                oCmd.Parameters.AddWithValue("@nim", nim);
-                oCmd.Parameters.AddWithValue("@nama", nama);
-                oCmd.Parameters.AddWithValue("@jurusan", jurusan);
-                oCmd.Parameters.AddWithValue("@kelas", kelas);
-                oCmd.Parameters.AddWithValue("@angkatan", angkatan);
-                oCmd.Parameters.AddWithValue("@status", "Aktif");
-                sqlconn.Open();
-                oCmd.ExecuteNonQuery();
-                sqlconn.Close();
-                MessageBox.Show("Data mahasiswa telah ditambah!");
+                var (sshClient, localPort) = ssh.ConnectSsh();
+                using (sshClient)
+                {
+                    MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                    using (var connection = new MySqlConnection(csb.ConnectionString))
+                    {
+                        MySqlCommand oCmd = new MySqlCommand(insertQuery, connection);
+                        oCmd.Parameters.AddWithValue("@nim", nim);
+                        oCmd.Parameters.AddWithValue("@nama", nama);
+                        oCmd.Parameters.AddWithValue("@jurusan", jurusan);
+                        oCmd.Parameters.AddWithValue("@kelas", kelas);
+                        oCmd.Parameters.AddWithValue("@angkatan", angkatan);
+                        oCmd.Parameters.AddWithValue("@status", "Aktif");
+                        connection.Open();
+                        oCmd.ExecuteNonQuery();
+                        connection.Close();
+                        MessageBox.Show("Data mahasiswa telah ditambah!");
+                    }
+                }
             }
             else MessageBox.Show("Mahasiswa dengan NIM yang sama telah ada di database!");
             back();

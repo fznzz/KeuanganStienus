@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -11,7 +9,6 @@ namespace KeuanganStienus
         EditTagihan editTagihan;
         public MainMenu main { get; set; }
         private const string selectQuery = "select * from logincr where username='master'";
-        MySqlConnection conn;
         MySqlCommand cmd;
         MySqlDataReader reader;
         string temp, pwd;
@@ -19,50 +16,46 @@ namespace KeuanganStienus
         {
             InitializeComponent();
         }
-
         private void btNext_Click(object sender, EventArgs e)
         {
             passwordChecker();
         }
-
         private void passwordChecker()
         {
-            pwd = passwordHashing(tbPassword.Text);
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            cmd = new MySqlCommand(selectQuery, conn);
-            conn.Open();
-            using (reader = cmd.ExecuteReader())
+            pwd = hash.passwordHashing(tbPassword.Text);
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                while (reader.Read())
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    temp = reader["password"].ToString();
-                }
-                conn.Close();
-                if (pwd == temp)
-                {
-                    //go to next
-                    editTagihan = new EditTagihan();
-                    editTagihan.TopLevel = false;
-                    editTagihan.AutoScroll = false;
-                    editTagihan.main = main;
-                    main.changePanelContent(editTagihan);
-                    main.lastform1 = editTagihan;
-                }
-                else
-                {
-                    MessageBox.Show("Maaf, password yang anda masukkan salah");
+                    cmd = new MySqlCommand(selectQuery, connection);
+                    connection.Open();
+                    using (reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            temp = reader["password"].ToString();
+                        }
+                        connection.Close();
+                        if (pwd == temp)
+                        {
+                            //go to next
+                            editTagihan = new EditTagihan();
+                            editTagihan.TopLevel = false;
+                            editTagihan.AutoScroll = false;
+                            editTagihan.main = main;
+                            main.changePanelContent(editTagihan);
+                            main.lastform1 = editTagihan;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Maaf, password yang anda masukkan salah");
+                        }
+                    }
                 }
             }
         }
-        private string passwordHashing(string pass)
-        {
-            SHA256Managed MyHash = new SHA256Managed();
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(pass);
-            byte[] hash = MyHash.ComputeHash(data);
-            string hashstr = System.Text.Encoding.ASCII.GetString(hash);
-            return hashstr;
-        }
-
         private void tbPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -68,7 +67,6 @@ namespace KeuanganStienus
                 }
             }
         }
-
         private void btBayar_Click(object sender, EventArgs e)
         {
             if (isDepositOnly == true)
@@ -78,85 +76,95 @@ namespace KeuanganStienus
             else bayarNormal();
             back();
         }
-
         private void bayarDepositOnly()
         {
             if(minDep!=0 || plusDep!=0)
             {
-                var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                var cmdDep = new MySqlCommand(depositQuery, conn);
-                var cmdPemb = new MySqlCommand(addPembayaranQuery, conn);
-                int depChanges = 0;
-                if (minDep != 0)
+                var (sshClient, localPort) = ssh.ConnectSsh();
+                using (sshClient)
                 {
-                    depChanges = -1 * minDep;
+                    MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                    using (var connection = new MySqlConnection(csb.ConnectionString))
+                    {
+                        var cmdDep = new MySqlCommand(depositQuery, connection);
+                        var cmdPemb = new MySqlCommand(addPembayaranQuery, connection);
+                        int depChanges = 0;
+                        if (minDep != 0)
+                        {
+                            depChanges = -1 * minDep;
+                        }
+                        if (plusDep != 0)
+                        {
+                            depChanges = plusDep;
+                        }
+                        connection.Open();
+                        cmdDep.Parameters.AddWithValue("@nim", nimRef);
+                        cmdDep.Parameters.AddWithValue("@jumlahdep", depChanges);
+                        cmdDep.ExecuteNonQuery();
+                        cmdPemb.Parameters.AddWithValue("@tagihanid", nimRef + "dep");
+                        cmdPemb.Parameters.AddWithValue("@nim", nimRef);
+                        cmdPemb.Parameters.AddWithValue("@jumlahbayar", depChanges);
+                        cmdPemb.Parameters.AddWithValue("@adminbayar", currentadmin);
+                        cmdPemb.ExecuteNonQuery();
+                        connection.Close();
+                        MessageBox.Show("Perubahan deposit telah tersimpan");
+                    }
                 }
-                if (plusDep != 0)
-                {
-                    depChanges = plusDep;
-                }
-                conn.Open();
-                cmdDep.Parameters.AddWithValue("@nim", nimRef);
-                cmdDep.Parameters.AddWithValue("@jumlahdep", depChanges);
-                cmdDep.ExecuteNonQuery();
-                cmdPemb.Parameters.AddWithValue("@tagihanid", nimRef + "dep");
-                cmdPemb.Parameters.AddWithValue("@nim", nimRef);
-                cmdPemb.Parameters.AddWithValue("@jumlahbayar", depChanges);
-                cmdPemb.Parameters.AddWithValue("@adminbayar", currentadmin);
-                cmdPemb.ExecuteNonQuery();
-                conn.Close();
-                MessageBox.Show("Perubahan deposit telah tersimpan");
             }
         }
-
         private void bayarNormal()
         {
             if(minDep!=0||plusDep!=0)
             {
                 bayarDepositOnly();
             }
-            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            var sqlcomBayar = new MySqlCommand(addPembayaranQuery, conn);
-            var sqlcomTagihan = new MySqlCommand(updateTagihanQuery, conn);
-            var sqlcomHisBayar = new MySqlCommand(addHisPembayaranQuery, conn);
-            int selisih;
-            string statusCurrent;
-            conn.Open();
-            for (int i = 0; i < rownumber; i++)
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                //input ke pembayaran
-                sqlcomBayar.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
-                sqlcomBayar.Parameters.AddWithValue("@nim", nimRef);
-                sqlcomBayar.Parameters.AddWithValue("@jumlahbayar", jumlahBayar[i]);
-                sqlcomBayar.Parameters.AddWithValue("@adminbayar", currentadmin);
-                selisih = sisaTagihan[i] - jumlahBayar[i];
-                if (selisih == 0)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    statusCurrent = "Lunas";
+                    var sqlcomBayar = new MySqlCommand(addPembayaranQuery, connection);
+                    var sqlcomTagihan = new MySqlCommand(updateTagihanQuery, connection);
+                    var sqlcomHisBayar = new MySqlCommand(addHisPembayaranQuery, connection);
+                    int selisih;
+                    string statusCurrent;
+                    connection.Open();
+                    for (int i = 0; i < rownumber; i++)
+                    {
+                        //input ke pembayaran
+                        sqlcomBayar.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
+                        sqlcomBayar.Parameters.AddWithValue("@nim", nimRef);
+                        sqlcomBayar.Parameters.AddWithValue("@jumlahbayar", jumlahBayar[i]);
+                        sqlcomBayar.Parameters.AddWithValue("@adminbayar", currentadmin);
+                        selisih = sisaTagihan[i] - jumlahBayar[i];
+                        if (selisih == 0)
+                        {
+                            statusCurrent = "Lunas";
+                        }
+                        else { statusCurrent = "Belum Lunas"; }
+                        //input ke pembayaran
+                        sqlcomHisBayar.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
+                        sqlcomHisBayar.Parameters.AddWithValue("@nim", nimRef);
+                        sqlcomHisBayar.Parameters.AddWithValue("@jumlahbayar", jumlahBayar[i]);
+                        sqlcomHisBayar.Parameters.AddWithValue("@adminbayar", currentadmin);
+                        //update ke tagihan
+                        sqlcomTagihan.Parameters.AddWithValue("@sisatagihan", selisih);
+                        sqlcomTagihan.Parameters.AddWithValue("@statustagihan", statusCurrent);
+                        sqlcomTagihan.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
+                        sqlcomBayar.ExecuteNonQuery();
+                        sqlcomHisBayar.ExecuteNonQuery();
+                        sqlcomTagihan.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    MessageBox.Show("Pembayaran telah diterima");
                 }
-                else { statusCurrent = "Belum Lunas"; }
-                //input ke pembayaran
-                sqlcomHisBayar.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
-                sqlcomHisBayar.Parameters.AddWithValue("@nim", nimRef);
-                sqlcomHisBayar.Parameters.AddWithValue("@jumlahbayar", jumlahBayar[i]);
-                sqlcomHisBayar.Parameters.AddWithValue("@adminbayar", currentadmin);
-                //update ke tagihan
-                sqlcomTagihan.Parameters.AddWithValue("@sisatagihan", selisih);
-                sqlcomTagihan.Parameters.AddWithValue("@statustagihan", statusCurrent);
-                sqlcomTagihan.Parameters.AddWithValue("@tagihanid", tagihanID[i]);
-                sqlcomBayar.ExecuteNonQuery();
-                sqlcomHisBayar.ExecuteNonQuery();
-                sqlcomTagihan.ExecuteNonQuery();
             }
-            conn.Close();
-            MessageBox.Show("Pembayaran telah diterima");
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
         }
-
         private void back()
         {
             main.changePanelBack();

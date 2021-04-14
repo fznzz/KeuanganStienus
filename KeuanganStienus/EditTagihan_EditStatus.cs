@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
 
@@ -10,7 +9,6 @@ namespace KeuanganStienus
     {
         public MainMenu main { get; set; }
         private const string selectQuery = "select * from mahasiswa";
-        MySqlConnection conn;
         public EditTagihan_EditStatus()
         {
             InitializeComponent();
@@ -18,36 +16,38 @@ namespace KeuanganStienus
         public void deployData()
         {
             //display data of the table
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            using (conn)
-            using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, conn))
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                //rename column header from mysql column name and control column width
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtHistori.DataSource = table;
-                for (int i = 0; i < dtHistori.Columns.Count; i++)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    dtHistori.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
-                    dtHistori.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        //rename column header from mysql column name and control column width
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        this.dtHistori.DataSource = table;
+                        for (int i = 0; i < dtHistori.Columns.Count; i++)
+                        {
+                            dtHistori.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
+                            dtHistori.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                    }
                 }
             }
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
         }
-
         private void back()
         {
             main.changePanelBack();
             this.Dispose();
         }
-
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-
             if (tbSearch.Text.Length <= 0)
             {
                 deployData();
@@ -71,7 +71,6 @@ namespace KeuanganStienus
             };
             dtHistori.DataSource = bs;
         }
-
         private void dtHistori_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)

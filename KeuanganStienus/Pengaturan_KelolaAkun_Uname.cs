@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -11,37 +10,39 @@ namespace KeuanganStienus
         public MainMenu main { get; set; }
         public Pengaturan_KelolaAkun kelolaAkun { get; set; }
         public string unameOld { get; set; }
-        MySqlConnection conn;
         MySqlCommand cmd;
         public Pengaturan_KelolaAkun_Uname()
         {
             InitializeComponent();
         }
-
         private void btNext_Click(object sender, EventArgs e)
         {
             resetUname();
         }
-
         private void resetUname()
         {
-            conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            cmd = new MySqlCommand(updateQuery, conn);
-            var unameNew = tbUnameNew.Text;
-            cmd.Parameters.AddWithValue("@unameold", unameOld);
-            cmd.Parameters.AddWithValue("@unamenew", unameNew);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            MessageBox.Show("Berhasil mengganti username");
-            conn.Close();
-            back();
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
+            {
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
+                {
+                    cmd = new MySqlCommand(updateQuery, connection);
+                    var unameNew = tbUnameNew.Text;
+                    cmd.Parameters.AddWithValue("@unameold", unameOld);
+                    cmd.Parameters.AddWithValue("@unamenew", unameNew);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Berhasil mengganti username");
+                    connection.Close();
+                    back();
+                }
+            }
         }
-
         public void deployData()
         {
             tbUname.Text = unameOld;
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
@@ -53,7 +54,6 @@ namespace KeuanganStienus
             main.formlevel = 1;
             this.Dispose();
         }
-
         private void tbUnameNew_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))

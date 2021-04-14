@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Renci.SshNet;
 
 namespace KeuanganStienus
 {
@@ -12,14 +14,11 @@ namespace KeuanganStienus
         private const string updateQuery = "update logincr set password=@pswd where username=@uname";
         public MainMenu main { get; set; }
         public string currentAdmin { get; set; }
-        MySqlConnection conn, conn2;
         MySqlCommand cmd, cmd2;
         MySqlDataReader reader;
         private string pswd;
-        private string tempA;
-        private string tempB;
+        private string temp;
         private string uname;
-
         private void btNext_Click(object sender, EventArgs e)
         {
             resetPass();
@@ -32,36 +31,43 @@ namespace KeuanganStienus
             }
             else
             {
-                pswd = passwordHashing(tbNewPass.Text);
-                conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                cmd = new MySqlCommand(selectQuery, conn);
-                cmd.Parameters.AddWithValue("@uname", tbUname.Text);
-                conn.Open();
-                using (reader = cmd.ExecuteReader())
+                var (sshClient, localPort) = ssh.ConnectSsh();
+                using (sshClient)
                 {
-                    while (reader.Read())
+                    MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+
+                    using (var connection = new MySqlConnection(csb.ConnectionString))
                     {
-                        tempA = reader["username"].ToString();
-                    }
-                    conn.Close();
-                    uname = tbUname.Text;
-                    if (tempA == uname)
-                    {
-                        //change password
-                        conn2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["mysqlConnectionString"].ConnectionString);
-                        cmd2 = new MySqlCommand(updateQuery, conn2);
-                        cmd2.Parameters.AddWithValue("@pswd", pswd);
-                        cmd2.Parameters.AddWithValue("@uname", uname);
-                        conn2.Open();
-                        cmd2.ExecuteNonQuery();
-                        conn2.Close();
-                        MessageBox.Show("Password telah diganti");
-                        backClick();
-                    }
-                    else
-                    {
-                        //password doesnt match
-                        MessageBox.Show("Username tidak terdaftar");
+                        pswd = passwordHashing(tbNewPass.Text);
+                        cmd = new MySqlCommand(selectQuery, connection);
+                        cmd.Parameters.AddWithValue("@uname", tbUname.Text);
+                        connection.Open();
+                        using (reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                temp = reader["username"].ToString();
+                            }
+                            connection.Close();
+                            uname = tbUname.Text;
+                            if (temp == uname)
+                            {
+                                //change password
+                                cmd2 = new MySqlCommand(updateQuery, connection);
+                                cmd2.Parameters.AddWithValue("@pswd", pswd);
+                                cmd2.Parameters.AddWithValue("@uname", uname);
+                                connection.Open();
+                                cmd2.ExecuteNonQuery();
+                                connection.Close();
+                                MessageBox.Show("Password telah diganti");
+                                backClick();
+                            }
+                            else
+                            {
+                                //password doesnt match
+                                MessageBox.Show("Username tidak terdaftar");
+                            }
+                        }
                     }
                 }
             }
@@ -74,12 +80,10 @@ namespace KeuanganStienus
             string hashstr = System.Text.Encoding.ASCII.GetString(hash);
             return hashstr;
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             backClick();
         }
-
         private void backClick()
         {
             main.changePanelBack();
@@ -90,7 +94,6 @@ namespace KeuanganStienus
         {
             tbUname.Text = currentAdmin;
         }
-
         private void tbNewPassRepeat_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
@@ -98,8 +101,6 @@ namespace KeuanganStienus
                 resetPass();
             }
         }
-
-        private string pswdh;
         public Pengaturan_KelolaAkun_Pass()
         {
             InitializeComponent();

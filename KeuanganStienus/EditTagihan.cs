@@ -10,7 +10,6 @@ namespace KeuanganStienus
         {
             InitializeComponent();
         }
-
         private void btTambahTagihan_Click(object sender, EventArgs e)
         {
             EditTagihan_TambahTagihan tambahTagihan = new EditTagihan_TambahTagihan();
@@ -22,7 +21,6 @@ namespace KeuanganStienus
             main.lastform1 = this;
             main.formlevel = 1;
         }
-
         private void btEditTagihan_Click(object sender, EventArgs e)
         {
             EditTagihan_EditList editTagihan = new EditTagihan_EditList
@@ -36,7 +34,6 @@ namespace KeuanganStienus
             main.lastform1 = this;
             main.formlevel = 1;
         }
-
         private void btPembayaran_Click(object sender, EventArgs e)
         {
             EditTagihan_HistoriPembayaran histori = new EditTagihan_HistoriPembayaran();
@@ -48,7 +45,6 @@ namespace KeuanganStienus
             main.lastform1 = this;
             main.formlevel = 1;
         }
-
         private void btEditStatus_Click(object sender, EventArgs e)
         {
             EditTagihan_EditStatus status = new EditTagihan_EditStatus

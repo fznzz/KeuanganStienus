@@ -2,7 +2,6 @@
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -18,20 +17,26 @@ namespace KeuanganStienus
         public void refreshMahasiswa()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
-            using (var adapter = new MySqlDataAdapter(getQuery, connection))
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtListMahasiswa.DataSource = table;
-                for (int i = 0; i < dtListMahasiswa.Columns.Count; i++)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    dtListMahasiswa.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
-                    dtListMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    using (var adapter = new MySqlDataAdapter(getQuery, connection))
+                    {
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        this.dtListMahasiswa.DataSource = table;
+                        for (int i = 0; i < dtListMahasiswa.Columns.Count; i++)
+                        {
+                            dtListMahasiswa.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
+                            dtListMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                    }
                 }
             }
         }
-
         private void datagridMahasiswa_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -51,7 +56,6 @@ namespace KeuanganStienus
                 main.formlevel = 1;
             }
         }
-
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             if (tbSearch.Text.Length <= 0) return;
@@ -68,7 +72,6 @@ namespace KeuanganStienus
             }
             (dtListMahasiswa.DataSource as DataTable).DefaultView.RowFilter = string.Format("nama LIKE '%{0}%'", tbSearch.Text);
         }
-
         private void btConn_Click(object sender, EventArgs e)
         {
             refreshMahasiswa();

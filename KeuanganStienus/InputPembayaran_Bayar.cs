@@ -2,7 +2,6 @@
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Configuration;
 
 namespace KeuanganStienus
 {
@@ -27,28 +26,34 @@ namespace KeuanganStienus
         }
         public void deployData()
         {
-            var conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            var cmd = new MySqlCommand("select deposit from mahasiswa where nim=@nim", conn);
-            cmd.Parameters.AddWithValue("@nim", nimRef);
-            conn.Open();
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                while (reader.Read())
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    tbSaldo.Text = reader["deposit"].ToString();
+                    var cmd = new MySqlCommand("select deposit from mahasiswa where nim=@nim", connection);
+                    cmd.Parameters.AddWithValue("@nim", nimRef);
+                    connection.Open();
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tbSaldo.Text = reader["deposit"].ToString();
+                        }
+                        connection.Close();
+                    }
+                    //mengubah informasi textbox menjadi nama dan nim, lalu mengecek data di sql
+                    tbNama.Text = namaRef;
+                    tbNim.Text = nimRef;
+                    checkMahasiswa(nimRef);
                 }
-                conn.Close();
             }
-            //mengubah informasi textbox menjadi nama dan nim, lalu mengecek data di sql
-            tbNama.Text = namaRef;
-            tbNim.Text = nimRef;
-            checkMahasiswa(nimRef);
         }
         private void btNext_Click(object sender, EventArgs e)
         {
             next();
         }
-
         private void next()
         {
             depositOnly = false;
@@ -174,7 +179,6 @@ namespace KeuanganStienus
                 }
             }
         }
-
         private void dtListTagihan_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -194,14 +198,12 @@ namespace KeuanganStienus
                 }
             }
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             bayar.refreshMahasiswa();
             main.changePanelBack();
             this.Dispose();
         }
-
         private void tbMinusDeposit_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -209,7 +211,6 @@ namespace KeuanganStienus
                 e.Handled = true;
             }
         }
-
         private void tbPlusDeposit_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -235,59 +236,62 @@ namespace KeuanganStienus
                 tbMinusDeposit.Enabled = false;
             }
         }
-
         private void tbMinusDeposit_TextChanged(object sender, EventArgs e)
         {
             setEnabled();
         }
-
         private void tbPlusDeposit_TextChanged(object sender, EventArgs e)
         {
             setEnabled();
         }
-
         private void checkMahasiswa(string nim)
         {
-            var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            MySqlCommand oCmd = new MySqlCommand(selectMahasiswaQuery, sqlconn);
-            oCmd.Parameters.AddWithValue("@nim", nim);
-            sqlconn.Open();
-            using (MySqlDataReader oReader = oCmd.ExecuteReader())
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                while (oReader.Read())
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    tempA = oReader["nim"].ToString();
-                    tempB = oReader["nama"].ToString();
-                }
-                sqlconn.Close();
-                if (tempA == nim)
-                {
-                    tbNama.Text = tempB;
-                    //mulai isi datagridview
-                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                    var adapter = new MySqlDataAdapter(selectTagihanQuery, connection);
-                    adapter.SelectCommand.Parameters.AddWithValue("@nim", nim);
-                    using (connection)
-                    using (adapter)
+                    MySqlCommand oCmd = new MySqlCommand(selectMahasiswaQuery, connection);
+                    oCmd.Parameters.AddWithValue("@nim", nim);
+                    connection.Open();
+                    using (MySqlDataReader oReader = oCmd.ExecuteReader())
                     {
-                        var table = new DataTable();
-                        adapter.Fill(table);
-                        this.dtListTagihan.DataSource = table;
-                        DataGridViewColumn colPembayaran = new DataGridViewTextBoxColumn();
-                        colPembayaran.HeaderText = "Pembayaran";
-                        colPembayaran.Width = 150;
-                        for (int i = 0; i < dtListTagihan.Columns.Count; i++)
+                        while (oReader.Read())
                         {
-                            dtListTagihan.Columns[i].HeaderText = main.HeaderName("hdTagihan" + i.ToString());
-                            dtListTagihan.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                            dtListTagihan.Columns[i].ReadOnly = true;
+                            tempA = oReader["nim"].ToString();
+                            tempB = oReader["nama"].ToString();
                         }
-                        dtListTagihan.Columns.AddRange(colPembayaran);
+                        connection.Close();
+                        if (tempA == nim)
+                        {
+                            tbNama.Text = tempB;
+                            //mulai isi datagridview
+                            var adapter = new MySqlDataAdapter(selectTagihanQuery, connection);
+                            adapter.SelectCommand.Parameters.AddWithValue("@nim", nim);
+                            using (connection)
+                            using (adapter)
+                            {
+                                var table = new DataTable();
+                                adapter.Fill(table);
+                                this.dtListTagihan.DataSource = table;
+                                DataGridViewColumn colPembayaran = new DataGridViewTextBoxColumn();
+                                colPembayaran.HeaderText = "Pembayaran";
+                                colPembayaran.Width = 150;
+                                for (int i = 0; i < dtListTagihan.Columns.Count; i++)
+                                {
+                                    dtListTagihan.Columns[i].HeaderText = main.HeaderName("hdTagihan" + i.ToString());
+                                    dtListTagihan.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                                    dtListTagihan.Columns[i].ReadOnly = true;
+                                }
+                                dtListTagihan.Columns.AddRange(colPembayaran);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("NIM Mahasiswa tidak terdaftar");
+                        }
                     }
-                }
-                else
-                {
-                    MessageBox.Show("NIM Mahasiswa tidak terdaftar");
                 }
             }
         }

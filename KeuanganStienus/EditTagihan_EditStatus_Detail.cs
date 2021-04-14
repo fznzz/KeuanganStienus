@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Configuration;
 using System.Windows.Forms;
 
 namespace KeuanganStienus
@@ -18,18 +17,15 @@ namespace KeuanganStienus
         public string angkatanRef { get; set; }
         public int depositRef { get; set; }
         public string statusRef { get; set; }
-        MySqlConnection con;
         MySqlCommand cmd;
         public EditTagihan_EditStatus_Detail()
         {
             InitializeComponent();
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
         }
-
         private void back()
         {
             editstatus.deployData();
@@ -45,12 +41,10 @@ namespace KeuanganStienus
             tbAngkatan.Text=angkatanRef;
             tbStatus.Text=statusRef;
         }
-
         private void btOk_Click(object sender, EventArgs e)
         {
             updateDataMahasiswa();
         }
-
         private void updateDataMahasiswa()
         {
             var namaUp = tbNama.Text;
@@ -59,26 +53,33 @@ namespace KeuanganStienus
             var kelasUp = cbKelas.Text;
             var angkatanUp = tbAngkatan.Text;
             var statusUp = tbStatus.Text;
-            con = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            cmd = new MySqlCommand(updateQuery, con);
-            cmd.Parameters.AddWithValue("@nimOld",nimRef);
-            cmd.Parameters.AddWithValue("@nimNew", nimUp);
-            cmd.Parameters.AddWithValue("@nama", namaUp);
-            cmd.Parameters.AddWithValue("@jurusan", jurusanUp);
-            cmd.Parameters.AddWithValue("@kelas", kelasUp);
-            cmd.Parameters.AddWithValue("@angkatan", angkatanUp);
-            cmd.Parameters.AddWithValue("@status", statusUp);
-            con.Open();
-            int scCheck = cmd.ExecuteNonQuery();
-            con.Close();
-            if(scCheck>0)
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                MessageBox.Show("Data berhasil tersimpan.");
-                back();
-            }
-            else
-            {
-                MessageBox.Show("Data gagal tersimpan.");
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
+                {
+                    cmd = new MySqlCommand(updateQuery, connection);
+                    cmd.Parameters.AddWithValue("@nimOld", nimRef);
+                    cmd.Parameters.AddWithValue("@nimNew", nimUp);
+                    cmd.Parameters.AddWithValue("@nama", namaUp);
+                    cmd.Parameters.AddWithValue("@jurusan", jurusanUp);
+                    cmd.Parameters.AddWithValue("@kelas", kelasUp);
+                    cmd.Parameters.AddWithValue("@angkatan", angkatanUp);
+                    cmd.Parameters.AddWithValue("@status", statusUp);
+                    connection.Open();
+                    int scCheck = cmd.ExecuteNonQuery();
+                    connection.Close();
+                    if (scCheck > 0)
+                    {
+                        MessageBox.Show("Data berhasil tersimpan.");
+                        back();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data gagal tersimpan.");
+                    }
+                }
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using System.Configuration;
 using MySql.Data.MySqlClient;
 using ClosedXML.Excel;
 
@@ -12,30 +11,35 @@ namespace KeuanganStienus
         private const string selectQuery = "Select * from mahasiswa";
         public MainMenu main { get; set; }
         DataMahasiswa_TambahMahasiswa tambah;
-
         public DataMahasiswa()
         {
             InitializeComponent();
         }
-
         private void btConn_Click(object sender, EventArgs e)
         {
             deployData();
         }
-
         public void deployData()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
-            using (var adapter = new MySqlDataAdapter(selectQuery, connection))
+
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtListMahasiswa.DataSource = table;
-                for(int i = 0; i<dtListMahasiswa.Columns.Count; i++)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    dtListMahasiswa.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
-                    dtListMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    using (var adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        this.dtListMahasiswa.DataSource = table;
+                        for (int i = 0; i < dtListMahasiswa.Columns.Count; i++)
+                        {
+                            dtListMahasiswa.Columns[i].HeaderText = main.HeaderName("hdMahasiswa" + i.ToString());
+                            dtListMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                    }
                 }
             }
         }
@@ -85,7 +89,6 @@ namespace KeuanganStienus
                 main.formlevel = 1;
             }
         }
-
         private void btTambah_Click(object sender, EventArgs e)
         {
             tambah = new DataMahasiswa_TambahMahasiswa
@@ -98,40 +101,46 @@ namespace KeuanganStienus
             main.lastform1 = this;
             main.formlevel = 1;
         }
-
         private void btPrint_Click(object sender, EventArgs e)
         {
             export();
         }
         private void export()
         {
+            //export 
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                        var sqlcmd = new MySqlCommand(selectQuery);
-                        sqlcmd.Connection = sqlcon;
-                        using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))
+                        var (sshClient, localPort) = ssh.ConnectSsh();
+                        using (sshClient)
                         {
-                            using (DataTable dt = new DataTable())
+                            MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                            using (var connection = new MySqlConnection(csb.ConnectionString))
                             {
-                                adp.Fill(dt);
-                                for (int i = 0; i < dt.Columns.Count; i++) 
+                                var sqlcmd = new MySqlCommand(selectQuery,connection);
+                                using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))
                                 {
-                                    dt.Columns[i].ColumnName = main.HeaderName("hdMahasiswa" + i.ToString());
+                                    using (DataTable dt = new DataTable())
+                                    {
+                                        adp.Fill(dt);
+                                        for (int i = 0; i < dt.Columns.Count; i++)
+                                        {
+                                            dt.Columns[i].ColumnName = main.HeaderName("hdMahasiswa" + i.ToString());
+                                        }
+                                        using (XLWorkbook wb = new XLWorkbook())
+                                        {
+                                            var sheet = wb.Worksheets.Add(dt, "Daftar Mahasiswa");
+                                            sheet.Columns("A", "G").AdjustToContents();
+                                            wb.SaveAs(sfd.FileName);
+                                        }
+                                    }
                                 }
-                                using (XLWorkbook wb = new XLWorkbook())
-                                {
-                                    var sheet = wb.Worksheets.Add(dt, "Daftar Mahasiswa");
-                                    sheet.Columns("A", "G").AdjustToContents();
-                                    wb.SaveAs(sfd.FileName);
-                                }
+                                MessageBox.Show("Berhasil menyimpan file!");
                             }
                         }
-                        MessageBox.Show("Berhasil menyimpan file!");
                     }
                     catch (Exception ex)
                     {

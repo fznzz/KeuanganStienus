@@ -229,6 +229,7 @@
     <Compile Include="EditTagihan_HistoriPembayaran.Designer.cs">
       <DependentUpon>EditTagihan_HistoriPembayaran.cs</DependentUpon>
     </Compile>
+    <Compile Include="hash.cs" />
     <Compile Include="Pengaturan_Perubahan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,6 +335,7 @@
     <Compile Include="InputPembayaran_VerifikasiBayar.Designer.cs">
       <DependentUpon>InputPembayaran_VerifikasiBayar.cs</DependentUpon>
     </Compile>
+    <Compile Include="ssh.cs" />
     <EmbeddedResource Include="DataMahasiswa_Detail.resx">
       <DependentUpon>DataMahasiswa_Detail.cs</DependentUpon>
     </EmbeddedResource>

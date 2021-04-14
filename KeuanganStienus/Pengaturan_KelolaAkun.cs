@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -10,7 +9,6 @@ namespace KeuanganStienus
     {
         private const string selectQuery = "Select username from logincr";
         private const string deleteQuery = "delete from logincr where username=@uname";
-        MySqlConnection conn;
         MySqlCommand cmd;
         Pengaturan_KelolaAkun_Uname gantiUname;
         Pengaturan_KelolaAkun_Pass gantiPass;
@@ -22,22 +20,27 @@ namespace KeuanganStienus
         public void refreshAkun()
         {
             tbSearch.Clear();
-            using (var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString))
-            using (var adapter = new MySqlDataAdapter(selectQuery,connection))
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                var table = new DataTable();
-                adapter.Fill(table);
-                dtListAkun.DataSource = table;
-                dtListAkun.Columns[0].HeaderText = "Username";
-                dtListAkun.Columns[0].Width = 200;
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
+                {
+                    using (var adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        dtListAkun.DataSource = table;
+                        dtListAkun.Columns[0].HeaderText = "Username";
+                        dtListAkun.Columns[0].Width = 200;
+                    }
+                }
             }
         }
-
         private void btConn_Click(object sender, EventArgs e)
         {
             refreshAkun();
         }
-
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             if (tbSearch.Text.Length <= 0) return;
@@ -59,7 +62,6 @@ namespace KeuanganStienus
             };
             dtListAkun.DataSource = bs;
         }
-
         private void btBack_Click(object sender, EventArgs e)
         {
             back();
@@ -69,7 +71,6 @@ namespace KeuanganStienus
             main.changePanelBack();
             this.Dispose();
         }
-
         private void btGantiPass_Click(object sender, EventArgs e)
         {
             gantiPass = new Pengaturan_KelolaAkun_Pass()
@@ -84,7 +85,6 @@ namespace KeuanganStienus
             main.formlevel = 2;
             main.lastform2 = this;
         }
-
         private void btGantiUsername_Click(object sender, EventArgs e)
         {
             if(selectedRowIndexValue()!="master")
@@ -107,7 +107,6 @@ namespace KeuanganStienus
                 MessageBox.Show("Pilihan tidak valid untuk username tersebut");
             }
         }
-
         private void btHapus_Click(object sender, EventArgs e)
         {
             if(selectedRowIndexValue()!="master")
@@ -118,13 +117,20 @@ namespace KeuanganStienus
                 {
                     if (selectedRowIndexValue() != "master")
                     {
-                        conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                        cmd = new MySqlCommand(deleteQuery, conn);
-                        cmd.Parameters.AddWithValue("@uname", selectedRowIndexValue());
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-                        refreshAkun();
+                        var (sshClient, localPort) = ssh.ConnectSsh();
+                        using (sshClient)
+                        {
+                            MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                            using (var connection = new MySqlConnection(csb.ConnectionString))
+                            {
+                                cmd = new MySqlCommand(deleteQuery, connection);
+                                cmd.Parameters.AddWithValue("@uname", selectedRowIndexValue());
+                                connection.Open();
+                                cmd.ExecuteNonQuery();
+                                connection.Close();
+                                refreshAkun();
+                            }
+                        }
                     }
                 }
             }

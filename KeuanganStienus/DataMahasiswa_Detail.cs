@@ -25,7 +25,6 @@ namespace KeuanganStienus
         public string kelasRef { get; set; }
         public MainMenu main;
         private bool isPembayaran;
-        MySqlConnection conn;
         MySqlCommand cmd;
         string tempA;
         int tempB,tempC;
@@ -44,19 +43,26 @@ namespace KeuanganStienus
             tbNama.Text = namaRef;
             tbJurusan.Text = jurusanRef;
             tbKelas.Text = kelasRef;
-            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            var adapter = new MySqlDataAdapter(tagihanQuery, connection);
-            adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
-            using (connection)
-            using (adapter)
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtMahasiswa.DataSource = table;
-                for (int i = 0; i < dtMahasiswa.Columns.Count; i++)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    dtMahasiswa.Columns[i].HeaderText = main.HeaderName("hdTagihan" + i.ToString());
-                    dtMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    var adapter = new MySqlDataAdapter(tagihanQuery, connection);
+                    adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
+                    using (connection)
+                    using (adapter)
+                    {
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        this.dtMahasiswa.DataSource = table;
+                        for (int i = 0; i < dtMahasiswa.Columns.Count; i++)
+                        {
+                            dtMahasiswa.Columns[i].HeaderText = main.HeaderName("hdTagihan" + i.ToString());
+                            dtMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                    }
                 }
             }
         }
@@ -70,19 +76,26 @@ namespace KeuanganStienus
             tbNama.Text = namaRef;
             tbJurusan.Text = jurusanRef;
             tbKelas.Text = kelasRef;
-            var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            var adapter = new MySqlDataAdapter(hispembayaranQuery, connection);
-            adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
-            using (connection)
-            using (adapter)
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                var table = new DataTable();
-                adapter.Fill(table);
-                this.dtMahasiswa.DataSource = table;
-                for (int i = 0; i < dtMahasiswa.Columns.Count; i++)
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    dtMahasiswa.Columns[i].HeaderText = main.HeaderName("hdPembayaran" + i.ToString());
-                    dtMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    var adapter = new MySqlDataAdapter(hispembayaranQuery, connection);
+                    adapter.SelectCommand.Parameters.AddWithValue("@nim", nimRef);
+                    using (connection)
+                    using (adapter)
+                    {
+                        var table = new DataTable();
+                        adapter.Fill(table);
+                        this.dtMahasiswa.DataSource = table;
+                        for (int i = 0; i < dtMahasiswa.Columns.Count; i++)
+                        {
+                            dtMahasiswa.Columns[i].HeaderText = main.HeaderName("hdPembayaran" + i.ToString());
+                            dtMahasiswa.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        }
+                    }
                 }
             }
         }
@@ -120,85 +133,90 @@ namespace KeuanganStienus
                 }
                 else
                 {
-                    var sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                    string getcred = "Select * from changes where changeCode=@code";
-                    MySqlCommand oCmd = new MySqlCommand(getcred, sqlconn);
-                    oCmd.Parameters.AddWithValue("@code", selectedRowIndexValue(0));
-                    sqlconn.Open();
-                    using (MySqlDataReader oReader = oCmd.ExecuteReader())
+                    var (sshClient, localPort) = ssh.ConnectSsh();
+                    using (sshClient)
                     {
-                        while (oReader.Read())
+                        MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                        using (var connection = new MySqlConnection(csb.ConnectionString))
                         {
-                            tempA = oReader["changeCode"].ToString();
-                        }
-                        sqlconn.Close();
-                        if (tempA == selectedRowIndexValue(0))
-                        {
-                            //error, sudah dihapus
-                            MessageBox.Show("Pembayaran ini telah dihapus");
-                        }
-                        else
-                        {
-                            //do that
-                            if (int.Parse(selectedRowIndexValue(3)) < 0)
+                            string getcred = "Select * from changes where changeCode=@code";
+                            MySqlCommand oCmd = new MySqlCommand(getcred, connection);
+                            oCmd.Parameters.AddWithValue("@code", selectedRowIndexValue(0));
+                            connection.Open();
+                            using (MySqlDataReader oReader = oCmd.ExecuteReader())
                             {
-                                MessageBox.Show("Tidak dapat menghapus histori Penghapusan");
-                            }
-                            else
-                            {
-                                string promptValue = Prompt.ShowDialog("Masukkan Catatan untuk Perubahan");
-                                if (promptValue != "")
+                                while (oReader.Read())
                                 {
-                                    //mencatatat penghapusan pembayaran terpilih dengan menambah pembayaran negatif
-                                    conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                                    cmd = new MySqlCommand(insertPembayaranQuery, conn);
-                                    cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
-                                    cmd.Parameters.AddWithValue("@nim", selectedRowIndexValue(2));
-                                    cmd.Parameters.AddWithValue("@jumlahbayar", -1 * int.Parse(selectedRowIndexValue(3)));
-                                    cmd.Parameters.AddWithValue("@adminbayar", main.currentadmin);
-                                    conn.Open();
-                                    cmd.ExecuteNonQuery();
-                                    conn.Close();
-                                    //tambah ke tabel changes
-                                    cmd = new MySqlCommand(changesQuery, conn);
-                                    cmd.Parameters.AddWithValue("@changecode", selectedRowIndexValue(0));
-                                    cmd.Parameters.AddWithValue("@adminbayar", main.currentadmin);
-                                    cmd.Parameters.AddWithValue("@apayangdiganti", "Menghapus Pembayaran pada Mahasiswa dengan NIM " + selectedRowIndexValue(2) + " sejumlah " + selectedRowIndexValue(3));
-                                    cmd.Parameters.AddWithValue("@catatan", promptValue);
-                                    conn.Open();
-                                    cmd.ExecuteNonQuery();
-                                    conn.Close();
-                                    //hapus hispembayaran
-                                    cmd = new MySqlCommand(deleteHispembayaranQuery, conn);
-                                    cmd.Parameters.AddWithValue("@bayarid", selectedRowIndexValue(0));
-                                    conn.Open();
-                                    cmd.ExecuteNonQuery();
-                                    conn.Close();
-                                    //menambahkan kembali ke tagihan aktif
-                                    var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                                    cmd = new MySqlCommand(selectTagihanQuery, connection);
-                                    cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
-                                    connection.Open();
-                                    using (var rdr = cmd.ExecuteReader())
-                                    {
-                                        while (rdr.Read())
-                                        {
-                                            tempB = int.Parse(rdr["sisaTagihan"].ToString());
-                                        }
-                                        connection.Close();
-                                        tempC = tempB + int.Parse(selectedRowIndexValue(3));
-                                        var comd = new MySqlCommand(updateTagihanQuery, conn);
-                                        comd.Parameters.AddWithValue("@sisa", tempC);
-                                        comd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
-                                        conn.Open();
-                                        comd.ExecuteNonQuery();
-                                        conn.Close();
-                                    }
-                                    deployDataPembayaran();
+                                    tempA = oReader["changeCode"].ToString();
+                                }
+                                connection.Close();
+                                if (tempA == selectedRowIndexValue(0))
+                                {
+                                    //error, sudah dihapus
+                                    MessageBox.Show("Pembayaran ini telah dihapus");
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Mohon masukkan alasan penghapusan pada catatan");
+                                    //do that
+                                    if (int.Parse(selectedRowIndexValue(3)) < 0)
+                                    {
+                                        MessageBox.Show("Tidak dapat menghapus histori Penghapusan");
+                                    }
+                                    else
+                                    {
+                                        string promptValue = Prompt.ShowDialog("Masukkan Catatan untuk Perubahan");
+                                        if (promptValue != "")
+                                        {
+                                            //mencatatat penghapusan pembayaran terpilih dengan menambah pembayaran negatif
+                                            cmd = new MySqlCommand(insertPembayaranQuery, connection);
+                                            cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
+                                            cmd.Parameters.AddWithValue("@nim", selectedRowIndexValue(2));
+                                            cmd.Parameters.AddWithValue("@jumlahbayar", -1 * int.Parse(selectedRowIndexValue(3)));
+                                            cmd.Parameters.AddWithValue("@adminbayar", main.currentadmin);
+                                            connection.Open();
+                                            cmd.ExecuteNonQuery();
+                                            connection.Close();
+                                            //tambah ke tabel changes
+                                            cmd = new MySqlCommand(changesQuery, connection);
+                                            cmd.Parameters.AddWithValue("@changecode", selectedRowIndexValue(0));
+                                            cmd.Parameters.AddWithValue("@adminbayar", main.currentadmin);
+                                            cmd.Parameters.AddWithValue("@apayangdiganti", "Menghapus Pembayaran pada Mahasiswa dengan NIM " + selectedRowIndexValue(2) + " sejumlah " + selectedRowIndexValue(3));
+                                            cmd.Parameters.AddWithValue("@catatan", promptValue);
+                                            connection.Open();
+                                            cmd.ExecuteNonQuery();
+                                            connection.Close();
+                                            //hapus hispembayaran
+                                            cmd = new MySqlCommand(deleteHispembayaranQuery, connection);
+                                            cmd.Parameters.AddWithValue("@bayarid", selectedRowIndexValue(0));
+                                            connection.Open();
+                                            cmd.ExecuteNonQuery();
+                                            connection.Close();
+                                            //menambahkan kembali ke tagihan aktif
+                                            cmd = new MySqlCommand(selectTagihanQuery, connection);
+                                            cmd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
+                                            connection.Open();
+                                            using (var rdr = cmd.ExecuteReader())
+                                            {
+                                                while (rdr.Read())
+                                                {
+                                                    tempB = int.Parse(rdr["sisaTagihan"].ToString());
+                                                }
+                                                connection.Close();
+                                                tempC = tempB + int.Parse(selectedRowIndexValue(3));
+                                                var comd = new MySqlCommand(updateTagihanQuery, connection);
+                                                comd.Parameters.AddWithValue("@sisa", tempC);
+                                                comd.Parameters.AddWithValue("@tagihanid", selectedRowIndexValue(1));
+                                                connection.Open();
+                                                comd.ExecuteNonQuery();
+                                                connection.Close();
+                                            }
+                                            deployDataPembayaran();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Mohon masukkan alasan penghapusan pada catatan");
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -229,66 +247,73 @@ namespace KeuanganStienus
                 {
                     try
                     {
-                        var sqlcon = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                        var sqlcmd = new MySqlCommand("select nim,semestertagihan,namatagihan,jumlahtagihan," +
-                            "sisatagihan,statustagihan from tagihan where nim=@nim", sqlcon);
-                        sqlcmd.Parameters.AddWithValue("@nim", nimRef);
-                        using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))
+                        var (sshClient, localPort) = ssh.ConnectSsh();
+                        using (sshClient)
                         {
-                            using (DataTable dt = new DataTable())
+                            MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                            using (var connection = new MySqlConnection(csb.ConnectionString))
                             {
-                                adp.Fill(dt);
-                                for (int i = 0; i < dt.Columns.Count; i++)
+                                var sqlcmd = new MySqlCommand("select nim,semestertagihan,namatagihan,jumlahtagihan," +
+                            "sisatagihan,statustagihan from tagihan where nim=@nim", connection);
+                                sqlcmd.Parameters.AddWithValue("@nim", nimRef);
+                                using (MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd))
                                 {
-                                    dt.Columns[i].ColumnName = main.HeaderName("hdMahasiswa" + i.ToString());
-                                }
-                                var sqlcon2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-                                var sqlcmd2 = new MySqlCommand("select bayarID,tagihanID,jumlahbayar,tanggalbayar" +
-                                    ",adminbayar from hispembayaran where nim=@nim", sqlcon2);
-                                sqlcmd2.Parameters.AddWithValue("@nim", nimRef);
-                                using(MySqlDataAdapter adp2 = new MySqlDataAdapter(sqlcmd2))
-                                {
-                                    using (DataTable dt2 = new DataTable())
+                                    using (DataTable dt = new DataTable())
                                     {
-                                        adp2.Fill(dt2);
-                                        dt2.Columns[0].ColumnName = "ID Pembayaran";
-                                        dt2.Columns[1].ColumnName = "ID Tagihan";
-                                        dt2.Columns[2].ColumnName = "Jumlah Pembayaran";
-                                        dt2.Columns[3].ColumnName = "Tanggal Pembayaran";
-                                        dt2.Columns[4].ColumnName = "Admin Penerima";
-                                        using (XLWorkbook wb = new XLWorkbook())
+                                        adp.Fill(dt);
+                                        for (int i = 0; i < dt.Columns.Count; i++)
                                         {
-                                            var sheetId = wb.Worksheets.Add("Identitas");
-                                            sheetId.Cell("A1").Value = "Identitas Mahasiswa";
-                                            sheetId.Cell("A1").Style.Font.FontSize = 14;
-                                            sheetId.Cell("A1").Style.Font.Bold = true;
-                                            sheetId.Cell("A1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                                            sheetId.Cell("A1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
-                                            sheetId.Range("A1:D2").Merge();
-                                            sheetId.Cell(4, 2).Value = "Nama";
-                                            sheetId.Cell(4, 3).Value = ":";
-                                            sheetId.Cell(4, 4).Value = namaRef;
-                                            sheetId.Cell(5, 2).Value = "NIM :";
-                                            sheetId.Cell(5, 3).Value = ":";
-                                            sheetId.Cell(5, 4).Value = nimRef;
-                                            sheetId.Cell(6, 2).Value = "Jurusan :";
-                                            sheetId.Cell(6, 3).Value = ":";
-                                            sheetId.Cell(6, 4).Value = jurusanRef;
-                                            sheetId.Cell(7, 2).Value = "Kelas :";
-                                            sheetId.Cell(7, 3).Value = ":";
-                                            sheetId.Cell(7, 4).Value = kelasRef;
-                                            sheetId.Columns("B", "D").AdjustToContents();
-                                            var sheetTagihan = wb.Worksheets.Add(dt, "Tagihan");
-                                            sheetTagihan.Columns("A", "F").AdjustToContents();
-                                            var sheetPembayaran = wb.Worksheets.Add(dt2,"Pembayaran");
-                                            sheetPembayaran.Columns("A", "E").AdjustToContents();
-                                            wb.SaveAs(sfd.FileName);
+                                            dt.Columns[i].ColumnName = main.HeaderName("hdMahasiswa" + i.ToString());
+                                        }
+                                        var sqlcon2 = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
+                                        var sqlcmd2 = new MySqlCommand("select bayarID,tagihanID,jumlahbayar,tanggalbayar" +
+                                            ",adminbayar from hispembayaran where nim=@nim", sqlcon2);
+                                        sqlcmd2.Parameters.AddWithValue("@nim", nimRef);
+                                        using (MySqlDataAdapter adp2 = new MySqlDataAdapter(sqlcmd2))
+                                        {
+                                            using (DataTable dt2 = new DataTable())
+                                            {
+                                                adp2.Fill(dt2);
+                                                dt2.Columns[0].ColumnName = "ID Pembayaran";
+                                                dt2.Columns[1].ColumnName = "ID Tagihan";
+                                                dt2.Columns[2].ColumnName = "Jumlah Pembayaran";
+                                                dt2.Columns[3].ColumnName = "Tanggal Pembayaran";
+                                                dt2.Columns[4].ColumnName = "Admin Penerima";
+                                                using (XLWorkbook wb = new XLWorkbook())
+                                                {
+                                                    var sheetId = wb.Worksheets.Add("Identitas");
+                                                    sheetId.Cell("A1").Value = "Identitas Mahasiswa";
+                                                    sheetId.Cell("A1").Style.Font.FontSize = 14;
+                                                    sheetId.Cell("A1").Style.Font.Bold = true;
+                                                    sheetId.Cell("A1").Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                                    sheetId.Cell("A1").Style.Alignment.Vertical = XLAlignmentVerticalValues.Center;
+                                                    sheetId.Range("A1:D2").Merge();
+                                                    sheetId.Cell(4, 2).Value = "Nama";
+                                                    sheetId.Cell(4, 3).Value = ":";
+                                                    sheetId.Cell(4, 4).Value = namaRef;
+                                                    sheetId.Cell(5, 2).Value = "NIM :";
+                                                    sheetId.Cell(5, 3).Value = ":";
+                                                    sheetId.Cell(5, 4).Value = nimRef;
+                                                    sheetId.Cell(6, 2).Value = "Jurusan :";
+                                                    sheetId.Cell(6, 3).Value = ":";
+                                                    sheetId.Cell(6, 4).Value = jurusanRef;
+                                                    sheetId.Cell(7, 2).Value = "Kelas :";
+                                                    sheetId.Cell(7, 3).Value = ":";
+                                                    sheetId.Cell(7, 4).Value = kelasRef;
+                                                    sheetId.Columns("B", "D").AdjustToContents();
+                                                    var sheetTagihan = wb.Worksheets.Add(dt, "Tagihan");
+                                                    sheetTagihan.Columns("A", "F").AdjustToContents();
+                                                    var sheetPembayaran = wb.Worksheets.Add(dt2, "Pembayaran");
+                                                    sheetPembayaran.Columns("A", "E").AdjustToContents();
+                                                    wb.SaveAs(sfd.FileName);
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                MessageBox.Show("Berhasil menyimpan file!");
                             }
                         }
-                        MessageBox.Show("Berhasil menyimpan file!");
                     }
                     catch(Exception ex)
                     {

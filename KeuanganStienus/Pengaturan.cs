@@ -15,25 +15,21 @@ namespace KeuanganStienus
         {
             InitializeComponent();
         }
-
         private void btTambahAkun_Click(object sender, EventArgs e)
         {
             bukaGatekeeper("tambah");
         }
-
         private void btEditPassword_Click(object sender, EventArgs e)
         {
             bukaEditPassword();
         }
-
         private void btHapusAkun_Click(object sender, EventArgs e)
         {
             bukaGatekeeper("hapus");
         }
         private void btHistori_Click(object sender, EventArgs e)
         {
-            bukaGatekeeper("perubahan");
-            
+            bukaGatekeeper("perubahan");   
         }
         public void bukaTambahAkun()
         {
@@ -60,7 +56,6 @@ namespace KeuanganStienus
             main.changePanelContent(editPassword);
             main.lastform1 = this;
             main.formlevel = 1;
-
         }
         public void bukaHapusAkun()
         {
@@ -99,8 +94,6 @@ namespace KeuanganStienus
                 pengaturan = this
             };
             main.changePanelContent(gatekeeper);
-        }
-
-        
+        }        
     }
 }

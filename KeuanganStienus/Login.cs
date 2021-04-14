@@ -2,23 +2,20 @@
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
-using System.Configuration;
-using Renci.SshNet;
 
 namespace KeuanganStienus
 {
     public partial class Form1 : Form
     {
-        MySqlConnection sqlconn;
         string uname, pswd, pswdh;
         string tempA, tempB;
         public Form1()
         {
             InitializeComponent();
         }
-
         private void tbUname_KeyDown(object sender, KeyEventArgs e)
         {
+            //QoL: enter, keys to move pointer
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
             {
                 this.SelectNextControl((Control)sender, true, true, true, true);
@@ -32,9 +29,9 @@ namespace KeuanganStienus
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
-
         private void tbPass_KeyDown(object sender, KeyEventArgs e)
         {
+            //QoL: enter, keys to move pointer
             if ((e.KeyCode == Keys.Enter) || (e.KeyCode == Keys.Return))
             {
                 loginClick();
@@ -48,51 +45,45 @@ namespace KeuanganStienus
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
-
-        private string passwordHashing(string pass)
-        {
-            SHA256Managed MyHash = new SHA256Managed();
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(pass);
-            byte[] hash = MyHash.ComputeHash(data);
-            string hashstr = System.Text.Encoding.ASCII.GetString(hash);
-            return hashstr;
-        }
-
         private void btClose_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-
         private void loginClick()
         {
             uname = tbUname.Text;
             pswd = tbPass.Text;
-            pswdh = passwordHashing(pswd);
-            sqlconn = new MySqlConnection(ConfigurationManager.ConnectionStrings["myuwucs"].ConnectionString);
-            string getcred = "Select * from logincr where username=@uname";
-            MySqlCommand oCmd = new MySqlCommand(getcred, sqlconn);
-            oCmd.Parameters.AddWithValue("@uname", uname);
-            sqlconn.Open();
-            using (MySqlDataReader oReader = oCmd.ExecuteReader())
+            pswdh = hash.passwordHashing(pswd);
+            var (sshClient, localPort) = ssh.ConnectSsh();
+            using (sshClient)
             {
-                while (oReader.Read())
+                MySqlConnectionStringBuilder csb = ssh.csbCall(localPort);
+                using (var connection = new MySqlConnection(csb.ConnectionString))
                 {
-                    tempA = oReader["username"].ToString();
-                    tempB = oReader["password"].ToString();
-                }
-                sqlconn.Close();
-                if (tempB == pswdh && tempA == uname)
-                {
-                    callMain();
-                }
-                else
-                {
-                    MessageBox.Show("Username and password doesn't match or is not exist");
+                    string getcred = "Select * from logincr where username=@uname";
+                    MySqlCommand oCmd = new MySqlCommand(getcred, connection);
+                    oCmd.Parameters.AddWithValue("@uname", uname);
+                    connection.Open();
+                    using (MySqlDataReader oReader = oCmd.ExecuteReader())
+                    {
+                        while (oReader.Read())
+                        {
+                            tempA = oReader["username"].ToString();
+                            tempB = oReader["password"].ToString();
+                        }
+                        connection.Close();
+                        if (tempB == pswdh && tempA == uname)
+                        {
+                            callMain();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Username and password doesn't match or is not exist");
+                        }
+                    }
                 }
             }
         }
-
-
         private void btLogin_Click(object sender, EventArgs e)
         {
             if(tbUname.Text== "pQ$wQ4_S")
@@ -120,5 +111,4 @@ namespace KeuanganStienus
             this.Show();
         }
     }
-
 }

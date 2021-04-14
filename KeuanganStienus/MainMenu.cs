@@ -12,9 +12,7 @@ namespace KeuanganStienus
         public Form lastform2 { get; set; }
         public Form lastform3 { get; set; }
         public int formlevel { get; set; }
-
         EditTagihan_Password menu3password;
-        string input;
         public string currentadmin { get; set; }
         Form currentform { get; set; }
         public MainMenu()
@@ -31,29 +29,24 @@ namespace KeuanganStienus
                 btMaximize.Visible = true;
             }
         }
-
         public void deployInitData()
         {
             timerJam.Enabled = true;
             btMenu1();
             lbLABELADMIN.Text += currentadmin;
         }
-
         private void geserPanelSide(Button btDock)
         {
             pnSide.Top = btDock.Top;
         }
-
         private void btClose_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-
         private void btMenuDataMahasiswa_Click(object sender, EventArgs e)
         {
             btMenu1();
         }
-
         private void btMenu1()
         {
             menu1 = new DataMahasiswa
@@ -68,7 +61,6 @@ namespace KeuanganStienus
             lastform1 = menu1;
             geserPanelSide(btMenuDataMahasiswa);
         }
-
         private void btMenu2()
         {
             menu2 = new InputPembayaran();
@@ -82,7 +74,6 @@ namespace KeuanganStienus
             lastform1 = menu2;
             geserPanelSide(btMenuInputPembayaran);
         }
-
         private void btMenu3()
         {
             menu3password = new EditTagihan_Password();
@@ -93,7 +84,6 @@ namespace KeuanganStienus
             lastform1 = menu3password;
             geserPanelSide(btMenuEditTagihan);
         }
-
         private void btMenu4()
         {
             menu4 = new Pengaturan();
@@ -104,18 +94,14 @@ namespace KeuanganStienus
             lastform1 = menu4;
             geserPanelSide(btSettings);
         }
-
         private void btMenuInputPembayaran_Click(object sender, EventArgs e)
         {
             btMenu2();
         }
-
         private void btMenuEditTagihan_Click(object sender, EventArgs e)
         {
-            
             btMenu3();
         }
-
         private void timerJam_Tick(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
@@ -133,12 +119,10 @@ namespace KeuanganStienus
                 resizeContent();
             }
         }
-
         private void btSettings_Click(object sender, EventArgs e)
         {
             btMenu4();
         }
-
         public void changePanelContent(Form form)
         {
             pnContent.Controls.Clear();
@@ -147,7 +131,6 @@ namespace KeuanganStienus
             form.Show();
             resizeContent();
         }
-
         public void changePanelBack()
         {
             switch (formlevel)
@@ -163,7 +146,6 @@ namespace KeuanganStienus
                     break;
             }
         }
-
         private void btMaximize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
@@ -171,7 +153,6 @@ namespace KeuanganStienus
             btMaximize.Visible = false;
             resizeContent();
         }
-
         private void btMinimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
