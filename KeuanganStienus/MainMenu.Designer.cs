@@ -71,7 +71,7 @@ namespace KeuanganStienus
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(222, 720);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 1;
             // 
             // pnSide
             // 
@@ -186,7 +186,7 @@ namespace KeuanganStienus
             this.pnHeader.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnHeader.Name = "pnHeader";
             this.pnHeader.Size = new System.Drawing.Size(1058, 42);
-            this.pnHeader.TabIndex = 3;
+            this.pnHeader.TabIndex = 2;
             // 
             // btMinimize
             // 
@@ -292,7 +292,7 @@ namespace KeuanganStienus
             this.pnContent.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnContent.Name = "pnContent";
             this.pnContent.Size = new System.Drawing.Size(1058, 633);
-            this.pnContent.TabIndex = 2;
+            this.pnContent.TabIndex = 0;
             // 
             // timerJam
             // 

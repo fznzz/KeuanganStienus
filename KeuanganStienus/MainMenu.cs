@@ -105,7 +105,7 @@ namespace KeuanganStienus
         private void timerJam_Tick(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
-            lbTanggal.Text = dt.ToString("G");
+            lbTanggal.Text = dt.ToString("Bug");
             if (this.WindowState == FormWindowState.Maximized)
             {
                 btMinimize.Visible = true;

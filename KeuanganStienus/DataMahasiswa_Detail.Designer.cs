@@ -85,7 +85,7 @@ namespace KeuanganStienus
             this.dtMahasiswa.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtMahasiswa.RowTemplate.Height = 28;
             this.dtMahasiswa.Size = new System.Drawing.Size(1036, 470);
-            this.dtMahasiswa.TabIndex = 2;
+            this.dtMahasiswa.TabIndex = 0;
             // 
             // lbNim
             // 
@@ -179,7 +179,7 @@ namespace KeuanganStienus
             this.btTagihan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btTagihan.Name = "btTagihan";
             this.btTagihan.Size = new System.Drawing.Size(120, 57);
-            this.btTagihan.TabIndex = 0;
+            this.btTagihan.TabIndex = 3;
             this.btTagihan.Text = "Tagihan Aktif";
             this.btTagihan.UseVisualStyleBackColor = false;
             this.btTagihan.Click += new System.EventHandler(this.btTagihan_Click);
@@ -196,7 +196,7 @@ namespace KeuanganStienus
             this.btPembayaran.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btPembayaran.Name = "btPembayaran";
             this.btPembayaran.Size = new System.Drawing.Size(121, 57);
-            this.btPembayaran.TabIndex = 1;
+            this.btPembayaran.TabIndex = 4;
             this.btPembayaran.Text = "Histori Pembayaran";
             this.btPembayaran.UseVisualStyleBackColor = false;
             this.btPembayaran.Click += new System.EventHandler(this.btPembayaran_Click);
@@ -211,7 +211,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 3;
+            this.panel2.TabIndex = 5;
             // 
             // btBack
             // 
@@ -251,7 +251,7 @@ namespace KeuanganStienus
             this.btEdit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(121, 57);
-            this.btEdit.TabIndex = 9;
+            this.btEdit.TabIndex = 2;
             this.btEdit.Text = "Tambah Tagihan Baru";
             this.btEdit.UseVisualStyleBackColor = false;
             this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
@@ -268,7 +268,7 @@ namespace KeuanganStienus
             this.btPrint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(121, 57);
-            this.btPrint.TabIndex = 10;
+            this.btPrint.TabIndex = 1;
             this.btPrint.Text = "Cetak Histori";
             this.btPrint.UseVisualStyleBackColor = false;
             this.btPrint.Click += new System.EventHandler(this.btPrint_Click);

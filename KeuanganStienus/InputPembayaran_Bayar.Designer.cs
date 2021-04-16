@@ -83,7 +83,7 @@ namespace KeuanganStienus
             this.btNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btNext.Name = "btNext";
             this.btNext.Size = new System.Drawing.Size(139, 58);
-            this.btNext.TabIndex = 1;
+            this.btNext.TabIndex = 4;
             this.btNext.Text = "Bayar";
             this.btNext.UseVisualStyleBackColor = false;
             this.btNext.Click += new System.EventHandler(this.btNext_Click);
@@ -154,7 +154,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 2;
+            this.panel2.TabIndex = 5;
             // 
             // btBack
             // 
@@ -223,7 +223,7 @@ namespace KeuanganStienus
             this.tbPlusDeposit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbPlusDeposit.Name = "tbPlusDeposit";
             this.tbPlusDeposit.Size = new System.Drawing.Size(132, 27);
-            this.tbPlusDeposit.TabIndex = 17;
+            this.tbPlusDeposit.TabIndex = 3;
             this.tbPlusDeposit.TextChanged += new System.EventHandler(this.tbPlusDeposit_TextChanged);
             this.tbPlusDeposit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPlusDeposit_KeyPress);
             // 
@@ -246,7 +246,7 @@ namespace KeuanganStienus
             this.tbMinusDeposit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbMinusDeposit.Name = "tbMinusDeposit";
             this.tbMinusDeposit.Size = new System.Drawing.Size(132, 27);
-            this.tbMinusDeposit.TabIndex = 15;
+            this.tbMinusDeposit.TabIndex = 2;
             this.tbMinusDeposit.TextChanged += new System.EventHandler(this.tbMinusDeposit_TextChanged);
             this.tbMinusDeposit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbMinusDeposit_KeyPress);
             // 
@@ -261,7 +261,7 @@ namespace KeuanganStienus
             this.chbDepositOnly.Location = new System.Drawing.Point(467, 117);
             this.chbDepositOnly.Name = "chbDepositOnly";
             this.chbDepositOnly.Size = new System.Drawing.Size(121, 24);
-            this.chbDepositOnly.TabIndex = 28;
+            this.chbDepositOnly.TabIndex = 1;
             this.chbDepositOnly.Text = "Deposit Only";
             this.chbDepositOnly.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chbDepositOnly.UseVisualStyleBackColor = true;

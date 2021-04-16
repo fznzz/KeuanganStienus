@@ -84,7 +84,7 @@ namespace KeuanganStienus
             this.dtPembayaran.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtPembayaran.RowTemplate.Height = 28;
             this.dtPembayaran.Size = new System.Drawing.Size(1036, 481);
-            this.dtPembayaran.TabIndex = 1;
+            this.dtPembayaran.TabIndex = 2;
             // 
             // label1
             // 
@@ -153,7 +153,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 2;
+            this.panel2.TabIndex = 1;
             // 
             // btBack
             // 

@@ -59,7 +59,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 3;
+            this.panel2.TabIndex = 2;
             // 
             // btBack
             // 
@@ -96,7 +96,7 @@ namespace KeuanganStienus
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(492, 80);
-            this.panel4.TabIndex = 5;
+            this.panel4.TabIndex = 1;
             // 
             // btOk
             // 
@@ -130,7 +130,7 @@ namespace KeuanganStienus
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(676, 266);
-            this.panel3.TabIndex = 4;
+            this.panel3.TabIndex = 0;
             // 
             // lbNamaTagihan
             // 

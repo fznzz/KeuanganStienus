@@ -54,7 +54,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 4;
+            this.panel2.TabIndex = 5;
             // 
             // btBack
             // 
@@ -94,7 +94,7 @@ namespace KeuanganStienus
             this.btConn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btConn.Name = "btConn";
             this.btConn.Size = new System.Drawing.Size(100, 34);
-            this.btConn.TabIndex = 5;
+            this.btConn.TabIndex = 4;
             this.btConn.Text = "Refresh";
             this.btConn.UseVisualStyleBackColor = false;
             this.btConn.Click += new System.EventHandler(this.btConn_Click);
@@ -111,7 +111,7 @@ namespace KeuanganStienus
             this.btExportAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btExportAll.Name = "btExportAll";
             this.btExportAll.Size = new System.Drawing.Size(170, 34);
-            this.btExportAll.TabIndex = 6;
+            this.btExportAll.TabIndex = 3;
             this.btExportAll.Text = "Ekspor ke Excel";
             this.btExportAll.UseVisualStyleBackColor = false;
             this.btExportAll.Click += new System.EventHandler(this.btExportAll_Click);
@@ -128,7 +128,7 @@ namespace KeuanganStienus
             this.btExport6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btExport6.Name = "btExport6";
             this.btExport6.Size = new System.Drawing.Size(250, 34);
-            this.btExport6.TabIndex = 7;
+            this.btExport6.TabIndex = 2;
             this.btExport6.Text = "Ekspor ke Excel (6 Bulan)";
             this.btExport6.UseVisualStyleBackColor = false;
             this.btExport6.Click += new System.EventHandler(this.btExport6_Click);
@@ -165,7 +165,7 @@ namespace KeuanganStienus
             this.dtHistori.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtHistori.RowTemplate.Height = 28;
             this.dtHistori.Size = new System.Drawing.Size(1034, 496);
-            this.dtHistori.TabIndex = 8;
+            this.dtHistori.TabIndex = 0;
             // 
             // btListPembayaran
             // 
@@ -179,7 +179,7 @@ namespace KeuanganStienus
             this.btListPembayaran.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btListPembayaran.Name = "btListPembayaran";
             this.btListPembayaran.Size = new System.Drawing.Size(219, 34);
-            this.btListPembayaran.TabIndex = 9;
+            this.btListPembayaran.TabIndex = 1;
             this.btListPembayaran.Text = "Pembayaran Individu";
             this.btListPembayaran.UseVisualStyleBackColor = false;
             this.btListPembayaran.Click += new System.EventHandler(this.btListPembayaran_Click);

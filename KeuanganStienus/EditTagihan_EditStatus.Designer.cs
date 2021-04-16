@@ -52,7 +52,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 6;
+            this.panel2.TabIndex = 2;
             // 
             // btBack
             // 
@@ -112,7 +112,7 @@ namespace KeuanganStienus
             this.dtHistori.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtHistori.RowTemplate.Height = 28;
             this.dtHistori.Size = new System.Drawing.Size(1034, 507);
-            this.dtHistori.TabIndex = 11;
+            this.dtHistori.TabIndex = 1;
             this.dtHistori.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtHistori_CellDoubleClick);
             // 
             // label1
@@ -134,7 +134,7 @@ namespace KeuanganStienus
             this.tbSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbSearch.Name = "tbSearch";
             this.tbSearch.Size = new System.Drawing.Size(277, 27);
-            this.tbSearch.TabIndex = 12;
+            this.tbSearch.TabIndex = 0;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // EditTagihan_EditStatus

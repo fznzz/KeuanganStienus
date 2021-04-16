@@ -238,7 +238,7 @@ namespace KeuanganStienus
             this.tbAngkatan.MaxLength = 2;
             this.tbAngkatan.Name = "tbAngkatan";
             this.tbAngkatan.Size = new System.Drawing.Size(321, 27);
-            this.tbAngkatan.TabIndex = 11;
+            this.tbAngkatan.TabIndex = 4;
             this.tbAngkatan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAngkatan_KeyPress);
             // 
             // btImport
@@ -253,7 +253,7 @@ namespace KeuanganStienus
             this.btImport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btImport.Name = "btImport";
             this.btImport.Size = new System.Drawing.Size(208, 60);
-            this.btImport.TabIndex = 3;
+            this.btImport.TabIndex = 2;
             this.btImport.Text = "Impor dari File Excel";
             this.btImport.UseVisualStyleBackColor = false;
             this.btImport.Click += new System.EventHandler(this.btImport_Click);

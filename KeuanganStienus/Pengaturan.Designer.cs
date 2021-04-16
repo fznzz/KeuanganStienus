@@ -130,7 +130,7 @@ namespace KeuanganStienus
             this.btHistori.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btHistori.Name = "btHistori";
             this.btHistori.Size = new System.Drawing.Size(917, 90);
-            this.btHistori.TabIndex = 13;
+            this.btHistori.TabIndex = 3;
             this.btHistori.Text = "Histori Perubahan";
             this.btHistori.UseVisualStyleBackColor = false;
             this.btHistori.Click += new System.EventHandler(this.btHistori_Click);

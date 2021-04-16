@@ -70,7 +70,7 @@ namespace KeuanganStienus
             this.btEditTagihan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btEditTagihan.Name = "btEditTagihan";
             this.btEditTagihan.Size = new System.Drawing.Size(917, 90);
-            this.btEditTagihan.TabIndex = 0;
+            this.btEditTagihan.TabIndex = 1;
             this.btEditTagihan.Text = "Edit Tagihan";
             this.btEditTagihan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btEditTagihan.UseVisualStyleBackColor = false;
@@ -112,7 +112,7 @@ namespace KeuanganStienus
             this.btPembayaran.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btPembayaran.Name = "btPembayaran";
             this.btPembayaran.Size = new System.Drawing.Size(917, 90);
-            this.btPembayaran.TabIndex = 11;
+            this.btPembayaran.TabIndex = 2;
             this.btPembayaran.Text = "Histori Pembayaran";
             this.btPembayaran.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btPembayaran.UseVisualStyleBackColor = false;
@@ -131,7 +131,7 @@ namespace KeuanganStienus
             this.btEditStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btEditStatus.Name = "btEditStatus";
             this.btEditStatus.Size = new System.Drawing.Size(917, 90);
-            this.btEditStatus.TabIndex = 12;
+            this.btEditStatus.TabIndex = 3;
             this.btEditStatus.Text = "Edit Status Mahasiswa";
             this.btEditStatus.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btEditStatus.UseVisualStyleBackColor = false;

@@ -30,8 +30,8 @@ namespace KeuanganStienus
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pengaturan_Perubahan));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btBack = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,7 +53,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 3;
+            this.panel2.TabIndex = 4;
             // 
             // btBack
             // 
@@ -90,30 +90,30 @@ namespace KeuanganStienus
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtHistori.BackgroundColor = System.Drawing.Color.White;
             this.dtHistori.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(47)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(219)))), ((int)(((byte)(235)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtHistori.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(47)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(219)))), ((int)(((byte)(235)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtHistori.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtHistori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtHistori.Location = new System.Drawing.Point(12, 120);
             this.dtHistori.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtHistori.Name = "dtHistori";
             this.dtHistori.ReadOnly = true;
             this.dtHistori.RowHeadersWidth = 62;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(248)))), ((int)(((byte)(251)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(189)))), ((int)(((byte)(213)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtHistori.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(248)))), ((int)(((byte)(251)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft YaHei", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(189)))), ((int)(((byte)(213)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtHistori.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dtHistori.RowTemplate.Height = 28;
             this.dtHistori.Size = new System.Drawing.Size(1036, 502);
-            this.dtHistori.TabIndex = 4;
+            this.dtHistori.TabIndex = 0;
             // 
             // btExport6
             // 
@@ -127,7 +127,7 @@ namespace KeuanganStienus
             this.btExport6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btExport6.Name = "btExport6";
             this.btExport6.Size = new System.Drawing.Size(250, 34);
-            this.btExport6.TabIndex = 10;
+            this.btExport6.TabIndex = 1;
             this.btExport6.Text = "Ekspor ke Excel (6 Bulan)";
             this.btExport6.UseVisualStyleBackColor = false;
             this.btExport6.Click += new System.EventHandler(this.btExport6_Click);
@@ -144,7 +144,7 @@ namespace KeuanganStienus
             this.btExportAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btExportAll.Name = "btExportAll";
             this.btExportAll.Size = new System.Drawing.Size(170, 34);
-            this.btExportAll.TabIndex = 9;
+            this.btExportAll.TabIndex = 2;
             this.btExportAll.Text = "Ekspor ke Excel";
             this.btExportAll.UseVisualStyleBackColor = false;
             this.btExportAll.Click += new System.EventHandler(this.btExportAll_Click);
@@ -161,7 +161,7 @@ namespace KeuanganStienus
             this.btConn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btConn.Name = "btConn";
             this.btConn.Size = new System.Drawing.Size(100, 34);
-            this.btConn.TabIndex = 8;
+            this.btConn.TabIndex = 3;
             this.btConn.Text = "Refresh";
             this.btConn.UseVisualStyleBackColor = false;
             this.btConn.Click += new System.EventHandler(this.btConn_Click);

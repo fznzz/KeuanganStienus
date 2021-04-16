@@ -61,7 +61,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 7;
+            this.panel2.TabIndex = 2;
             // 
             // btBack
             // 
@@ -109,7 +109,7 @@ namespace KeuanganStienus
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(620, 278);
-            this.panel1.TabIndex = 8;
+            this.panel1.TabIndex = 0;
             // 
             // label7
             // 
@@ -130,7 +130,7 @@ namespace KeuanganStienus
             this.tbStatus.MaxLength = 2;
             this.tbStatus.Name = "tbStatus";
             this.tbStatus.Size = new System.Drawing.Size(321, 27);
-            this.tbStatus.TabIndex = 13;
+            this.tbStatus.TabIndex = 5;
             // 
             // label5
             // 
@@ -151,7 +151,7 @@ namespace KeuanganStienus
             this.tbAngkatan.MaxLength = 2;
             this.tbAngkatan.Name = "tbAngkatan";
             this.tbAngkatan.Size = new System.Drawing.Size(321, 27);
-            this.tbAngkatan.TabIndex = 11;
+            this.tbAngkatan.TabIndex = 4;
             // 
             // label1
             // 
@@ -258,7 +258,7 @@ namespace KeuanganStienus
             this.btOk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btOk.Name = "btOk";
             this.btOk.Size = new System.Drawing.Size(174, 60);
-            this.btOk.TabIndex = 9;
+            this.btOk.TabIndex = 1;
             this.btOk.Text = "OK";
             this.btOk.UseVisualStyleBackColor = false;
             this.btOk.Click += new System.EventHandler(this.btOk_Click);

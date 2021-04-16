@@ -61,7 +61,7 @@ namespace KeuanganStienus
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1058, 72);
-            this.panel2.TabIndex = 2;
+            this.panel2.TabIndex = 4;
             // 
             // btBack
             // 
@@ -223,7 +223,7 @@ namespace KeuanganStienus
             this.btNext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btNext.Name = "btNext";
             this.btNext.Size = new System.Drawing.Size(161, 58);
-            this.btNext.TabIndex = 1;
+            this.btNext.TabIndex = 3;
             this.btNext.Text = "Ubah Tagihan";
             this.btNext.UseVisualStyleBackColor = false;
             this.btNext.Click += new System.EventHandler(this.btNext_Click);
@@ -240,7 +240,7 @@ namespace KeuanganStienus
             this.btHapus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btHapus.Name = "btHapus";
             this.btHapus.Size = new System.Drawing.Size(161, 58);
-            this.btHapus.TabIndex = 28;
+            this.btHapus.TabIndex = 2;
             this.btHapus.Text = "Hapus Tagihan";
             this.btHapus.UseVisualStyleBackColor = false;
             this.btHapus.Click += new System.EventHandler(this.btHapus_Click);
@@ -257,7 +257,7 @@ namespace KeuanganStienus
             this.btPrint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(161, 58);
-            this.btPrint.TabIndex = 29;
+            this.btPrint.TabIndex = 1;
             this.btPrint.Text = "Cetak Tagihan";
             this.btPrint.UseVisualStyleBackColor = false;
             this.btPrint.Click += new System.EventHandler(this.btPrint_Click);

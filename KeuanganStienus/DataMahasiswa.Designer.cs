@@ -122,7 +122,7 @@ namespace KeuanganStienus
             this.btConn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btConn.Name = "btConn";
             this.btConn.Size = new System.Drawing.Size(100, 34);
-            this.btConn.TabIndex = 3;
+            this.btConn.TabIndex = 4;
             this.btConn.Text = "Refresh";
             this.btConn.UseVisualStyleBackColor = false;
             this.btConn.Click += new System.EventHandler(this.btConn_Click);
@@ -139,7 +139,7 @@ namespace KeuanganStienus
             this.btTambah.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btTambah.Name = "btTambah";
             this.btTambah.Size = new System.Drawing.Size(220, 34);
-            this.btTambah.TabIndex = 2;
+            this.btTambah.TabIndex = 3;
             this.btTambah.Text = "Tambah Mahasiswa";
             this.btTambah.UseVisualStyleBackColor = false;
             this.btTambah.Click += new System.EventHandler(this.btTambah_Click);
@@ -189,7 +189,7 @@ namespace KeuanganStienus
             this.btPrint.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(252, 34);
-            this.btPrint.TabIndex = 10;
+            this.btPrint.TabIndex = 2;
             this.btPrint.Text = "Cetak Daftar Mahasiswa";
             this.btPrint.UseVisualStyleBackColor = false;
             this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
